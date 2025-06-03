@@ -1,0 +1,64 @@
+{
+  "timestamp": "2025-06-03T22:31:22.336044",
+  "environment": {
+    "DATABASE_URL": "Not set",
+    "SQLALCHEMY_TRACK_MODIFICATIONS": "Not set"
+  },
+  "database": {
+    "uri": "postgresql://ittoken_db_user:Xm98VVSZv7cMJkopkdWRkgvZzC7Aly42@dpg-d0visga4d50c73ekmu4g-a.frankfurt-postgres.render.com/ittoken_db",
+    "tables": [
+      "block",
+      "settings",
+      "token",
+      "payment_method",
+      "payment",
+      "category",
+      "product",
+      "user",
+      "cart",
+      "airdrop",
+      "airdrop_participation",
+      "token_sale",
+      "token_purchase",
+      "dao_proposal",
+      "product_image",
+      "cart_item",
+      "order",
+      "dao_vote",
+      "order_item"
+    ],
+    "block_table_exists": true,
+    "block_columns": [
+      "id",
+      "title",
+      "content",
+      "image",
+      "order",
+      "is_active",
+      "slug",
+      "is_top",
+      "title_ua",
+      "title_en",
+      "title_de",
+      "title_ru",
+      "content_ua",
+      "content_en",
+      "content_de",
+      "content_ru"
+    ],
+    "cyrillic_block_table_exists": false
+  },
+  "models": {
+    "block_tablename": "block"
+  },
+  "queries": {
+    "direct_block_count": 0,
+    "orm_block_count": 0,
+    "generated_sql": "SELECT block.id, block.title, block.content, block.image, block.\"order\", block.is_active, block.slug, block.is_top, block.title_ua, block.title_en, block.title_de, block.title_ru, block.content_ua, block.content_en, block.content_de, block.content_ru \nFROM block \nWHERE block.is_active = true",
+    "block_fetch": null,
+    "block_create": {
+      "id": 1,
+      "slug": "test-block-1748982687"
+    }
+  }
+}

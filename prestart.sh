@@ -3,17 +3,26 @@
 
 echo "=== PRESTART CHECK ==="
 
-# ABSOLUTELY FINAL FIX: Create both tables with sync triggers
-echo "FINAL FIX: Creating both Cyrillic and Latin tables with sync triggers..."
-python final_dual_tables_fix.py
+# Test that db.create_all() is working in app/__init__.py
+echo "Testing database table creation through db.create_all()..."
+python test_db_tables_creation.py
 
-# Apply SQLAlchemy monkey patch for table names
-echo "Applying SQLAlchemy table name patch..."
-python sqlalchemy_table_patch.py
-
-# Apply flexible table name solution
-echo "Applying flexible table name solution..."
-python flexible_block_tablename.py
+# Only run these fixes if the db.create_all() approach fails
+if [ $? -ne 0 ]; then
+    echo "⚠️ db.create_all() didn't create all needed tables, applying alternative fixes..."
+    
+    # Create both tables with sync triggers
+    echo "FINAL FIX: Creating both Cyrillic and Latin tables with sync triggers..."
+    python final_dual_tables_fix.py
+    
+    # Apply SQLAlchemy monkey patch for table names
+    echo "Applying SQLAlchemy table name patch..."
+    python sqlalchemy_table_patch.py
+    
+    # Apply flexible table name solution
+    echo "Applying flexible table name solution..."
+    python flexible_block_tablename.py
+fi
 
 # DEFINITIVE FIX for Cyrillic block table issue as backup
 echo "APPLYING DEFINITIVE CYRILLIC BLOCK TABLE FIX..."

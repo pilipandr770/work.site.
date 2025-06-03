@@ -122,22 +122,24 @@ def verify_database_solution():
                 print(f"❌ Block ORM query failed: {e}")
                 traceback.print_exc()
                 results["queries"]["orm_block_error"] = str(e)
-        
-        # Try to create a Block
+          # Try to create a Block
         print("\nTrying to create a Block...")
         with app.app_context():
             try:
+                # Create a unique slug using timestamp to avoid conflicts
+                import time
+                unique_slug = f"test-block-{int(time.time())}"
                 new_block = Block(
                     title="Test Block",
                     content="This is a test block created by the verification script.",
-                    slug="test-block",
+                    slug=unique_slug,
                     is_active=True,
                     is_top=False
                 )
                 db.session.add(new_block)
                 db.session.commit()
-                print(f"✅ Successfully created Block: id={new_block.id}")
-                results["queries"]["block_create"] = {"id": new_block.id}
+                print(f"✅ Successfully created Block: id={new_block.id}, slug={unique_slug}")
+                results["queries"]["block_create"] = {"id": new_block.id, "slug": unique_slug}
             except Exception as e:
                 print(f"❌ Block creation failed: {e}")
                 traceback.print_exc()
