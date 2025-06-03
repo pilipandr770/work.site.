@@ -72,9 +72,24 @@ def create_cyrillic_table(engine):
             # Set client encoding to UTF8
             conn.execute(text("SET CLIENT_ENCODING TO 'UTF8'"))
             
-            # Create the table
+            # Check if the Cyrillic table already exists with different case or spelling
+            tables_query = """
+            SELECT table_name FROM information_schema.tables 
+            WHERE table_schema = 'public' AND 
+            (table_name = 'блок' OR table_name = 'block' OR table_name = 'Блок' OR table_name ILIKE '%блок%')
+            """
+            result = conn.execute(text(tables_query))
+            existing_tables = [row[0] for row in result]
+            print(f"Found similar tables: {existing_tables}")
+            
+            # Drop any existing tables with similar names to avoid conflicts
+            for table in existing_tables:
+                print(f"Dropping existing table: {table}")
+                conn.execute(text(f'DROP TABLE IF EXISTS "{table}" CASCADE'))
+            
+            # Create the table with double quotes to preserve case exactly
             conn.execute(text("""
-            CREATE TABLE IF NOT EXISTS "блок" (
+            CREATE TABLE "блок" (
                 id SERIAL PRIMARY KEY,
                 title VARCHAR(128),
                 content TEXT,
@@ -93,6 +108,12 @@ def create_cyrillic_table(engine):
                 content_ru TEXT
             )
             """))
+            
+            # Create a view with both the Latin name for backward compatibility
+            conn.execute(text("""
+            CREATE OR REPLACE VIEW block AS SELECT * FROM "блок"
+            """))
+            print("✅ Created 'блок' table and 'block' view")
         return True
     except Exception as e:
         print(f"❌ Error creating Cyrillic table: {e}")

@@ -3,13 +3,25 @@
 
 echo "=== PRESTART CHECK ==="
 
-# DEFINITIVE FIX for Cyrillic block table issue
+# ABSOLUTELY FINAL FIX: Create both tables with sync triggers
+echo "FINAL FIX: Creating both Cyrillic and Latin tables with sync triggers..."
+python final_dual_tables_fix.py
+
+# Apply SQLAlchemy monkey patch for table names
+echo "Applying SQLAlchemy table name patch..."
+python sqlalchemy_table_patch.py
+
+# Apply flexible table name solution
+echo "Applying flexible table name solution..."
+python flexible_block_tablename.py
+
+# DEFINITIVE FIX for Cyrillic block table issue as backup
 echo "APPLYING DEFINITIVE CYRILLIC BLOCK TABLE FIX..."
 python fix_cyrillic_block_table_definitive.py
 
-# Only run these if the definitive fix fails
+# Only run these if all previous fixes fail
 if [ $? -ne 0 ]; then
-    echo "⚠️ Definitive fix failed, trying emergency methods..."
+    echo "⚠️ All advanced fixes failed, trying emergency methods..."
     
     # Emergency fix for Cyrillic table
     echo "Creating Cyrillic table directly..."
