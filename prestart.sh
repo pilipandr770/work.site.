@@ -3,9 +3,21 @@
 
 echo "=== PRESTART CHECK ==="
 
-# Patch model table names first
+# Emergency fix for Cyrillic table - run this first!
+echo "EMERGENCY: Creating Cyrillic table directly..."
+python emergency_cyrillic_table.py
+
+# Patch model table names
 echo "Patching model table names..."
 python patch_model_tablenames.py
+
+# Apply direct model patch to fix Cyrillic table name
+echo "Applying direct model patch for Cyrillic table name..."
+python patch_models_file.py
+
+# Apply direct Block model fix 
+echo "Fixing Block model with explicit Cyrillic table name..."
+python fix_block_model.py
 
 # Environment diagnostics
 echo "Checking environment variables..."

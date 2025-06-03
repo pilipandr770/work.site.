@@ -12,9 +12,21 @@ echo "Making scripts executable..."
 chmod +x prestart.sh
 chmod +x *.py
 
+# Emergency fix for Cyrillic table - run this first!
+echo "EMERGENCY: Creating Cyrillic table directly..."
+python emergency_cyrillic_table.py
+
 # Patch model table names
 echo "Patching model table names for correct mapping..."
 python patch_model_tablenames.py
+
+# Apply the direct model patch
+echo "Applying direct model patch for Cyrillic table name..."
+python patch_models_file.py
+
+# Fix Block model with explicit Cyrillic name
+echo "Fixing Block model with explicit Cyrillic name..."
+python fix_block_model.py
 
 # Initialize database tables using robust method
 echo "Initializing database tables using robust strategy..."
