@@ -1,10 +1,10 @@
-services:
+﻿services:
   - type: web
     name: ittoken-web
     runtime: python
     region: frankfurt
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn run:app
+    startCommand: gunicorn app.wsgi:app
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -17,8 +17,7 @@ services:
       - key: TOKEN_RECEIVER_ADDRESS
         value: 0x917544120060Feb4571CdB14dBCC1e4d8005c218
       - key: PYTHONUNBUFFERED
-        value: "true"
-
+        value: 'true'
   - type: redis
     name: ittoken-cache
     ipAllowList: []
