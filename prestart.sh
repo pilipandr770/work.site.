@@ -3,21 +3,26 @@
 
 echo "=== PRESTART CHECK ==="
 
-# Emergency fix for Cyrillic table - run this first!
-echo "EMERGENCY: Creating Cyrillic table directly..."
-python emergency_cyrillic_table.py
+# DEFINITIVE FIX for Cyrillic block table issue
+echo "APPLYING DEFINITIVE CYRILLIC BLOCK TABLE FIX..."
+python fix_cyrillic_block_table_definitive.py
 
-# Patch model table names
-echo "Patching model table names..."
-python patch_model_tablenames.py
-
-# Apply direct model patch to fix Cyrillic table name
-echo "Applying direct model patch for Cyrillic table name..."
-python patch_models_file.py
-
-# Apply direct Block model fix 
-echo "Fixing Block model with explicit Cyrillic table name..."
-python fix_block_model.py
+# Only run these if the definitive fix fails
+if [ $? -ne 0 ]; then
+    echo "⚠️ Definitive fix failed, trying emergency methods..."
+    
+    # Emergency fix for Cyrillic table
+    echo "Creating Cyrillic table directly..."
+    python emergency_cyrillic_table.py
+    
+    # Apply direct model patch to fix Cyrillic table name
+    echo "Applying direct model patch for Cyrillic table name..."
+    python patch_models_file.py
+    
+    # Apply direct Block model fix 
+    echo "Fixing Block model with explicit Cyrillic table name..."
+    python fix_block_model.py
+fi
 
 # Environment diagnostics
 echo "Checking environment variables..."
