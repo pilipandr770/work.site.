@@ -25,11 +25,24 @@ def fix_block_table():
     if db_url.startswith('postgres://'):
         db_url = db_url.replace('postgres://', 'postgresql://', 1)
         print("✓ Converted database URL from postgres:// to postgresql://")
-    
-    try:
+      try:
         # Connect to the database
         print("Connecting to database...")
         engine = create_engine(db_url)
+        
+        # Check database encoding
+        with engine.connect() as conn:
+            result = conn.execute(text("SHOW SERVER_ENCODING"))
+            server_encoding = result.scalar()
+            print(f"Database server encoding: {server_encoding}")
+            
+            result = conn.execute(text("SHOW CLIENT_ENCODING"))
+            client_encoding = result.scalar()
+            print(f"Database client encoding: {client_encoding}")
+            
+            # Set client encoding to UTF8 explicitly
+            conn.execute(text("SET CLIENT_ENCODING TO 'UTF8'"))
+            print("✅ Set client encoding to UTF8")
         
         # Check if block table exists
         inspector = inspect(engine)
@@ -49,14 +62,18 @@ def fix_block_table():
             except Exception as e:
                 print(f"❌ Error querying block table: {e}")
                 print("Will try to recreate it...")
-        
-        # Create the block table
+          # Create the block table - create both Latin and Cyrillic versions
         print("Creating block table directly with SQL...")
         with engine.begin() as conn:
+            # First drop existing tables if they exist
             conn.execute(text("""
             DROP TABLE IF EXISTS block CASCADE;
             """))
+            conn.execute(text("""
+            DROP TABLE IF EXISTS блок CASCADE;
+            """))
             
+            # Create block table with Latin name
             conn.execute(text("""
             CREATE TABLE block (
                 id SERIAL PRIMARY KEY,
@@ -77,12 +94,22 @@ def fix_block_table():
                 content_de TEXT
             )
             """))
-        
-        # Verify the block table was created
+            
+            # Also create a view with Cyrillic name
+            print("Creating a view with Cyrillic name 'блок'...")
+            conn.execute(text("""
+            CREATE OR REPLACE VIEW блок AS SELECT * FROM block;
+            """))
+          # Verify the block table was created
         inspector = inspect(engine)
         tables = inspector.get_table_names()
+        views = inspector.get_view_names()
+        
+        print(f"Tables after creation: {', '.join(tables)}")
+        print(f"Views after creation: {', '.join(views)}")
+        
         if 'block' in tables:
-            print("✅ Block table successfully created!")
+            print("✅ Block table (Latin) successfully created!")
             
             # Test querying the block table
             with engine.connect() as conn:
@@ -90,10 +117,27 @@ def fix_block_table():
                 count = result.scalar()
                 print(f"✅ Block table query successful: {count} records")
             
+            # Try to query the Cyrillic view if it exists
+            try:
+                with engine.connect() as conn:
+                    conn.execute(text('SELECT COUNT(*) FROM "блок"'))
+                    print("✅ Cyrillic 'блок' view is accessible")
+            except Exception as e:
+                print(f"⚠️ Could not access Cyrillic 'блок' view: {e}")
+            
             return True
         else:
-            print("❌ Failed to create block table!")
-            return False
+            print("⚠️ 'block' table not found in standard tables list")
+            
+            # Try direct query as a last resort
+            try:
+                with engine.connect() as conn:
+                    conn.execute(text("SELECT COUNT(*) FROM block"))
+                    print("✅ Block table exists but wasn't detected by inspector")
+                    return True
+            except Exception as e:
+                print(f"❌ Failed to create or query block table: {e}")
+                return False
         
     except Exception as e:
         print(f"❌ Error: {e}")

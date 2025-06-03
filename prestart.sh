@@ -3,6 +3,10 @@
 
 echo "=== PRESTART CHECK ==="
 
+# Patch model table names first
+echo "Patching model table names..."
+python patch_model_tablenames.py
+
 # Environment diagnostics
 echo "Checking environment variables..."
 if [ -z "$DATABASE_URL" ]; then
@@ -51,16 +55,27 @@ else
         echo "Attempting direct table creation as last resort..."
         python direct_init_db.py
         
-        # If that fails, try specialized block table fix
-        if [ $? -ne 0 ]; then
-            echo "Attempting specialized block table fix..."
-            python fix_block_table.py
-        fi
+        # No matter what, run the specialized block table fix
+        echo "Running specialized block table fix..."
+        python fix_block_table.py
         
-        # If that fails, try direct SQL method
+        # Always check and fix ORM mapping
+        echo "Checking ORM model mapping..."
+        python check_orm_mapping.py
+        
+        # If table is still missing, try direct SQL method
         if [ $? -ne 0 ]; then
             echo "Attempting direct SQL table creation as absolute last resort..."
             python direct_sql_init.py
+            
+            # Run ORM mapping check again
+            python check_orm_mapping.py
+            
+            # As an absolute last resort, try creating a Cyrillic table
+            if [ $? -ne 0 ]; then
+                echo "Attempting to create Cyrillic 'блок' table as absolute last resort..."
+                python create_cyrillic_block.py
+            fi
         fi
     fi
 fi
