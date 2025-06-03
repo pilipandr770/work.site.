@@ -15,6 +15,7 @@ class User(UserMixin, db.Model):
 
 class Block(db.Model):
     """Контентний блок (для 6 секцій сайту)"""
+    __tablename__ = 'block'  # Explicitly set to Latin to match what db.create_all() creates
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128))
     content = db.Column(db.Text)

@@ -24,12 +24,17 @@ babel = Babel()
 def create_app():
     app = Flask(__name__)
     app.config.from_object('app.config.Config')
-
     db.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = 'admin.login'
     login_manager.login_message = 'Будь ласка, увійдіть в систему для доступу до цієї сторінки.'
     babel.init_app(app)
+    
+    # Create database tables if they don't exist
+    from .models import Block  # Import Block to ensure it's registered with SQLAlchemy
+    with app.app_context():
+        db.create_all()
+        print("Database tables created with db.create_all()")
 
     # Зберігати вибір мови в сесії
     @app.before_request
