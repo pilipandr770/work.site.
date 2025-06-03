@@ -8,6 +8,7 @@ echo "Installing dependencies..."
 pip install -r requirements.txt
 
 # Make scripts executable
+echo "Making scripts executable..."
 chmod +x prestart.sh
 chmod +x *.py
 
@@ -15,8 +16,12 @@ chmod +x *.py
 echo "Initializing database tables using robust strategy..."
 python robust_db_init.py
 
+# Specifically fix the block table issue
+echo "Fixing block table issue..."
+python fix_block_table.py
+
 # Verify database tables exist
-echo "Verifying database tables..."
+echo "Final verification of database tables..."
 python check_database_tables.py
 
 echo "=== BUILD PROCESS COMPLETED ==="

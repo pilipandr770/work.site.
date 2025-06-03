@@ -51,6 +51,12 @@ else
         echo "Attempting direct table creation as last resort..."
         python direct_init_db.py
         
+        # If that fails, try specialized block table fix
+        if [ $? -ne 0 ]; then
+            echo "Attempting specialized block table fix..."
+            python fix_block_table.py
+        fi
+        
         # If that fails, try direct SQL method
         if [ $? -ne 0 ]; then
             echo "Attempting direct SQL table creation as absolute last resort..."
