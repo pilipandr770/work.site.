@@ -1,8 +1,21 @@
 # app/__init__.py
+import os
 from flask import Flask, g, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_babel import Babel
+from pathlib import Path
+
+# Загрузка переменных из .env файла
+try:
+    from dotenv import load_dotenv
+    # Попытка загрузки .env файла из корневой директории проекта
+    env_path = Path(__file__).resolve().parent.parent / '.env'
+    if env_path.exists():
+        load_dotenv(env_path)
+        print(f"Переменные окружения загружены из {env_path}")
+except ImportError:
+    print("python-dotenv не установлен, переменные окружения должны быть настроены вручную")
 
 db = SQLAlchemy()
 login_manager = LoginManager()
