@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Помилка сервера') }}{% endblock %}
+{% block content %}
+<div class="page-container">
+  <h1>500 — {{ _('Внутрішня помилка') }}</h1>
+  <a href="{{ url_for('main.index') }}">{{ _('На головну') }}</a>
+</div>
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% block title %}Методы оплаты{% endblock %}
+
+{% block content %}
+<style>
+  .payment-form {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+    padding: 2em;
+    margin-bottom: 2em;
+  }
+  .form-group {
+    margin-bottom: 1.5em;
+  }
+  .payment-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1.5em;
+    margin-bottom: 1em;
+    position: relative;
+  }
+  .payment-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .payment-table th, .payment-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  .payment-table tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+  .badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 500;
+  }
+  .badge-active {
+    background: #d4edda;
+    color: #155724;
+  }
+  .badge-inactive {
+    background: #f8d7da;
+    color: #721c24;
+  }
+  .badge-type {
+    background: #cce5ff;
+    color: #004085;
+  }
+</style>
+
+<div class="page-container">
+  <h1 style="text-align:center;margin-bottom:1em;">Управление методами оплаты</h1>
+
+  <!-- Форма добавления -->
+  <div class="payment-form">
+    <h2 style="margin-bottom:0.8em;">Добавить способ оплаты</h2>
+    <form method="post" enctype="multipart/form-data" action="{{ url_for('admin.add_payment_method') }}">
+      {{ form.hidden_tag() if form }}
+      {% if form and form.errors %}
+        <div class="alert alert-danger" style="margin-bottom:1em;">
+          <ul style="margin:0;padding-left:1.2em;">
+            {% for field, errors in form.errors.items() %}
+              {% set label = form[field].label.text if field in form else field %}
+              {% for error in errors %}
+                <li><strong>{{ label }}:</strong> {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+      <div class="form-group">
+        <label for="name">Название метода:</label>
+        {{ form.name(class="form-control", id="name", required=True, style="width:100%;padding:10px;") }}
+      </div>
+      <div class="form-group">
+        <label for="type">Тип метода оплаты:</label>
+        {{ form.type(class="form-control", id="type", required=True, style="width:100%;padding:10px;") }}
+      </div>
+      <div class="form-group">
+        <label for="details">Реквизиты (JSON формат):</label>
+        {{ form.details(class="form-control", id="details", rows=5, style="width:100%;padding:10px;font-family:monospace;min-height:120px;", placeholder='{"address": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"}') }}
+        <small style="color:#666;display:block;margin-top:5px;">
+          Для криптовалюты: {"address": "..."} (BTC, ETH, USDC)<br>
+          Для банка: {"iban": "UA123456789", "account": "12345"}<br>
+          Для онлайн: {"url": "https://payment.example.com/link"}
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="qr_code">QR-код или логотип:</label>
+        {{ form.qr_code(class="form-control", id="qr_code", accept="image/*", style="padding:10px;") }}
+      </div>
+      <div class="form-group">
+        <label for="description_ua">Опис (UA):</label>
+        {{ form.description_ua(class="form-control", id="description_ua", rows=2) }}
+      </div>
+      <div class="form-group">
+        <label for="description_en">Опис (EN):</label>
+        {{ form.description_en(class="form-control", id="description_en", rows=2) }}
+      </div>
+      <div class="form-group">
+        <label for="description_de">Опис (DE):</label>
+        {{ form.description_de(class="form-control", id="description_de", rows=2) }}
+      </div>
+      <div class="form-group">
+        <label for="description_ru">Опис (RU):</label>
+        {{ form.description_ru(class="form-control", id="description_ru", rows=2) }}
+      </div>
+      <div class="form-group">
+        {{ form.is_active(id="is_active", checked=True, style="margin-right:8px;") }}
+        <label for="is_active"><strong>Активный метод оплаты</strong> (отображать на сайте)</label>
+      </div>
+      <button class="btn btn-primary" type="submit" style="width:100%;padding:12px;font-size:1.1em;">Сохранить метод оплаты</button>
+    </form>
+  </div>
+
+  <h2 style="text-align:center;margin:1.5em 0;">Текущие методы оплаты</h2>
+  
+  {% if methods %}
+    <table class="payment-table">
+      <thead>
+        <tr>
+          <th>Название</th>
+          <th>Тип</th>
+          <th>QR-код</th>
+          <th>Статус</th>
+          <th>Детали</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for method in methods %}
+          <tr>
+            <td><strong>{{ method.name }}</strong></td>
+            <td>
+              <span class="badge badge-type">{{ method.type|default('Неизвестно') }}</span>
+            </td>
+            <td>
+              {% if method.qr_code %}
+                <img src="{{ url_for('static', filename='uploads/' ~ method.qr_code) }}" 
+                     alt="QR" style="max-width:80px;max-height:80px;cursor:pointer;" 
+                     onclick="window.open(this.src, '_blank')">
+              {% else %}
+                <span style="color:#999;">Нет QR-кода</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if method.is_active %}
+                <span class="badge badge-active">Активен</span>
+              {% else %}
+                <span class="badge badge-inactive">Неактивен</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if method.details %}
+                {% if method.details is mapping %}
+                  <ul style="margin:0;padding-left:20px;font-size:0.9em;">
+                    {% for k, v in method.details.items() %}
+                      <li>
+                        {% if v is string and v.startswith('http') %}
+                          <b>{{ k|capitalize }}:</b> <a href="{{ v }}" target="_blank">{{ v }}</a>
+                        {% else %}
+                          <b>{{ k|capitalize }}:</b> {{ v }}
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <div style="font-size:0.9em;color:#666;">{{ method.details }}</div>
+                {% endif %}
+              {% else %}
+                <span style="color:#999;">Нет данных</span>
+              {% endif %}
+            </td>
+            <td>
+              <form method="post" action="{{ url_for('admin.delete_payment_method', method_id=method.id) }}" 
+                   style="display:inline;margin-right:5px;">
+                <button class="btn btn-danger btn-sm" type="submit" 
+                       onclick="return confirm('Вы уверены, что хотите удалить этот метод оплаты?')">
+                  Удалить
+                </button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div style="text-align:center;padding:3em 0;color:#666;background:#f9f9f9;border-radius:12px;">
+      <p style="font-size:1.2em;">Нет сохранённых методов оплаты</p>
+      <p>Используйте форму выше для добавления метода оплаты.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

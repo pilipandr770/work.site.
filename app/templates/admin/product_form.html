@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+<style>
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+.image-item {
+    position: relative;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.image-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+.image-item .image-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 5px;
+}
+.main-badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: #28a745;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid admin-page">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>{{ title }}</h1>
+                <a href="{{ url_for('admin.products') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Назад к списку
+                </a>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Основная информация</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data" id="productForm">
+                    {{ form.hidden_tag() }}
+                    
+                    <!-- Навигация по табам -->
+                    <ul class="nav nav-tabs mb-3" id="productTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button">Основное</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="translations-tab" data-bs-toggle="tab" data-bs-target="#translations" type="button">Переводы</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button">Детали</button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content" id="productTabsContent">                        <!-- Основная информация -->
+                        <div class="tab-pane fade show active" id="basic" role="tabpanel">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i> <strong>Пояснения по заполнению:</strong><br>
+                                • <strong>Название</strong> - основное название товара (обязательно)<br>
+                                • <strong>Slug</strong> - URL-адрес товара (автоматически создается из названия)<br>
+                                • <strong>Описание</strong> - подробное описание товара<br>
+                                • <strong>Цена</strong> - стоимость в гривнах (только цифры)
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form.name.label(class="form-label") }}
+                                    <span class="text-danger">*</span>
+                                    {{ form.name(class="form-control", placeholder="Например: Telegram бот для интернет-магазина") }}
+                                    <small class="form-text text-muted">Основное название вашего товара</small>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.slug.label(class="form-label") }}
+                                    {{ form.slug(class="form-control", placeholder="telegram-bot-dlya-magazina") }}
+                                    <small class="form-text text-muted">URL-адрес товара (заполнится автоматически)</small>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.description.label(class="form-label") }}
+                                {{ form.description(class="form-control", rows="4", placeholder="Опишите ваш товар: что он умеет, какие задачи решает, какие возможности предоставляет...") }}
+                                <small class="form-text text-muted">Подробное описание товара для клиентов</small>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form.category_id.label(class="form-label") }}
+                                    {{ form.category_id(class="form-select") }}
+                                    <small class="form-text text-muted">Выберите подходящую категорию</small>
+                                </div>
+                                <div class="col-md-3">
+                                    {{ form.price.label(class="form-label") }}
+                                    <span class="text-danger">*</span>
+                                    {{ form.price(class="form-control", placeholder="5000") }}
+                                    <small class="form-text text-muted">Цена в гривнах (только цифры)</small>                                </div>
+                                <div class="col-md-3">
+                                    {{ form.token_price.label(class="form-label") }}
+                                    {{ form.token_price(class="form-control", placeholder="100") }}
+                                    <small class="form-text text-muted">Цена в токенах (опционально)</small>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.image.label(class="form-label") }}
+                                {{ form.image(class="form-control") }}
+                                <small class="form-text text-muted">Главное изображение товара (JPG, PNG, до 5MB)</small>
+                                {% if product and product.image %}
+                                    <div class="mt-2">
+                                        <img src="{{ url_for('static', filename='uploads/' + product.image) }}" 
+                                             alt="Current image" class="img-thumbnail" style="max-height: 100px;">
+                                        <small class="text-muted d-block">Текущее изображение</small>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        {{ form.is_digital(class="form-check-input") }}
+                                        {{ form.is_digital.label(class="form-check-label") }}
+                                    </div>
+                                    <small class="form-text text-muted">Цифровой товар (без доставки)</small>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        {{ form.is_active(class="form-check-input") }}
+                                        {{ form.is_active.label(class="form-check-label") }}
+                                    </div>
+                                    <small class="form-text text-muted">Показывать товар на сайте</small>
+                                </div>
+                            </div>
+                        </div>
+                          <!-- Переводы -->
+                        <div class="tab-pane fade" id="translations" role="tabpanel">
+                            <div class="alert alert-info">
+                                <i class="fas fa-globe"></i> <strong>Многоязычность:</strong><br>
+                                Заполните переводы названия и описания для разных языков сайта
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form.name_en.label(class="form-label") }}
+                                    {{ form.name_en(class="form-control", placeholder="English name") }}
+                                    <small class="form-text text-muted">Название на английском</small>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.name_de.label(class="form-label") }}
+                                    {{ form.name_de(class="form-control", placeholder="Deutscher Name") }}
+                                    <small class="form-text text-muted">Название на немецком</small>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.name_ru.label(class="form-label") }}
+                                {{ form.name_ru(class="form-control", placeholder="Русское название") }}
+                                <small class="form-text text-muted">Название на русском</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.description_en.label(class="form-label") }}
+                                {{ form.description_en(class="form-control", rows="3", placeholder="English description...") }}
+                                <small class="form-text text-muted">Описание на английском</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.description_de.label(class="form-label") }}
+                                {{ form.description_de(class="form-control", rows="3", placeholder="Deutsche Beschreibung...") }}
+                                <small class="form-text text-muted">Описание на немецком</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.description_ru.label(class="form-label") }}
+                                {{ form.description_ru(class="form-control", rows="3", placeholder="Русское описание...") }}
+                                <small class="form-text text-muted">Описание на русском</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Детали -->
+                        <div class="tab-pane fade" id="details" role="tabpanel">
+                            <div class="alert alert-info">
+                                <i class="fas fa-cogs"></i> <strong>Дополнительная информация:</strong><br>
+                                • <strong>Время доставки</strong> - сколько займет выполнение заказа<br>
+                                • <strong>Период поддержки</strong> - как долго предоставляется поддержка<br>
+                                • <strong>Возможности</strong> - список основных функций через запятую<br>
+                                • <strong>Пример</strong> - ссылка на демо или портфолио
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form.delivery_time.label(class="form-label") }}
+                                    {{ form.delivery_time(class="form-control", placeholder="например: 3-5 дней") }}
+                                    <small class="form-text text-muted">Сколько времени займет выполнение</small>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.support_period.label(class="form-label") }}                                    {{ form.support_period(class="form-control", placeholder="например: 6 месяцев") }}
+                                    <small class="form-text text-muted">Как долго предоставляется поддержка</small>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.example_url.label(class="form-label") }}
+                                {{ form.example_url(class="form-control", placeholder="https://example.com") }}
+                                <small class="form-text text-muted">Ссылка на демо, портфолио или пример работы</small>
+                            </div>
+                              <div class="mb-3">
+                                {{ form.features.label(class="form-label") }}
+                                {{ form.features(class="form-control", rows="5", placeholder="Автоматические ответы&#10;Интеграция с платежами&#10;Панель администратора&#10;Аналитика и отчеты&#10;Техническая поддержка") }}
+                                <small class="form-text text-muted">Основные возможности товара (по одной на строку)</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Кнопки сохранения внутри формы -->
+                    <div class="mt-4 p-3 bg-light rounded">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">Готовы сохранить изменения?</h6>
+                                <small class="text-muted">Проверьте заполненные данные перед сохранением</small>
+                            </div>
+                            <div>
+                                <a href="{{ url_for('admin.products') }}" class="btn btn-secondary me-2">
+                                    <i class="fas fa-times"></i> Отмена
+                                </a>
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-save"></i> Сохранить товар
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+    <div class="col-md-4">
+        {% if product %}
+        <!-- Дополнительные изображения -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">Дополнительные изображения</h6>
+                <a href="{{ url_for('admin.product_add_image', product_id=product.id) }}" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus"></i> Добавить
+                </a>
+            </div>
+            <div class="card-body">
+                {% if images %}
+                    <div class="image-gallery">
+                        {% for image in images %}
+                            <div class="image-item">
+                                {% if image.is_main %}
+                                    <div class="main-badge">Главное</div>
+                                {% endif %}
+                                <img src="{{ url_for('static', filename='uploads/' + image.image_path) }}" 
+                                     alt="{{ image.title or 'Product image' }}">
+                                <div class="image-overlay">
+                                    <form method="POST" action="{{ url_for('admin.product_image_delete', image_id=image.id) }}" 
+                                          style="display: inline;" onsubmit="return confirm('Удалить изображение?')">
+                                        <button type="submit" class="btn btn-sm btn-link text-white p-0" title="Удалить">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                {% if image.title %}
+                                    <div class="p-2">
+                                        <small class="fw-bold">{{ image.title }}</small>
+                                        {% if image.description %}
+                                            <br><small class="text-muted">{{ image.description }}</small>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center">Дополнительные изображения не добавлены</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Предварительный просмотр -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0">Предварительный просмотр</h6>
+            </div>
+            <div class="card-body">
+                <a href="{{ url_for('shop.product', slug=product.slug) }}" 
+                   class="btn btn-outline-info w-100" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Открыть на сайте
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+// Автогенерация slug из названия
+document.querySelector('#name').addEventListener('input', function() {
+    const name = this.value;
+    const slug = name.toLowerCase()
+        .replace(/[^\w\s-]/g, '') // Remove special characters
+        .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
+        .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+    document.querySelector('#slug').value = slug;
+});
+</script>
+{% endblock %}

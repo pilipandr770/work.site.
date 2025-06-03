@@ -1,0 +1,25 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bubbleGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4fd1c5"/>
+      <stop offset="100%" stop-color="#3182ce"/>
+    </radialGradient>
+    <animateTransform attributeName="transform" type="scale" values="1;1.08;1" dur="1.2s" repeatCount="indefinite"/>
+  </defs>
+  <g>
+    <circle cx="28" cy="28" r="26" fill="url(#bubbleGradient)">
+      <animate attributeName="r" values="26;28;26" dur="1.2s" repeatCount="indefinite"/>
+    </circle>
+    <ellipse cx="28" cy="38" rx="12" ry="4" fill="#fff" opacity="0.18"/>
+    <path d="M16 22c0-6.627 7.163-12 16-12s16 5.373 16 12-7.163 12-16 12c-1.61 0-3.17-.13-4.66-.37L12 44l2.37-8.66C12.13 33.17 12 31.61 12 30c0-2.21.9-4.21 2.37-5.66C14.13 23.17 14 21.61 14 20c0-2.21.9-4.21 2.37-5.66C16.13 13.17 16 11.61 16 10z" fill="#fff" opacity="0.7"/>
+    <circle cx="22" cy="26" r="2.5" fill="#3182ce">
+      <animate attributeName="cy" values="26;24;26" dur="1.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="28" cy="26" r="2.5" fill="#3182ce">
+      <animate attributeName="cy" values="26;28;26" dur="1.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="34" cy="26" r="2.5" fill="#3182ce">
+      <animate attributeName="cy" values="26;24;26" dur="1.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>

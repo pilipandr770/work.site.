@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Создать предложение') }} - {{ _('DAO') }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="mt-4 mb-3">{{ _('Создать новое предложение') }}</h1>
+  
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">{{ _('Новое предложение для DAO') }}</h4>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group mb-3">
+          {{ form.title.label(class="form-label") }}
+          {{ form.title(class="form-control") }}
+          {% if form.title.errors %}
+            <div class="text-danger">
+              {% for error in form.title.errors %}
+                <small>{{ error }}</small>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        
+        <div class="form-group mb-3">
+          {{ form.description.label(class="form-label") }}
+          {{ form.description(class="form-control", rows="6") }}
+          {% if form.description.errors %}
+            <div class="text-danger">
+              {% for error in form.description.errors %}
+                <small>{{ error }}</small>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              {{ form.duration_days.label(class="form-label") }}
+              {{ form.duration_days(class="form-control") }}
+              {% if form.duration_days.errors %}
+                <div class="text-danger">
+                  {% for error in form.duration_days.errors %}
+                    <small>{{ error }}</small>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              <small class="form-text text-muted">{{ _('Продолжительность голосования в днях (по умолчанию 14 дней)') }}</small>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              {{ form.min_tokens_to_vote.label(class="form-label") }}
+              {{ form.min_tokens_to_vote(class="form-control") }}
+              {% if form.min_tokens_to_vote.errors %}
+                <div class="text-danger">
+                  {% for error in form.min_tokens_to_vote.errors %}
+                    <small>{{ error }}</small>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              <small class="form-text text-muted">{{ _('Минимальное количество токенов для участия в голосовании') }}</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="alert alert-info">
+          <h5>{{ _('Требования для создания предложения') }}</h5>
+          <ul class="mb-0">
+            <li>{{ _('Необходимо иметь минимум 100 токенов') }}</li>
+            <li>{{ _('Предложение должно быть четким и конкретным') }}</li>
+            <li>{{ _('Голосование будет активно в течение указанного периода') }}</li>
+            <li>{{ _('Для принятия предложения требуется простое большинство голосов') }}</li>
+          </ul>
+        </div>
+        
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-lg">{{ _('Создать предложение') }}</button>
+          <a href="{{ url_for('blockchain.dao_index') }}" class="btn btn-secondary btn-lg ml-2">{{ _('Отмена') }}</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <div class="card mt-4">
+    <div class="card-header bg-info text-white">
+      <h5 class="mb-0">{{ _('Примеры предложений') }}</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <h6>{{ _('Технические предложения') }}</h6>
+          <ul>
+            <li>{{ _('Обновление смарт-контракта') }}</li>
+            <li>{{ _('Интеграция с новой биржей') }}</li>
+            <li>{{ _('Добавление новых функций') }}</li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h6>{{ _('Финансовые предложения') }}</h6>
+          <ul>
+            <li>{{ _('Выделение средств на маркетинг') }}</li>
+            <li>{{ _('Изменение комиссий') }}</li>
+            <li>{{ _('Распределение прибыли') }}</li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h6>{{ _('Управленческие предложения') }}</h6>
+          <ul>
+            <li>{{ _('Изменение правил голосования') }}</li>
+            <li>{{ _('Назначение новых администраторов') }}</li>
+            <li>{{ _('Партнерские соглашения') }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Аирдропы') }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="mt-4 mb-3">{{ _('Доступные аирдропы') }}</h1>
+  
+  {% if airdrops %}
+    <div class="row">
+      {% for airdrop in airdrops %}
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+              <h5 class="mb-0">{{ get_airdrop_title(airdrop) }}</h5>
+            </div>
+            <div class="card-body">
+              <p>{{ get_airdrop_description(airdrop)|truncate(150) }}</p>
+              <p><strong>{{ _('Количество токенов') }}:</strong> {{ airdrop.amount_per_user }} {{ token.symbol }}</p>
+              <p><strong>{{ _('Период') }}:</strong> {{ airdrop.start_date.strftime('%d.%m.%Y') }} - {{ airdrop.end_date.strftime('%d.%m.%Y') }}</p>
+              <a href="{{ url_for('blockchain.airdrop_detail', airdrop_id=airdrop.id) }}" class="btn btn-outline-success">{{ _('Участвовать') }}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      {{ _('В настоящее время нет активных аирдропов. Пожалуйста, проверьте позже.') }}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

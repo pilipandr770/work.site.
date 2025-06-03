@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Головна') }}{% endblock %}
+
+{% block content %}
+<div class="blocks">
+  {# --- Головний блок (is_top) --- #}
+  {% set top_block = blocks|selectattr('is_top')|first %}
+  {% if top_block %}
+    <div class="block-card main-block"
+      onclick="openBlockDetail(
+        '{{ url_for('static', filename='uploads/' ~ top_block.image) if top_block.image else '' }}',
+        `{{ get_block_title(top_block)|e }}`,
+        `{{ get_block_content(top_block)|e }}`
+      )">
+      {% if top_block.image %}
+        <img src="{{ url_for('static', filename='uploads/' ~ top_block.image) }}" alt="{{ get_block_title(top_block) }}">
+      {% endif %}
+      <h3>{{ get_block_title(top_block) }}</h3>
+      <p>{{ get_block_content(top_block)|safe }}</p>
+      
+      {% if token %}
+        <div class="token-badge">
+          <span class="token-symbol">{{ token.symbol }}</span>
+          <a href="{{ url_for('blockchain.token_info') }}" class="token-link">{{ _('Узнать о токене') }}</a>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+  {# --- ВСІ інші блоки --- #}
+  {% set other_blocks = blocks|rejectattr('is_top')|list %}
+  {% for block in other_blocks %}
+    {% set block_index = loop.index0 %}
+    {% if block.slug == 'bots' %}
+      <div class="block-card shop-block" onclick="location.href='{{ url_for('shop.index') }}'">
+        {% if block.image %}
+          <img src="{{ url_for('static', filename='uploads/' ~ block.image) }}" alt="{{ get_block_title(block) }}">
+        {% endif %}
+        <h3>{{ _('Магазин товарів') }}</h3>
+        <p>{{ get_block_content(block)|safe }}</p>
+        <span class="block-badge shop-badge">{{ _('Магазин товарів') }}</span>
+        <div class="text-center mt-3">
+          <a href="{{ url_for('shop.index') }}" class="btn btn-lg btn-primary">{{ _('Перейти в магазин') }}</a>
+        </div>
+      </div>
+    {% elif block.slug not in ['websites'] %}
+      <div class="block-card {{ 'blockchain-block' if block_index < 3 else 'shop-block' }}"
+        {% if block_index == 0 %}
+          onclick="location.href='{{ url_for('blockchain.airdrop_list') }}'"
+        {% elif block_index == 1 %}
+          onclick="location.href='{{ url_for('blockchain.token_sale_list') }}'"
+        {% elif block_index == 2 %}
+          onclick="location.href='{{ url_for('blockchain.dao_index') }}'"
+        {% else %}
+          onclick="openBlockDetail(
+            '{{ url_for('static', filename='uploads/' ~ block.image) if block.image else '' }}',
+            `{{ get_block_title(block)|e }}`,
+            `{{ get_block_content(block)|e }}`
+          )"
+        {% endif %}>
+        {% if block.image %}
+          <img src="{{ url_for('static', filename='uploads/' ~ block.image) }}" alt="{{ get_block_title(block) }}">
+        {% endif %}
+        <h3>{{ get_block_title(block) }}</h3>
+        <p>{{ get_block_content(block)|safe }}</p>
+        {% if block_index == 0 %}
+          <span class="block-badge airdrop-badge">{{ _('Аирдроп') }}</span>
+        {% elif block_index == 1 %}
+          <span class="block-badge tokensale-badge">{{ _('Токенсейл') }}</span>
+        {% elif block_index == 2 %}
+          <span class="block-badge dao-badge">{{ _('DAO') }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  {# --- БЛОК ОПЛАТИ --- #}
+  <div class="block-card"
+    onclick="openBlockDetail(
+      '',
+      '{{ _('Оплата онлайн') }}',
+      '{{ _('Виберіть зручний спосіб оплати для вашого замовлення. Ми підтримуємо Stripe, PayPal, банківські перекази та інші сучасні методи.') }}'
+    )">
+    <div>
+      <h3 style="margin:0 0 0.5em 0;">{{ _('Оплата онлайн') }}</h3>
+      <p style="margin:0 0 1.2em 0;">
+        {{ _('Виберіть зручний спосіб оплати для вашого замовлення. Ми підтримуємо Stripe, PayPal, банківські перекази та інші сучасні методи.') }}
+      </p>
+    </div>
+    <div class="payment-methods">
+      {% for method in methods %}
+        <div class="payment-card">
+          <h3>
+            {% if g.get('lang') == 'en' and method.name_en %}
+              {{ method.name_en }}
+            {% elif g.get('lang') == 'de' and method.name_de %}
+              {{ method.name_de }}
+            {% elif g.get('lang') == 'ru' and method.name_ru %}
+              {{ method.name_ru }}
+            {% else %}
+              {{ method.name_ua or method.name }}
+            {% endif %}
+          </h3>
+          {% if method.qr_code %}
+            <img src="{{ url_for('static', filename='uploads/' ~ method.qr_code) }}" alt="QR code" style="max-width:150px;">
+          {% endif %}
+          <div>
+            {% if g.get('lang') == 'en' and method.description_en %}
+              {{ method.description_en|safe }}
+            {% elif g.get('lang') == 'de' and method.description_de %}
+              {{ method.description_de|safe }}
+            {% elif g.get('lang') == 'ru' and method.description_ru %}
+              {{ method.description_ru|safe }}
+            {% else %}
+              {{ method.description_ua|safe }}
+            {% endif %}
+          </div>
+          {% if method.type == 'stripe' and method.details.url %}
+            <a href="{{ method.details.url }}" class="btn btn-primary" target="_blank">{{ _('Оплатити через Stripe') }}</a>
+          {% elif method.type == 'paypal' and method.details.url %}
+            <a href="{{ method.details.url }}" class="btn btn-primary" target="_blank">{{ _('Оплатити через PayPal') }}</a>
+          {% elif method.type == 'bank' %}
+            <p>{{ _('Реквізити') }}: {{ method.details.iban or '' }}</p>
+          {% endif %}
+          {% if method.invoice_pdf %}
+            <a href="{{ url_for('static', filename='uploads/' ~ method.invoice_pdf) }}" download>{{ _('Завантажити рахунок PDF') }}</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="{{ url_for('main.payment') }}" class="btn btn-lg btn-success">{{ _('Всі способи оплати та реквізити') }}</a>
+    </div>
+  </div>
+</div>
+
+{# ---- POPUP ---- #}
+<div id="block-detail-popup">
+  <div class="popup-card">
+    <button class="popup-close" onclick="closeBlockDetail()">&times;</button>
+    <img id="block-detail-img" src="" alt="Фото" style="display:none;">
+    <h2 id="block-detail-title"></h2>
+    <div class="desc" id="block-detail-desc"></div>
+  </div>
+</div>
+<script>
+function openBlockDetail(img, title, desc) {
+    if(img){
+      document.getElementById('block-detail-img').src = img;
+      document.getElementById('block-detail-img').style.display = 'block';
+    } else {
+      document.getElementById('block-detail-img').style.display = 'none';
+    }
+    document.getElementById('block-detail-title').innerText = title;
+    document.getElementById('block-detail-desc').innerText = desc;
+    document.getElementById('block-detail-popup').style.display = 'flex';
+}
+function closeBlockDetail() {
+    document.getElementById('block-detail-popup').style.display = 'none';
+}
+window.addEventListener('keydown', function(e) {
+    if (e.key === "Escape") closeBlockDetail();
+});
+</script>
+{% endblock %}
+
+{# --- JINJA MACROS --- #}
+{% macro get_block_title(block) -%}
+  {%- if g.get('lang') == 'en' and block.title_en %}
+    {{ block.title_en }}
+  {%- elif g.get('lang') == 'de' and block.title_de %}
+    {{ block.title_de }}
+  {%- elif g.get('lang') == 'ru' and block.title_ru %}
+    {{ block.title_ru }}
+  {%- elif g.get('lang') == 'ua' and block.title_ua %}
+    {{ block.title_ua }}
+  {%- else %}
+    {{ block.title_ua or block.title }}
+  {%- endif %}
+{%- endmacro %}
+
+{% macro get_block_content(block) -%}
+  {%- if g.get('lang') == 'en' and block.content_en %}
+    {{ block.content_en }}
+  {%- elif g.get('lang') == 'de' and block.content_de %}
+    {{ block.content_de }}
+  {%- elif g.get('lang') == 'ru' and block.content_ru %}
+    {{ block.content_ru }}
+  {%- elif g.get('lang') == 'ua' and block.content_ua %}
+    {{ block.content_ua }}
+  {%- else %}
+    {{ block.content_ua or block.content }}
+  {%- endif %}
+{%- endmacro %}

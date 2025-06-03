@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Товар') }} - {{ get_product_name(product) }}{% endblock %}
+
+{% block head %}
+<script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/web3_utils.js') }}"></script>
+<script src="{{ url_for('static', filename='js/blockchain.js') }}"></script>
+<script>
+  window.TOKEN_CONTRACT_ADDRESS = "{{ token_contract_address }}";
+  window.TOKEN_RECEIVER_ADDRESS = "{{ token_receiver_address }}";
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container shop-page">
+  <div class="row mt-4 mb-3">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ url_for('shop.index') }}">{{ _('Магазин') }}</a></li>
+          <li class="breadcrumb-item"><a href="{{ url_for('shop.category', slug=product.category.slug) }}">{{ get_category_name(product.category) }}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ get_product_name(product) }}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      {% if product.image %}
+        <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" alt="{{ get_product_name(product) }}" class="img-fluid product-image">
+      {% else %}
+        <div class="product-image-placeholder">
+          <div class="placeholder-text">{{ get_product_name(product) }}</div>
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="col-md-6">
+      <h1>{{ get_product_name(product) }}</h1>
+      
+      <div class="product-price mb-3">
+        <span class="price">${{ product.price }}</span>
+        {% if product.token_price %}
+          <span class="token-price">{{ _('или') }} {{ product.token_price }} {{ token.symbol }}</span>
+        {% endif %}
+      </div>
+      
+      <div class="product-description mb-4">
+        {{ get_product_description(product)|safe }}
+      </div>
+      
+      <form action="{{ url_for('shop.add_to_cart') }}" method="POST">
+        <input type="hidden" name="product_id" value="{{ product.id }}">
+        <input type="hidden" id="token-address" value="{{ token.contract_address }}">
+        
+        <div class="form-group">
+          <label for="quantity">{{ _('Количество') }}</label>
+          <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1">
+        </div>
+        
+        <div class="payment-options mb-4">
+          <h5>{{ _('Способ оплаты') }}</h5>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment_type" id="payment_fiat" value="fiat" checked>
+            <label class="form-check-label" for="payment_fiat">
+              {{ _('Стандартная оплата') }} (${{ product.price }})
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment_type" id="payment_token" value="token">
+            <label class="form-check-label" for="payment_token">
+              {{ _('Оплата токенами') }} ({{ product.token_price }} {{ token.symbol }})
+              <small class="text-success">{{ _('Экономия') }} {{ ((1 - (product.token_price * token.token_price_usd) / product.price) * 100)|round|int }}%</small>
+            </label>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-lg">{{ _('Добавить в корзину') }}</button>
+        
+        <button id="connect-wallet-btn" type="button" class="btn btn-outline-secondary ml-2">
+          {{ _('Подключить кошелек') }}
+        </button>
+      </form>
+      
+      <div id="wallet-info-container" class="mt-4" style="display: none;">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h5>{{ _('Информация о кошельке') }}</h5>
+            <p>{{ _('Баланс токенов') }}: <span id="token-balance">0</span> {{ token.symbol }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {% if related_products %}
+    <div class="row mt-5">
+      <div class="col-12">
+        <h3>{{ _('Похожие товары') }}</h3>
+      </div>
+      
+      {% for related in related_products %}
+        <div class="col-md-4 mb-4">
+          <div class="product-card">
+            <a href="{{ url_for('shop.product', slug=related.slug) }}">
+              {% if related.image %}
+                <img src="{{ url_for('static', filename='uploads/' ~ related.image) }}" alt="{{ get_product_name(related) }}">
+              {% endif %}
+              <h3>{{ get_product_name(related) }}</h3>
+              <p class="product-price">
+                ${{ related.price }}
+                {% if related.token_price %}
+                  <span class="token-price">{{ related.token_price }} {{ token.symbol }}</span>
+                {% endif %}
+              </p>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+<script>
+// === Логіка для інтеграції MetaMask, балансу токенів, знижки та оплати токеном ===
+document.addEventListener('DOMContentLoaded', function() {
+    // Кнопка підключення гаманця
+    const connectWalletBtn = document.getElementById('connect-wallet-btn');
+    const tokenBalanceSpan = document.getElementById('token-balance');
+    const tokenAddress = window.TOKEN_CONTRACT_ADDRESS;
+    const receiverAddress = window.TOKEN_RECEIVER_ADDRESS;
+    let userWallet = null;
+
+    // Підключення MetaMask
+    if (connectWalletBtn) {
+        connectWalletBtn.addEventListener('click', async function() {
+            try {
+                userWallet = await connectWallet();
+                connectWalletBtn.textContent = userWallet.substring(0, 6) + '...' + userWallet.substring(38);
+                connectWalletBtn.classList.remove('btn-outline-secondary');
+                connectWalletBtn.classList.add('btn-success');
+                // Показати баланс
+                if (tokenAddress && userWallet) {
+                    const balance = await getTokenBalance(tokenAddress, userWallet);
+                    if (tokenBalanceSpan) tokenBalanceSpan.textContent = balance;
+                }
+            } catch (e) {
+                alert(e.message || 'Помилка підключення MetaMask');
+            }
+        });
+    }
+
+    // Якщо гаманець вже підключено (MetaMask), показати баланс автоматично
+    if (window.ethereum && connectWalletBtn) {
+        window.ethereum.request({ method: 'eth_accounts' }).then(async (accounts) => {
+            if (accounts.length > 0) {
+                userWallet = accounts[0];
+                connectWalletBtn.textContent = userWallet.substring(0, 6) + '...' + userWallet.substring(38);
+                connectWalletBtn.classList.remove('btn-outline-secondary');
+                connectWalletBtn.classList.add('btn-success');
+                if (tokenAddress && userWallet) {
+                    const balance = await getTokenBalance(tokenAddress, userWallet);
+                    if (tokenBalanceSpan) tokenBalanceSpan.textContent = balance;
+                }
+            }
+        });
+    }
+
+    // TODO: Додати логіку для розрахунку знижки та ініціації оплати токеном при оформленні замовлення
+});
+</script>
+{% endblock %}

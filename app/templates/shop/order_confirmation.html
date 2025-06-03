@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Замовлення оформлено') }}{% endblock %}
+
+{% block content %}
+<div class="page-container" style="max-width:600px;margin:0 auto;text-align:center;">
+  <h1 style="margin-bottom:0.7em;">{{ _('Дякуємо за замовлення!') }}</h1>
+  <p style="font-size:1.2em;">{{ _('Ваше замовлення прийнято та знаходиться в обробці.') }}</p>
+  <div style="margin:2em 0;">
+    <a href="{{ url_for('main.payment') }}" class="btn btn-primary btn-lg" style="margin-bottom:1em;">
+      {{ _('Переглянути всі способи оплати та реквізити') }}
+    </a>
+    <p style="margin-top:0.5em;font-size:1.05em;color:#555;">
+      {{ _('Ви можете оплатити замовлення будь-яким зручним способом: Stripe, криптовалюта, банківський переказ тощо.') }}
+    </p>
+  </div>
+  <a href="{{ url_for('shop.index') }}" class="btn btn-secondary">{{ _('Повернутися до магазину') }}</a>
+</div>
+{% endblock %}

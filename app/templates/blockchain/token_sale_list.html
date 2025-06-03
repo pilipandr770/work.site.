@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Токенсейлы') }}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="mt-4 mb-3">{{ _('Доступные токенсейлы') }}</h1>
+  
+  <!-- Быстрые ссылки -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row text-center">
+        <div class="col-md-4">
+          <a href="https://app.uniswap.org/#/swap?outputCurrency={{ token.contract_address }}&chain=polygon" 
+             target="_blank" class="btn btn-success btn-lg btn-block">
+            <i class="fab fa-ethereum"></i><br>{{ _('Купить на Uniswap') }}
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a href="https://polygonscan.com/token/{{ token.contract_address }}" 
+             target="_blank" class="btn btn-info btn-lg btn-block">
+            <i class="fas fa-external-link-alt"></i><br>{{ _('Посмотреть контракт') }}
+          </a>
+        </div>
+        <div class="col-md-4">
+          <button id="add-to-metamask-btn" class="btn btn-warning btn-lg btn-block">
+            <i class="fab fa-ethereum"></i><br>{{ _('Добавить в MetaMask') }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {% if token_sales %}
+    <div class="row">
+      {% for sale in token_sales %}
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">{{ get_token_sale_title(sale) }}</h5>
+            </div>            <div class="card-body">
+              <p>{{ get_token_sale_description(sale)|truncate(150) }}</p>
+              <p><strong>{{ _('Цена токена') }}:</strong> ${{ sale.price }}</p>
+              <p><strong>{{ _('Минимальная покупка') }}:</strong> {{ sale.min_purchase }} {{ token.symbol }}</p>
+              <p><strong>{{ _('Период') }}:</strong> {{ sale.start_date.strftime('%d.%m.%Y') }} - {{ sale.end_date.strftime('%d.%m.%Y') }}</p>
+              
+              <div class="row mt-3">
+                <div class="col-6">
+                  <a href="{{ url_for('blockchain.token_sale_detail', token_sale_id=sale.id) }}" class="btn btn-primary btn-block">{{ _('Подробнее') }}</a>
+                </div>
+                <div class="col-6">
+                  <a href="https://app.uniswap.org/#/swap?outputCurrency={{ token.contract_address }}&chain=polygon" 
+                     target="_blank" class="btn btn-success btn-block">
+                    <i class="fab fa-ethereum"></i> {{ _('Купить') }}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      {{ _('В настоящее время нет активных токенсейлов. Пожалуйста, проверьте позже.') }}
+    </div>  {% endif %}
+</div>
+
+<script>
+  // Данные токена
+  const TOKEN_ADDRESS = '{{ token.contract_address }}';
+  const TOKEN_SYMBOL = '{{ token.symbol }}';
+  const TOKEN_DECIMALS = {{ token.decimals }};
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    // Добавление токена в MetaMask
+    document.getElementById('add-to-metamask-btn').addEventListener('click', async function() {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_watchAsset',
+            params: {
+              type: 'ERC20',
+              options: {
+                address: TOKEN_ADDRESS,
+                symbol: TOKEN_SYMBOL,
+                decimals: TOKEN_DECIMALS,
+              },
+            },
+          });
+          alert('{{ _("Токен добавлен в MetaMask!") }}');
+        } catch (error) {
+          console.error('Ошибка добавления токена:', error);
+          alert('{{ _("Ошибка добавления токена в MetaMask") }}');
+        }
+      } else {
+        alert('{{ _("MetaMask не установлен!") }}');
+        window.open('https://metamask.io/', '_blank');
+      }
+    });
+  });
+</script>
+{% endblock %}

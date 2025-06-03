@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Корзина') }}{% endblock %}
+
+{% block head %}
+<script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/web3_utils.js') }}"></script>
+<script src="{{ url_for('static', filename='js/blockchain.js') }}"></script>
+<script>
+  window.TOKEN_CONTRACT_ADDRESS = "{{ token_contract_address }}";
+  window.TOKEN_RECEIVER_ADDRESS = "{{ token_receiver_address }}";
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container shop-page">
+  <h1 class="mt-4 mb-3">{{ _('Корзина') }}</h1>
+  
+  {% if cart_items %}
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>{{ _('Товар') }}</th>
+                <th>{{ _('Цена') }}</th>
+                <th>{{ _('Количество') }}</th>
+                <th>{{ _('Итого') }}</th>
+                <th>{{ _('Действия') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in cart_items %}
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      {% if item.product.image %}
+                        <img src="{{ url_for('static', filename='uploads/' ~ item.product.image) }}" alt="{{ get_product_name(item.product) }}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
+                      {% endif %}
+                      <a href="{{ url_for('shop.product', slug=item.product.slug) }}">{{ get_product_name(item.product) }}</a>
+                    </div>
+                  </td>
+                  <td>
+                    ${{ item.product.price }}<br>
+                    <small class="text-muted">{{ item.product.token_price }} {{ token.symbol }}</small>
+                  </td>
+                  <td>
+                    <div class="input-group" style="width: 120px;">
+                      <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary quantity-btn" data-action="decrease" data-product-id="{{ item.product.id }}">-</button>
+                      </div>
+                      <input type="number" class="form-control text-center quantity-input" value="{{ item.quantity }}" min="1" data-product-id="{{ item.product.id }}">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary quantity-btn" data-action="increase" data-product-id="{{ item.product.id }}">+</button>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    ${{ item.product.price * item.quantity }}<br>
+                    <small class="text-muted">{{ item.product.token_price * item.quantity }} {{ token.symbol }}</small>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-danger remove-item-btn" data-product-id="{{ item.product.id }}">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="payment-options">
+              <h5>{{ _('Способ оплаты') }}</h5>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="payment_type" id="payment_fiat" value="fiat" checked>
+                <label class="form-check-label" for="payment_fiat">
+                  {{ _('Стандартная оплата') }} (${{ total }})
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="payment_type" id="payment_token" value="token">
+                <label class="form-check-label" for="payment_token">
+                  {{ _('Оплата токенами') }} ({{ total_token }} {{ token.symbol }})
+                  <small class="text-success">{{ _('Экономия') }} {{ ((1 - (total_token * token.token_price_usd) / total) * 100)|round|int }}%</small>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-center justify-content-end">
+            <form action="{{ url_for('shop.checkout') }}" method="POST">
+              <button type="submit" class="btn btn-success btn-lg">{{ _('Оформить заказ') }}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-info">{{ _('Ваша корзина пуста.') }}</div>
+  {% endif %}
+</div>
+<script>
+// === Логіка для інтеграції MetaMask, балансу токенів, знижки та оплати токеном ===
+document.addEventListener('DOMContentLoaded', function() {
+    const tokenAddress = window.TOKEN_CONTRACT_ADDRESS;
+    const receiverAddress = window.TOKEN_RECEIVER_ADDRESS;
+    let userWallet = null;
+    // Кнопка підключення гаманця
+    let connectWalletBtn = document.getElementById('connect-wallet-btn');
+    if (!connectWalletBtn) {
+        connectWalletBtn = document.createElement('button');
+        connectWalletBtn.id = 'connect-wallet-btn';
+        connectWalletBtn.type = 'button';
+        connectWalletBtn.className = 'btn btn-outline-secondary ms-2';
+        connectWalletBtn.textContent = 'Підключити MetaMask';
+        document.querySelector('.payment-options').appendChild(connectWalletBtn);
+    }
+    // Кнопка оплати токеном
+    let payBtn = document.getElementById('pay-token-btn');
+    if (!payBtn) {
+        payBtn = document.createElement('button');
+        payBtn.id = 'pay-token-btn';
+        payBtn.type = 'button';
+        payBtn.className = 'btn btn-primary btn-lg ms-2';
+        payBtn.textContent = 'Оплатити токеном';
+        payBtn.style.display = 'none';
+        document.querySelector('.payment-options').appendChild(payBtn);
+    }
+    // Показати/сховати кнопку оплати токеном
+    const payTokenRadio = document.getElementById('payment_token');
+    document.querySelectorAll('input[name="payment_type"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (payTokenRadio.checked) {
+                payBtn.style.display = '';
+            } else {
+                payBtn.style.display = 'none';
+            }
+        });
+    });
+    // Підключення MetaMask
+    connectWalletBtn.addEventListener('click', async function() {
+        try {
+            userWallet = await connectWallet();
+            connectWalletBtn.textContent = userWallet.substring(0, 6) + '...' + userWallet.substring(38);
+            connectWalletBtn.classList.remove('btn-outline-secondary');
+            connectWalletBtn.classList.add('btn-success');
+        } catch (e) {
+            alert(e.message || 'Помилка підключення MetaMask');
+        }
+    });
+    // Оплата токеном
+    payBtn.addEventListener('click', async function() {
+        if (!window.ethereum) {
+            alert('Потрібен MetaMask!');
+            return;
+        }
+        if (!userWallet) {
+            alert('Підключіть гаманець!');
+            return;
+        }
+        try {
+            // Створити order через POST /shop/checkout (AJAX)
+            const resp = await fetch('/shop/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'payment_type=token'
+            });
+            const url = resp.url;
+            const orderIdMatch = url.match(/order\/(\d+)\/confirmation/);
+            if (!orderIdMatch) throw new Error('Не вдалося отримати orderId');
+            const orderId = orderIdMatch[1];
+            // Отримати суму для оплати (total_token)
+            const orderTokenAmount = {{ total_token|default(0) }};
+            // Виконати оплату токеном
+            const txHash = await payWithTokens(tokenAddress, receiverAddress, orderTokenAmount, orderId);
+            alert('Оплата успішна! Tx: ' + txHash);
+            window.location.href = `/shop/order/${orderId}/confirmation`;
+        } catch (e) {
+            alert(e.message || 'Помилка оплати токеном');
+        }
+    });
+});
+</script>
+{% endblock %}

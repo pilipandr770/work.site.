@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}{{ get_category_name(category) }}{% endblock %}
+
+{% block content %}
+<div class="container shop-page">
+  <h1 class="mt-4 mb-3">{{ get_category_name(category) }}</h1>
+  {% if category.description %}
+    <div class="mb-3 text-muted">{{ category.description }}</div>
+  {% endif %}
+  <div class="row">
+    {% if products %}
+      {% for product in products %}
+        <div class="col-md-4 mb-4">
+          <div class="product-card">
+            <a href="{{ url_for('shop.product', slug=product.slug) }}">
+              {% if product.image %}
+                <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" alt="{{ get_product_name(product) }}" class="img-fluid">
+              {% endif %}
+              <h3>{{ get_product_name(product) }}</h3>
+              <p class="product-price">{{ product.price }} грн{% if product.token_price %} / {{ product.token_price }} {{ token.symbol }}{% endif %}</p>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-12">
+        <div class="alert alert-info">{{ _('Немає товарів у цій категорії.') }}</div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

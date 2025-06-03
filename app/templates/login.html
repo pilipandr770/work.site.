@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Вхід в адмінку') }}{% endblock %}
+
+{% block content %}
+  <h1>{{ _('Вхід') }}</h1>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for category, message in messages %}
+          <li class="flash-{{ category }}">{{ _(message) }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <div>{{ form.username.label }} {{ form.username() }}</div>
+    <div>{{ form.password.label }} {{ form.password() }}</div>
+    <button type="submit" class="btn btn-primary">{{ _('Увійти') }}</button>
+  </form>
+{% endblock %}

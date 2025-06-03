@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Веб-сайти{% endblock %}
+
+{% block content %}
+<div class="container mt-4 shop-page">
+  <h1>Веб-сайти</h1>
+  <div class="row">
+    {% for product in products %}
+      <div class="col-md-4 mb-4">
+        <div class="card product-card">
+          {% if product.image %}
+            <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" class="card-img-top" alt="{{ product.name }}">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <div class="product-price">
+              <span class="price">{{ product.price }} грн</span>
+              {% if token %}
+                <span class="token-price">{{ product.token_price }} {{ token.symbol }}</span>
+              {% endif %}
+            </div>
+            <a href="{{ url_for('shop.product', slug=product.slug) }}" class="btn btn-primary mt-2">Детальніше</a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="col-12">
+        <div class="alert alert-info">Немає веб-сайтів для продажу.</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,342 @@
+<!-- app/templates/base.html -->
+<!doctype html>
+<html lang="uk">  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Сайт бізнесу{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blockchain.css') }}">
+    /*<link rel="stylesheet" href="{{ url_for('static', filename='css/ocean_bg.css') }}">
+    
+    {% block head %}{% endblock %}
+    {% block extra_css %}{% endblock %}
+    <style>
+    /* === ЧАТ ВІДЖЕТ СТИЛІ === */
+    .chat-circle-btn {
+        position: fixed;
+        right: 30px;
+        bottom: 90px;
+        width: 60px;
+        height: 60px;
+        background: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        font-size: 2em;
+        box-shadow: 0 2px 10px #b3d8ff88;
+        cursor: pointer;
+        z-index: 1100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+    }
+    .chat-circle-btn img {
+        width: 36px;
+        height: 36px;
+        pointer-events: none;
+    }
+    .chat-circle-btn:hover { background: #0056b3; }
+    .chat-window {
+        position: fixed;
+        right: 30px;
+        bottom: 90px;
+        width: 340px;
+        height: 420px;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 32px #b3d8ff77;
+        display: flex;
+        flex-direction: column;
+        z-index: 1200;
+        overflow: hidden;
+        border: 1px solid #eaf2fb;
+        animation: fadeInChat .3s;
+        transition: width 0.3s, height 0.3s, right 0.3s, bottom 0.3s;
+        display: none;
+    }
+    @keyframes fadeInChat {
+        from { opacity: 0; transform: scale(0.98);}
+        to   { opacity: 1; transform: scale(1);}
+    }
+    .chat-header {
+        padding: 0.8em 1em;
+        background: #f7fafd;
+        font-weight: 600;
+        font-size: 1.1em;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .chat-actions button {
+        background: none;
+        border: none;
+        font-size: 1.2em;
+        margin-left: 8px;
+        color: #888;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .chat-actions button:hover { color: #007bff; }
+    .chat-messages {
+        flex: 1 1 auto;
+        padding: 1em 0.8em;
+        overflow-y: auto;
+        background: #fafdff;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6em;
+        scroll-behavior: smooth;
+    }
+    .chat-messages .user {
+        align-self: flex-end;
+        background: #007bff;
+        color: #fff;
+        padding: 0.6em 1em;
+        border-radius: 16px 16px 4px 16px;
+        max-width: 70%;
+        word-break: break-word;
+        font-size: 1em;
+        font-family: 'Montserrat', Arial, sans-serif;
+        box-shadow: 0 1px 8px #c3e1ff44;
+        margin-left: 20%;
+        text-align: right;
+    }
+    .chat-messages .bot {
+        align-self: flex-start;
+        background: #f0f4f8;
+        color: #23292f;
+        padding: 0.6em 1em;
+        border-radius: 16px 16px 16px 4px;
+        max-width: 75%;
+        word-break: break-word;
+        font-size: 1em;
+        font-family: 'Montserrat', Arial, sans-serif;
+        box-shadow: 0 1px 8px #e0e0e066;
+        margin-right: 20%;
+        text-align: left;
+    }
+    .chat-footer {
+        display: flex;
+        align-items: center;
+        gap: 0.6em;
+        border-top: 1px solid #e0e0e0;
+        padding: 0.8em 0.8em;
+        background: #fff;
+    }
+    #chat-input {
+        flex: 1 1 auto;
+        border: 1px solid #b3d8ff;
+        border-radius: 8px;
+        padding: 0.55em 0.9em;
+        font-size: 1em;
+        font-family: 'Montserrat', Arial, sans-serif;
+        outline: none;
+        transition: border 0.2s;
+    }
+    #chat-input:focus { border-color: #007bff; }
+    #chat-send {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.52em 1em;
+        font-size: 1.1em;
+        cursor: pointer;
+        font-family: 'Montserrat', Arial, sans-serif;
+        transition: background 0.2s;
+    }
+    #chat-send:hover { background: #0056b3; }
+    
+    /* === НАВІГАЦІЯ З ТРЬОМА СЕКЦІЯМИ === */
+    header nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2em;
+    }
+
+    .nav-left {
+        flex: 1;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .nav-center {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5em;
+    }
+
+    .nav-right {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    /* Стилі для посилань навігації */
+    nav a {
+        color: #232323;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    nav a:hover {
+        color: #666;
+    }
+
+    /* Стилі для соцмереж */
+    .nav-center a img {
+        height: 24px;
+        width: 24px;
+        transition: transform 0.2s;
+    }
+
+    .nav-center a:hover img {
+        transform: scale(1.1);
+    }
+    
+    @media (max-width: 600px) {
+        .chat-window {
+            right: 2vw !important;
+            bottom: 2vh !important;
+            width: 98vw !important;
+            height: 92vh !important;
+            border-radius: 12px;
+        }
+        .chat-circle-btn {
+            right: 2vw;
+            bottom: 2vh;
+        }
+    }
+    
+    /* Медіа-запити для адаптивного дизайну навігації */
+    @media (max-width: 768px) {
+        header nav {
+            flex-direction: column;
+            gap: 1em;
+            padding: 0 1em;
+        }
+        
+        .nav-left, .nav-center, .nav-right {
+            flex: none;
+            justify-content: center;
+        }
+        
+        .nav-center {
+            gap: 2em;
+        }
+        
+        .nav-center a img {
+            height: 28px;
+            width: 28px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .nav-center {
+            gap: 1.5em;
+        }
+        
+        .nav-center a img {
+            height: 24px;
+            width: 24px;
+        }
+    }
+    </style>
+  </head>
+  <body style="padding-top: 80px; padding-bottom: 80px;">
+    
+    <header>
+      <nav>
+        <!-- Ліва частина: Дім -->
+        <div class="nav-left">
+          <a href="{{ url_for('main.index') }}">{{ _('Дім') }}</a>
+        </div>
+        
+        <!-- Центральна частина: Соцмережі -->
+        <div class="nav-center">
+          <a href="{{ settings.facebook if settings and settings.facebook else 'https://facebook.com' }}" target="_blank" title="Facebook">
+            <img src="{{ url_for('static', filename='img/facebook.svg') }}" alt="Facebook">
+          </a>
+          <a href="{{ settings.instagram if settings and settings.instagram else 'https://instagram.com' }}" target="_blank" title="Instagram">
+            <img src="{{ url_for('static', filename='img/instagram.svg') }}" alt="Instagram">
+          </a>
+          <a href="{{ settings.telegram if settings and settings.telegram else 'https://t.me/' }}" target="_blank" title="Telegram">
+            <img src="{{ url_for('static', filename='img/telegram.svg') }}" alt="Telegram">
+          </a>
+          <a href="mailto:{{ settings.email if settings and settings.email else 'info@example.com' }}" title="Email">
+            <img src="{{ url_for('static', filename='img/email.svg') }}" alt="Email">
+          </a>
+        </div>
+        
+        <!-- Права частина: Перемикач мов -->
+        <div class="nav-right">
+          <form id="lang-switcher-form" method="get" style="display:inline;">
+            <select name="lang" id="lang-switcher" style="padding:6px 12px;border-radius:8px;border:1px solid #ddd;font-size:1em;background:#fff;">
+              <option value="uk" {% if g.get('lang', 'uk') == 'uk' %}selected{% endif %}>UA</option>
+              <option value="en" {% if g.get('lang') == 'en' %}selected{% endif %}>EN</option>
+              <option value="de" {% if g.get('lang') == 'de' %}selected{% endif %}>DE</option>
+              <option value="ru" {% if g.get('lang') == 'ru' %}selected{% endif %}>RU</option>
+            </select>
+          </form>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer id="site-footer" style="position:fixed;left:0;right:0;bottom:0;width:100%;background:#f5f5f5;padding:1em;text-align:center;z-index:900;box-shadow:0 -2px 8px #eee;">
+      <a href="/privacy">{{ _('Політика конфіденційності') }}</a> |
+      <a href="/impressum">{{ _('Імпресум') }}</a> |
+      <a href="/contacts">{{ _('Контакти') }}</a>
+    </footer>
+
+    <!-- ===== ВІДЖЕТ ЧАТУ ===== -->
+    <button id="chat-open-btn" class="chat-circle-btn" title="Чат із асистентом">
+      <img src="/static/img/chat_icon.svg" alt="Чат" />
+    </button>
+    <div id="chat-window" class="chat-window">
+      <div class="chat-header">
+        <span>Чат з асистентом</span>
+        <div class="chat-actions">
+          <button id="chat-expand" title="Розгорнути">⤢</button>
+          <button id="chat-minimize" title="Згорнути">✕</button>
+        </div>
+      </div>
+      <div id="chat-messages" class="chat-messages"></div>
+      <div class="chat-footer">
+        <input id="chat-input" type="text" placeholder="Напишіть повідомлення..." autocomplete="off" />
+        <button id="chat-send">▶</button>
+      </div>
+    </div>    <!-- ===== /ВІДЖЕТ ЧАТУ ===== -->
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="{{ url_for('static', filename='assist.js') }}"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var langSel = document.getElementById('lang-switcher');
+        langSel.addEventListener('change', function() {
+          document.getElementById('lang-switcher-form').submit();
+        });
+      });
+    </script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>
