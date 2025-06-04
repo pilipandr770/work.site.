@@ -28,6 +28,10 @@ fi
 echo "APPLYING DEFINITIVE CYRILLIC BLOCK TABLE FIX..."
 python fix_cyrillic_block_table_definitive.py
 
+# Create admin user if doesn't exist
+echo "Checking for admin user and creating if needed..."
+python create_admin_render.py
+
 # Only run these if all previous fixes fail
 if [ $? -ne 0 ]; then
     echo "⚠️ All advanced fixes failed, trying emergency methods..."
