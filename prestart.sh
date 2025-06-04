@@ -36,6 +36,14 @@ python create_admin_render.py
 echo "Fixing admin password hash if needed..."
 python fix_admin_password.py
 
+# Initialize/update site data (blocks, settings, token info)
+echo "Initializing site data (blocks, settings, token info)..."
+python initialize_render_data.py
+
+# Initialize blockchain functionality (airdrop, tokensale, DAO)
+echo "Initializing blockchain functionality (airdrop, tokensale, DAO)..."
+python initialize_blockchain_functionality.py
+
 # Only run these if all previous fixes fail
 if [ $? -ne 0 ]; then
     echo "⚠️ All advanced fixes failed, trying emergency methods..."

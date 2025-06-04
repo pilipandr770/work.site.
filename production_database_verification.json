@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-06-03T22:35:19.703428",
+  "environment": {},
+  "database": {
+    "uri_type": "postgresql"
+  },
+  "models": {
+    "block_tablename": "block"
+  },
+  "checks": {
+    "explicit_tablename": true,
+    "db_create_all_present": true,
+    "sql_uses_latin_table": true,
+    "generated_sql": "SELECT block.id, block.title, block.content, block.image, block.\"order\", block.is_active, block.slug, block.is_top, block.title_ua, block.title_en, block.title_de, block.title_ru, block.content_ua, block.content_en, block.content_de, block.content_ru \nFROM block \nWHERE block.is_active = true",
+    "query_success": true
+  }
+}

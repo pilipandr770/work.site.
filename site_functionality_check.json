@@ -1,0 +1,114 @@
+{
+  "timestamp": "2025-06-04T17:00:32.822116",
+  "components": {
+    "blocks": {
+      "count": 7,
+      "main_banner_exists": true,
+      "blocks": [
+        {
+          "id": 1,
+          "title": "Test Block",
+          "slug": "test-block-1748982687",
+          "is_active": true,
+          "is_top": false
+        },
+        {
+          "id": 2,
+          "title": "Блокчейн решения для вашего бизнеса",
+          "slug": "main-banner",
+          "is_active": true,
+          "is_top": true
+        },
+        {
+          "id": 3,
+          "title": "Аирдроп IT TOKEN",
+          "slug": "airdrop",
+          "is_active": true,
+          "is_top": false
+        },
+        {
+          "id": 4,
+          "title": "Продажа токенов IT TOKEN",
+          "slug": "token-sale",
+          "is_active": true,
+          "is_top": false
+        },
+        {
+          "id": 5,
+          "title": "Управление проектом (DAO)",
+          "slug": "dao",
+          "is_active": true,
+          "is_top": false
+        },
+        {
+          "id": 6,
+          "title": "Магазин цифровых товаров",
+          "slug": "shop",
+          "is_active": true,
+          "is_top": false
+        },
+        {
+          "id": 7,
+          "title": "Платежные решения",
+          "slug": "payment",
+          "is_active": true,
+          "is_top": false
+        }
+      ]
+    },
+    "settings": {
+      "exists": true,
+      "facebook": "https://facebook.com/yourproject",
+      "instagram": "https://instagram.com/yourproject",
+      "telegram": "https://t.me/yourproject",
+      "email": "info@yourproject.com",
+      "contract_address": "0xAf6087a1A730DAb2CA8d42dca7893c22fDBA683d",
+      "token_name": "IT TOKEN",
+      "token_symbol": "ITT"
+    },
+    "token": {
+      "exists": true,
+      "name": "IT TOKEN",
+      "symbol": "ITT",
+      "contract_address": "0xAf6087a1A730DAb2CA8d42dca7893c22fDBA683d",
+      "total_supply": 1000000.0,
+      "circulating_supply": 500000.0,
+      "token_price_usd": 0.1
+    },
+    "airdrops": {
+      "count": 0,
+      "airdrops": []
+    },
+    "token_sales": {
+      "count": 0,
+      "token_sales": []
+    },
+    "dao_proposals": {
+      "count": 0,
+      "proposals": []
+    },
+    "categories": {
+      "count": 0,
+      "categories": []
+    },
+    "products": {
+      "count": 0,
+      "products": []
+    },
+    "payment_methods": {
+      "count": 0,
+      "payment_methods": []
+    },
+    "admins": {
+      "count": 1,
+      "admins": [
+        {
+          "id": 1,
+          "username": "andrii770",
+          "is_admin": false,
+          "wallet_address": null
+        }
+      ]
+    }
+  }
+}
