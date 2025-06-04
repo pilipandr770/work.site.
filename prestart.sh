@@ -32,6 +32,10 @@ python fix_cyrillic_block_table_definitive.py
 echo "Checking for admin user and creating if needed..."
 python create_admin_render.py
 
+# Fix admin password hash if needed
+echo "Fixing admin password hash if needed..."
+python fix_admin_password.py
+
 # Only run these if all previous fixes fail
 if [ $? -ne 0 ]; then
     echo "⚠️ All advanced fixes failed, trying emergency methods..."
