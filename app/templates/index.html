@@ -7,11 +7,10 @@
   {% set top_block = blocks|selectattr('is_top')|first %}
   {% if top_block %}
     <div class="block-card main-block"
-      onclick="openBlockDetail(
-        '{{ url_for('static', filename='uploads/' ~ top_block.image) if top_block.image else '' }}',
-        `{{ get_block_title(top_block)|e }}`,
-        `{{ get_block_content(top_block)|e }}`
-      )">
+         data-img="{{ top_block.image and url_for('static', filename='uploads/' ~ top_block.image) or '' }}"
+         data-title="{{ get_block_title(top_block) }}"
+         data-desc="{{ get_block_content(top_block) }}"
+         onclick="openBlockDetail(this.dataset.img, this.dataset.title, this.dataset.desc)">
       {% if top_block.image %}
         <img src="{{ url_for('static', filename='uploads/' ~ top_block.image) }}" alt="{{ get_block_title(top_block) }}">
       {% endif %}
@@ -30,8 +29,10 @@
   {% set other_blocks = blocks|rejectattr('is_top')|list %}
   {% for block in other_blocks %}
     {% set block_index = loop.index0 %}
-    {% if block.slug == 'bots' %}
-      <div class="block-card shop-block" onclick="location.href='{{ url_for('shop.index') }}'">
+    {% if block.slug in ['bots', 'shop', 'магазин'] %}
+      <div class="block-card shop-block"
+           data-href="{{ url_for('shop.index') }}"
+           onclick="handleBlockClick(this)">
         {% if block.image %}
           <img src="{{ url_for('static', filename='uploads/' ~ block.image) }}" alt="{{ get_block_title(block) }}">
         {% endif %}
@@ -44,19 +45,17 @@
       </div>
     {% elif block.slug not in ['websites'] %}
       <div class="block-card {{ 'blockchain-block' if block_index < 3 else 'shop-block' }}"
-        {% if block_index == 0 %}
-          onclick="location.href='{{ url_for('blockchain.airdrop_list') }}'"
-        {% elif block_index == 1 %}
-          onclick="location.href='{{ url_for('blockchain.token_sale_list') }}'"
-        {% elif block_index == 2 %}
-          onclick="location.href='{{ url_for('blockchain.dao_index') }}'"
-        {% else %}
-          onclick="openBlockDetail(
-            '{{ url_for('static', filename='uploads/' ~ block.image) if block.image else '' }}',
-            `{{ get_block_title(block)|e }}`,
-            `{{ get_block_content(block)|e }}`
-          )"
-        {% endif %}>
+           data-img="{{ block.image and url_for('static', filename='uploads/' ~ block.image) or '' }}"
+           data-title="{{ get_block_title(block) }}"
+           data-desc="{{ get_block_content(block) }}"
+           {% if block_index == 0 %}
+             data-href="{{ url_for('blockchain.airdrop_list') }}"
+           {% elif block_index == 1 %}
+             data-href="{{ url_for('blockchain.token_sale_list') }}"
+           {% elif block_index == 2 %}
+             data-href="{{ url_for('blockchain.dao_index') }}"
+           {% endif %}
+           onclick="handleBlockClick(this)">
         {% if block.image %}
           <img src="{{ url_for('static', filename='uploads/' ~ block.image) }}" alt="{{ get_block_title(block) }}">
         {% endif %}
@@ -75,11 +74,10 @@
 
   {# --- БЛОК ОПЛАТИ --- #}
   <div class="block-card"
-    onclick="openBlockDetail(
-      '',
-      '{{ _('Оплата онлайн') }}',
-      '{{ _('Виберіть зручний спосіб оплати для вашого замовлення. Ми підтримуємо Stripe, PayPal, банківські перекази та інші сучасні методи.') }}'
-    )">
+       data-img=""
+       data-title="{{ _('Оплата онлайн') }}"
+       data-desc="{{ _('Виберіть зручний спосіб оплати для вашого замовлення. Ми підтримуємо Stripe, PayPal, банківські перекази та інші сучасні методи.') }}"
+       onclick="openBlockDetail(this.dataset.img, this.dataset.title, this.dataset.desc)">
     <div>
       <h3 style="margin:0 0 0.5em 0;">{{ _('Оплата онлайн') }}</h3>
       <p style="margin:0 0 1.2em 0;">
@@ -144,11 +142,12 @@
 </div>
 <script>
 function openBlockDetail(img, title, desc) {
+    const imgEl = document.getElementById('block-detail-img');
     if(img){
-      document.getElementById('block-detail-img').src = img;
-      document.getElementById('block-detail-img').style.display = 'block';
+      imgEl.src = img;
+      imgEl.style.display = 'block';
     } else {
-      document.getElementById('block-detail-img').style.display = 'none';
+      imgEl.style.display = 'none';
     }
     document.getElementById('block-detail-title').innerText = title;
     document.getElementById('block-detail-desc').innerText = desc;
@@ -157,6 +156,19 @@ function openBlockDetail(img, title, desc) {
 function closeBlockDetail() {
     document.getElementById('block-detail-popup').style.display = 'none';
 }
+/**
+ * Універсальний обробник кліку для карток.
+ * Якщо елемент має data-href — переходимо за посиланням,
+ * інакше відкриваємо детальний попап.
+ */
+function handleBlockClick(el){
+    if(el.dataset.href){
+        location.href = el.dataset.href;
+    } else {
+        openBlockDetail(el.dataset.img, el.dataset.title, el.dataset.desc);
+    }
+}
+
 window.addEventListener('keydown', function(e) {
     if (e.key === "Escape") closeBlockDetail();
 });
@@ -171,23 +183,4 @@ window.addEventListener('keydown', function(e) {
     {{ block.title_de }}
   {%- elif g.get('lang') == 'ru' and block.title_ru %}
     {{ block.title_ru }}
-  {%- elif g.get('lang') == 'ua' and block.title_ua %}
-    {{ block.title_ua }}
-  {%- else %}
-    {{ block.title_ua or block.title }}
-  {%- endif %}
-{%- endmacro %}
-
-{% macro get_block_content(block) -%}
-  {%- if g.get('lang') == 'en' and block.content_en %}
-    {{ block.content_en }}
-  {%- elif g.get('lang') == 'de' and block.content_de %}
-    {{ block.content_de }}
-  {%- elif g.get('lang') == 'ru' and block.content_ru %}
-    {{ block.content_ru }}
-  {%- elif g.get('lang') == 'ua' and block.content_ua %}
-    {{ block.content_ua }}
-  {%- else %}
-    {{ block.content_ua or block.content }}
-  {%- endif %}
-{%- endmacro %}
+  {%- elif g.get('lang') == 'ua' and block.title_
