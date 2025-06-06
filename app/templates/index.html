@@ -183,4 +183,23 @@ window.addEventListener('keydown', function(e) {
     {{ block.title_de }}
   {%- elif g.get('lang') == 'ru' and block.title_ru %}
     {{ block.title_ru }}
-  {%- elif g.get('lang') == 'ua' and block.title_
+  {%- elif g.get('lang') == 'ua' and block.title_ua %}
+    {{ block.title_ua }}
+  {%- else %}
+    {{ block.title or '' }}
+  {%- endif %}
+{%- endmacro %}
+
+{% macro get_block_content(block) -%}
+  {%- if g.get('lang') == 'en' and block.content_en %}
+    {{ block.content_en }}
+  {%- elif g.get('lang') == 'de' and block.content_de %}
+    {{ block.content_de }}
+  {%- elif g.get('lang') == 'ru' and block.content_ru %}
+    {{ block.content_ru }}
+  {%- elif g.get('lang') == 'ua' and block.content_ua %}
+    {{ block.content_ua }}
+  {%- else %}
+    {{ block.content or '' }}
+  {%- endif %}
+{%- endmacro %}
