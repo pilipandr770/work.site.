@@ -294,3 +294,7 @@ msgstr "Vorschlag erstellen"
 msgid "Детали и голосование"
 msgstr "Details und Abstimmung"
 
+#: app/templates/base.html:266
+msgid "Дім"
+msgstr "Startseite"
+
