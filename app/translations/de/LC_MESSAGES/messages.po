@@ -30,6 +30,34 @@ msgstr "Zur Zahlung"
 msgid "Контакти"
 msgstr "Kontakte"
 
+#: app/templates/shop/index.html:48
+msgid "В корзину"
+msgstr "In den Warenkorb"
+
+#: app/templates/shop/product.html:79
+msgid "Добавить в корзину"
+msgstr "In den Warenkorb legen"
+
+#: app/templates/shop/index.html:50 app/templates/blockchain/dao_index.html:65 app/templates/blockchain/dao_index.html:100 app/templates/blockchain/token_sale_list.html:52
+msgid "Подробнее"
+msgstr "Mehr Details"
+
+#: app/templates/index.html:43
+msgid "Перейти в магазин"
+msgstr "Zum Shop"
+
+#: app/templates/index.html:129
+msgid "Всі способи оплати та реквізити"
+msgstr "Alle Zahlungsmethoden und Details"
+
+#: app/templates/shop/order_confirmation.html:10
+msgid "Переглянути всі способи оплати та реквізити"
+msgstr "Alle Zahlungsmethoden und Details anzeigen"
+
+#: app/templates/shop/order_confirmation.html:16
+msgid "Повернутися до магазину"
+msgstr "Zurück zum Shop"
+
 #: app/templates/contacts.html:6
 msgid "Тут будуть контактні дані."
 msgstr "Hier werden Kontaktdaten angezeigt."

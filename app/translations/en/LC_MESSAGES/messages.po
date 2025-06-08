@@ -226,6 +226,34 @@ msgstr "Server error"
 msgid "Внутрішня помилка"
 msgstr "Internal error"
 
+#: app/templates/shop/index.html:48
+msgid "В корзину"
+msgstr "Add to cart"
+
+#: app/templates/shop/product.html:79
+msgid "Добавить в корзину"
+msgstr "Add to cart"
+
+#: app/templates/shop/index.html:50 app/templates/blockchain/dao_index.html:65 app/templates/blockchain/dao_index.html:100 app/templates/blockchain/token_sale_list.html:52
+msgid "Подробнее"
+msgstr "More details"
+
+#: app/templates/index.html:43
+msgid "Перейти в магазин"
+msgstr "Go to shop"
+
+#: app/templates/index.html:129
+msgid "Всі способи оплати та реквізити"
+msgstr "All payment methods and details"
+
+#: app/templates/shop/order_confirmation.html:10
+msgid "Переглянути всі способи оплати та реквізити"
+msgstr "View all payment methods and details"
+
+#: app/templates/shop/order_confirmation.html:16
+msgid "Повернутися до магазину"
+msgstr "Return to shop"
+
 #: venv/Lib/site-packages/click/_termui_impl.py:600
 #, python-brace-format
 msgid "{editor}: Editing failed"
