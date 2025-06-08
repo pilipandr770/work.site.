@@ -2,10 +2,11 @@
 
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from flask_login import login_user, logout_user, current_user, login_required
-from app.models import db, User, Block, PaymentMethod, Payment, Settings, Product, Category, ProductImage
+from app.models import db, User, Block, PaymentMethod, Payment, Settings, Product, Category, ProductImage, ImageStorage
 from app.forms import (LoginForm, BlockForm, PaymentMethodForm, SettingsForm, 
                       ProductForm, ProductImageForm, CategoryForm)
 from werkzeug.security import check_password_hash
+from app.utils.file_utils import save_uploaded_file
 import os
 import uuid
 
@@ -77,15 +78,9 @@ def edit_block(block_id):
         block.is_active = form.is_active.data
         block.is_top = form.is_top.data
         # Обробка зображення
-        if form.image.data and hasattr(form.image.data, 'filename') and form.image.data.filename:
-            file = form.image.data
-            filename = secure_filename(file.filename)
-            upload_folder = os.path.join('app', 'static', 'uploads')
-            os.makedirs(upload_folder, exist_ok=True)
-            file.save(os.path.join(upload_folder, filename))
-            block.image = filename
-        elif form.image.data and hasattr(form.image.data, 'filename') and not form.image.data.filename:
-            pass
+        if form.image.data:
+            handle_image_upload(form.image.data, block)
+        # No need for an empty else block
         db.session.commit()
         flash('Блок збережено', 'success')
         return redirect(url_for('admin.blocks'))
@@ -140,15 +135,8 @@ def add_payment_method():
         method.description_de = form.description_de.data
         method.description_ru = form.description_ru.data
         # Обробка файлу QR-коду
-        if form.qr_code.data and hasattr(form.qr_code.data, 'filename') and form.qr_code.data.filename:
-            file = form.qr_code.data
-            filename = secure_filename(file.filename)
-            upload_folder = os.path.join('app', 'static', 'uploads')
-            os.makedirs(upload_folder, exist_ok=True)
-            file.save(os.path.join(upload_folder, filename))
-            method.qr_code = filename
-        elif form.qr_code.data and hasattr(form.qr_code.data, 'filename') and not form.qr_code.data.filename:
-            pass
+        if form.qr_code.data:
+            handle_image_upload(form.qr_code.data, method, 'qr_code')
         db.session.add(method)
         db.session.commit()
         flash('Метод оплати додано', 'success')
@@ -285,12 +273,8 @@ def product_edit(product_id):
         else:
             product.features = []
         # Обработка изображения
-        if form.image.data and hasattr(form.image.data, 'filename') and form.image.data.filename:
-            filename = str(uuid.uuid4()) + '.' + form.image.data.filename.rsplit('.', 1)[1].lower()
-            upload_folder = os.path.join('app', 'static', 'uploads')
-            os.makedirs(upload_folder, exist_ok=True)
-            form.image.data.save(os.path.join(upload_folder, filename))
-            product.image = filename
+        if handle_image_upload(form.image.data, product):
+            pass
         elif not product.image:
             product.image = None
         db.session.commit()
@@ -318,20 +302,21 @@ def product_add_image(product_id):
     
     if form.validate_on_submit():
         if form.image.data and hasattr(form.image.data, 'filename') and form.image.data.filename:
-            filename = str(uuid.uuid4()) + '.' + form.image.data.filename.rsplit('.', 1)[1].lower()
-            upload_folder = os.path.join('app', 'static', 'uploads')
-            os.makedirs(upload_folder, exist_ok=True)
-            form.image.data.save(os.path.join(upload_folder, filename))
-            
-            # Создание записи изображения
+            # Create image record first (without path)
             image = ProductImage(
                 product_id=product_id,
-                image_path=filename,
                 title=form.title.data,
                 description=form.description.data,
                 is_main=form.is_main.data,
                 order=ProductImage.query.filter_by(product_id=product_id).count() + 1
             )
+            
+            # Handle the image upload
+            filename = save_uploaded_file(form.image.data, 'uploads')
+            if filename:
+                image.image_path = filename
+                # Store backup in database
+                ImageStorage.store_image(form.image.data, filename)
             
             # Якщо изображение помечено как главное, убираем флаг з інших
             if form.is_main.data:
@@ -386,12 +371,7 @@ def category_new():
         category.is_active = form.is_active.data
         category.order = form.order.data
         # Обработка изображения
-        if form.image.data and hasattr(form.image.data, 'filename') and form.image.data.filename:
-            filename = str(uuid.uuid4()) + '.' + form.image.data.filename.rsplit('.', 1)[1].lower()
-            upload_folder = os.path.join('app', 'static', 'uploads')
-            os.makedirs(upload_folder, exist_ok=True)
-            form.image.data.save(os.path.join(upload_folder, filename))
-            category.image = filename
+        handle_image_upload(form.image.data, category)
         db.session.add(category)
         db.session.commit()
         flash('Категория создана успешно', 'success')
@@ -420,12 +400,7 @@ def category_edit(category_id):
         category.is_active = form.is_active.data
         category.order = form.order.data
         # Обработка изображения
-        if form.image.data and hasattr(form.image.data, 'filename') and form.image.data.filename:
-            filename = str(uuid.uuid4()) + '.' + form.image.data.filename.rsplit('.', 1)[1].lower()
-            upload_folder = os.path.join('app', 'static', 'uploads')
-            os.makedirs(upload_folder, exist_ok=True)
-            form.image.data.save(os.path.join(upload_folder, filename))
-            category.image = filename
+        handle_image_upload(form.image.data, category)
         db.session.commit()
         flash('Категория обновлена успешно', 'success')
         return redirect(url_for('admin.categories'))
@@ -447,3 +422,31 @@ def category_delete(category_id):
     db.session.commit()
     flash('Категория удалена', 'success')
     return redirect(url_for('admin.categories'))
+
+# Utility function to handle all image uploads consistently
+def handle_image_upload(form_image_field, db_object, image_field_name='image'):
+    """
+    Handle image upload, save to filesystem and backup in DB
+    
+    Args:
+        form_image_field: The form.field.data containing the uploaded file
+        db_object: Database object to update (e.g., product, block, etc.)
+        image_field_name: Name of the attribute on db_object to set (default: 'image')
+    
+    Returns:
+        The filename if successful, None otherwise
+    """
+    if not form_image_field or not hasattr(form_image_field, 'filename') or not form_image_field.filename:
+        return None
+        
+    filename = save_uploaded_file(form_image_field, 'uploads')
+    if filename:
+        # Update the DB object
+        setattr(db_object, image_field_name, filename)
+        
+        # Store backup in database
+        ImageStorage.store_image(form_image_field, filename)
+        
+        return filename
+    
+    return None

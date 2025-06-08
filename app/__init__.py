@@ -35,6 +35,17 @@ def create_app():
     with app.app_context():
         db.create_all()
         print("Database tables created with db.create_all()")
+    
+    # Ensure uploads directory exists
+    uploads_dir = os.path.join(app.root_path, 'static', 'uploads')
+    os.makedirs(uploads_dir, exist_ok=True)
+    print(f"Ensuring uploads directory exists: {uploads_dir}")
+    
+    # Create a .gitkeep file to preserve directory structure
+    gitkeep_path = os.path.join(uploads_dir, '.gitkeep')
+    if not os.path.exists(gitkeep_path):
+        with open(gitkeep_path, 'w') as f:
+            f.write('# This file ensures the uploads directory is tracked by git\n')
 
     # Зберігати вибір мови в сесії
     @app.before_request

@@ -344,3 +344,43 @@ class DaoVote(db.Model):
     
     def __repr__(self):
         return f'<DaoVote {self.id}>'
+
+class ImageStorage(db.Model):
+    """
+    Stores binary image data as backup in case filesystem images are lost.
+    References the original filename used in filesystem.
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(255), unique=True, nullable=False)
+    binary_data = db.Column(db.LargeBinary)
+    content_type = db.Column(db.String(128))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    @classmethod
+    def store_image(cls, file, filename):
+        """Store image binary data in the database"""
+        if not file or not filename:
+            return None
+            
+        # Check if image already exists
+        existing = cls.query.filter_by(filename=filename).first()
+        if existing:
+            # Update existing record
+            existing.binary_data = file.read()
+            existing.content_type = file.content_type if hasattr(file, 'content_type') else None
+            db.session.commit()
+            file.seek(0)  # Reset file pointer for further use
+            return existing
+            
+        # Create new record
+        file.seek(0)  # Ensure at beginning of file
+        image_storage = cls(
+            filename=filename,
+            binary_data=file.read(),
+            content_type=file.content_type if hasattr(file, 'content_type') else None
+        )
+        file.seek(0)  # Reset file pointer for further use
+        
+        db.session.add(image_storage)
+        db.session.commit()
+        return image_storage
