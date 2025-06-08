@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-05-29 23:09+0200\n"
-"PO-Revision-Date: 2025-05-29 23:10+0200\n"
+"POT-Creation-Date: 2025-06-08 18:00+0200\n"
+"PO-Revision-Date: 2025-06-08 18:00+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
 "Language-Team: en <LL@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
+
+#: app/templates/index.html:41 app/templates/index.html:43
+msgid "Магазин товарів"
+msgstr "Digital Goods Store"
 
 #: app/templates/block_detail.html:32
 msgid "Перейти до оплати"
