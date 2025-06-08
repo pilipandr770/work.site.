@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Оплата') }}{% endblock %}
+
+{% block head %}
+<script>
+  window.TOKEN_CONTRACT_ADDRESS = "{{ config['TOKEN_CONTRACT_ADDRESS'] if config['TOKEN_CONTRACT_ADDRESS'] else '' }}";
+  window.TOKEN_RECEIVER_ADDRESS = "{{ config['TOKEN_RECEIVER_ADDRESS'] if config['TOKEN_RECEIVER_ADDRESS'] else '' }}";
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+  <h1>{{ _('Оплата') }}</h1>
+  <div class="payment-methods">
+    {% for method in methods %}
+      <div class="payment-card">
+        <h3>
+          {% if g.get('lang') == 'en' and method.name_en %}
+            {{ method.name_en }}
+          {% elif g.get('lang') == 'ru' and method.name_ru %}
+            {{ method.name_ru }}
+          {% elif g.get('lang') == 'de' and method.name_de %}
+            {{ method.name_de }}
+          {% else %}
+            {{ method.name_ua or method.name }}
+          {% endif %}
+        </h3>
+        {% if method.qr_code %}
+          <img src="{{ url_for('static', filename='uploads/' ~ method.qr_code) }}" alt="QR code" style="max-width:150px;">
+        {% endif %}
+        <div>
+          {% if g.get('lang') == 'en' and method.description_en %}
+            {{ method.description_en|safe }}
+          {% elif g.get('lang') == 'ru' and method.description_ru %}
+            {{ method.description_ru|safe }}
+          {% elif g.get('lang') == 'de' and method.description_de %}
+            {{ method.description_de|safe }}
+          {% else %}
+            {{ method.description_ua|safe }}
+          {% endif %}
+        </div>
+        {% if method.type == 'stripe' and method.details.url %}
+          <a href="{{ method.details.url }}" class="btn btn-primary" target="_blank">{{ _('Оплатити через Stripe') }}</a>
+        {% elif method.type == 'paypal' and method.details.url %}
+          <a href="{{ method.details.url }}" class="btn btn-primary" target="_blank">{{ _('Оплатити через PayPal') }}</a>
+        {% elif method.type == 'bank' %}
+          <p>{{ _('Реквізити') }}: {{ method.details.iban or '' }}</p>
+        {% endif %}
+        {% if method.invoice_pdf %}
+          <a href="{{ url_for('static', filename='uploads/' ~ method.invoice_pdf) }}" download>{{ _('Завантажити рахунок PDF') }}</a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

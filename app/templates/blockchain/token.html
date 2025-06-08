@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Токен проекта') }} - {{ token.symbol }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+.token-info-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+.action-button {
+    margin: 0.25rem;
+}
+.tech-info-card {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+.copy-btn {
+    cursor: pointer;
+    color: #6c757d;
+    transition: color 0.2s;
+}
+.copy-btn:hover {
+    color: #007bff;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="mt-4 mb-3">{{ _('Токен проекта') }} - {{ token.symbol }}</h1>
+  
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="token-info-box">
+            <h3>{{ token.name }} ({{ token.symbol }})</h3>
+            <p>{{ _('Адрес контракта') }}: 
+              <a href="https://polygonscan.com/token/{{ token.contract_address }}" target="_blank" class="text-white">
+                {{ token.contract_address[:6] }}...{{ token.contract_address[-4:] }}
+              </a>
+              <i class="fas fa-copy copy-btn ms-2" onclick="copyToClipboard('{{ token.contract_address }}')" title="{{ _('Копировать адрес') }}"></i>
+            </p>
+            <p>{{ _('Текущая цена') }}: ${{ token.token_price_usd }}</p>
+            <p>{{ _('Общее предложение') }}: {{ token.total_supply }}</p>
+            <p>{{ _('В обращении') }}: {{ token.circulating_supply }}</p>
+            
+            <!-- Quick Actions -->
+            <div class="mt-3">
+              <button class="btn btn-light btn-sm action-button" onclick="addToMetaMask()">
+                <i class="fab fa-ethereum"></i> {{ _('Добавить в MetaMask') }}
+              </button>
+              <a href="https://app.uniswap.org/#/swap?outputCurrency={{ token.contract_address }}&chain=polygon" 
+                 target="_blank" class="btn btn-warning btn-sm action-button">
+                <i class="fas fa-exchange-alt"></i> {{ _('Купить на Uniswap') }}
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="token-description">
+            <h4>{{ _('О токене') }}</h4>
+            <p>{{ get_token_description(token) }}</p>
+          </div>
+          
+          <div class="token-actions mt-4">
+            <a href="{{ url_for('blockchain.token_sale_list') }}" class="btn btn-primary action-button">
+              <i class="fas fa-coins"></i> {{ _('Купить токены') }}
+            </a>
+            <a href="{{ url_for('blockchain.airdrop_list') }}" class="btn btn-success action-button">
+              <i class="fas fa-gift"></i> {{ _('Участвовать в аирдропе') }}
+            </a>
+            <a href="{{ url_for('blockchain.dao_index') }}" class="btn btn-info action-button">
+              <i class="fas fa-vote-yea"></i> {{ _('DAO Управление') }}
+            </a>
+            <a href="https://polygonscan.com/token/{{ token.contract_address }}" target="_blank" class="btn btn-outline-secondary action-button">
+              <i class="fas fa-search"></i> {{ _('Посмотреть на PolygonScan') }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technical Information Card -->
+  <div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+      <h5 class="mb-0"><i class="fas fa-cog"></i> {{ _('Техническая информация') }}</h5>
+    </div>
+    <div class="card-body tech-info-card">
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>{{ _('Сеть') }}:</strong> Polygon (MATIC)</p>
+          <p><strong>{{ _('Стандарт токена') }}:</strong> ERC-20</p>
+          <p><strong>{{ _('Адрес контракта') }}:</strong> 
+            <code>{{ token.contract_address }}</code>
+            <i class="fas fa-copy copy-btn ms-2" onclick="copyToClipboard('{{ token.contract_address }}')" title="{{ _('Копировать адрес') }}"></i>
+          </p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>{{ _('Символ') }}:</strong> {{ token.symbol }}</p>
+          <p><strong>{{ _('Децимали') }}:</strong> 18</p>
+          <p><strong>{{ _('Верифицирован') }}:</strong> 
+            <span class="badge bg-success">{{ _('Да') }}</span>
+            <a href="https://polygonscan.com/token/{{ token.contract_address }}" target="_blank" class="ms-2">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0"><i class="fas fa-coins"></i> {{ _('Токенсейл') }}</h5>
+        </div>
+        <div class="card-body">
+          <p>{{ _('Участвуйте в токенсейле и получите токены по специальной цене!') }}</p>
+          <div class="d-flex flex-wrap">
+            <a href="{{ url_for('blockchain.token_sale_list') }}" class="btn btn-outline-primary action-button">
+              <i class="fas fa-info-circle"></i> {{ _('Подробнее о токенсейле') }}
+            </a>
+            <a href="https://app.uniswap.org/#/swap?outputCurrency={{ token.contract_address }}&chain=polygon" 
+               target="_blank" class="btn btn-warning action-button">
+              <i class="fas fa-exchange-alt"></i> {{ _('Купить сейчас') }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0"><i class="fas fa-gift"></i> {{ _('Аирдроп') }}</h5>
+        </div>
+        <div class="card-body">
+          <p>{{ _('Получите бесплатные токены, участвуя в аирдропе!') }}</p>
+          <div class="d-flex flex-wrap">
+            <a href="{{ url_for('blockchain.airdrop_list') }}" class="btn btn-outline-success action-button">
+              <i class="fas fa-user-plus"></i> {{ _('Участвовать в аирдропе') }}
+            </a>
+            <button class="btn btn-light action-button" onclick="addToMetaMask()">
+              <i class="fab fa-ethereum"></i> {{ _('Добавить токен') }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// MetaMask integration
+async function addToMetaMask() {
+    if (typeof window.ethereum !== 'undefined') {
+        try {
+            await window.ethereum.request({
+                method: 'wallet_watchAsset',
+                params: {
+                    type: 'ERC20',
+                    options: {
+                        address: '{{ token.contract_address }}',
+                        symbol: '{{ token.symbol }}',
+                        decimals: 18,
+                        image: '{{ url_for("static", filename="img/token-icon.png", _external=True) }}'
+                    }
+                }
+            });
+            alert('{{ _("Токен добавлен в MetaMask!") }}');
+        } catch (error) {
+            console.error('Error adding token to MetaMask:', error);
+            alert('{{ _("Ошибка при добавлении токена в MetaMask") }}');
+        }
+    } else {
+        alert('{{ _("MetaMask не установлен. Пожалуйста, установите MetaMask для использования этой функции.") }}');
+        window.open('https://metamask.io/', '_blank');
+    }
+}
+
+// Copy to clipboard function
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        // Create temporary feedback
+        const feedback = document.createElement('div');
+        feedback.textContent = '{{ _("Скопировано!") }}';
+        feedback.style.position = 'fixed';
+        feedback.style.top = '20px';
+        feedback.style.right = '20px';
+        feedback.style.background = '#28a745';
+        feedback.style.color = 'white';
+        feedback.style.padding = '10px 15px';
+        feedback.style.borderRadius = '5px';
+        feedback.style.zIndex = '9999';
+        feedback.style.fontSize = '14px';
+        document.body.appendChild(feedback);
+        
+        setTimeout(() => {
+            document.body.removeChild(feedback);
+        }, 2000);
+    }).catch(function(err) {
+        console.error('Could not copy text: ', err);
+        alert('{{ _("Не удалось скопировать в буфер обмена") }}');
+    });
+}
+</script>
+{% endblock %}

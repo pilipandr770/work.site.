@@ -1,0 +1,15 @@
+Flask
+Flask-SQLAlchemy
+Flask-WTF
+Flask-Login
+Flask-Babel==1.0.0
+Werkzeug
+gunicorn
+WeasyPrint
+qrcode
+requests
+openai
+python-dotenv
+email_validator
+web3
+psycopg2-binary

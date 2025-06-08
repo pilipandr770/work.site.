@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}{{ block.title_en if g.get('lang') == 'en' and block.title_en else (block.title_ru if g.get('lang') == 'ru' and block.title_ru else (block.title_ua if g.get('lang') == 'ua' and block.title_ua else block.title)) }}{% endblock %}
+
+{% block content %}
+  <div class="block-detail">
+    <h1>
+      {% if g.get('lang') == 'en' and block.title_en %}
+        {{ block.title_en }}
+      {% elif g.get('lang') == 'ru' and block.title_ru %}
+        {{ block.title_ru }}
+      {% elif g.get('lang') == 'ua' and block.title_ua %}
+        {{ block.title_ua }}
+      {% else %}
+        {{ block.title }}
+      {% endif %}
+    </h1>
+    {% if block.image %}
+      <img src="{{ url_for('static', filename='uploads/' ~ block.image) }}" alt="{{ block.title }}" style="display:block;margin:0 auto 1.5em auto;max-width:350px;float:none;">
+    {% endif %}
+    <div>
+      {% if g.get('lang') == 'en' and block.content_en %}
+        {{ block.content_en|safe }}
+      {% elif g.get('lang') == 'ru' and block.content_ru %}
+        {{ block.content_ru|safe }}
+      {% elif g.get('lang') == 'ua' and block.content_ua %}
+        {{ block.content_ua|safe }}
+      {% else %}
+        {{ block.content|safe }}
+      {% endif %}
+    </div>
+    {% if block.slug == 'payment' %}
+      <a href="{{ url_for('main.payment') }}" class="btn btn-success">{{ _('Перейти до оплати') }}</a>
+    {% endif %}
+  </div>
+{% endblock %}

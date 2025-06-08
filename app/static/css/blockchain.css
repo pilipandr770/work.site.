@@ -1,0 +1,198 @@
+/* Стили для блокчейн-компонентов */
+
+/* Бейджи для блоков */
+.block-badge {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+}
+
+.airdrop-badge {
+    background-color: #28a745;
+}
+
+.tokensale-badge {
+    background-color: #007bff;
+}
+
+.dao-badge {
+    background-color: #6f42c1;
+}
+
+.shop-badge {
+    background-color: #fd7e14;
+}
+
+/* Бейдж для токена на главном блоке */
+.token-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.token-symbol {
+    font-weight: 700;
+    color: #ffcc00;
+    font-size: 1.1rem;
+    margin-right: 10px;
+}
+
+.token-link {
+    color: white;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.token-link:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+/* Стили для карточек блоков */
+.blockchain-block {
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.blockchain-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.shop-block {
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.shop-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.main-block {
+    position: relative;
+}
+
+/* Стили для страниц магазина */
+.product-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.product-card h3 {
+    padding: 15px 15px 5px 15px;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.product-card .product-price {
+    padding: 0 15px 15px 15px;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+.product-card .token-price {
+    color: #28a745;
+    font-size: 0.9rem;
+}
+
+.product-card .product-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px 15px 15px;
+}
+
+/* Страница продукта */
+.product-image {
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-image-placeholder {
+    width: 100%;
+    height: 400px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-text {
+    font-size: 1.5rem;
+    color: #adb5bd;
+}
+
+.product-price .price {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.product-price .token-price {
+    font-size: 1.2rem;
+    color: #28a745;
+    margin-left: 15px;
+}
+
+/* Стили для блокчейн страниц */
+.token-info-box {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.progress {
+    height: 25px;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+}
+
+/* Общие стили компонентов */
+.card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+.alert {
+    border-radius: 8px;
+}

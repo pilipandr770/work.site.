@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('DAO') }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="mt-4 mb-3">{{ _('Децентрализованная автономная организация (DAO)') }}</h1>
+  
+  <div class="dao-info card mb-4">
+    <div class="card-body">
+      <h4>{{ _('О нашем DAO') }}</h4>
+      <p>{{ _('Участвуйте в управлении нашей экосистемой с помощью токенов. Держатели токенов могут голосовать за предложения и создавать свои собственные.') }}</p>
+      
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('blockchain.dao_proposal_new') }}" class="btn btn-primary mt-3">{{ _('Создать предложение') }}</a>
+      {% else %}
+        <div class="alert alert-info">
+          {{ _('Для создания предложений и голосования необходимо войти в систему и иметь токены.') }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  
+  <!-- Активные предложения -->
+  <h2 class="mb-3">{{ _('Активные голосования') }}</h2>
+  {% if active_proposals %}
+    <div class="row">
+      {% for proposal in active_proposals %}
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+              <h5 class="mb-0">{{ get_dao_proposal_title(proposal) }}</h5>
+            </div>
+            <div class="card-body">
+              <p>{{ get_dao_proposal_description(proposal)|truncate(150) }}</p>
+              <div class="progress mb-3">
+                <div class="progress-bar bg-success" role="progressbar" style="width: {{ (proposal.votes_for / (proposal.votes_for + proposal.votes_against or 1) * 100)|round|int }}%">{{ _('За') }}: {{ proposal.votes_for }}</div>
+                <div class="progress-bar bg-danger" role="progressbar" style="width: {{ (proposal.votes_against / (proposal.votes_for + proposal.votes_against or 1) * 100)|round|int }}%">{{ _('Против') }}: {{ proposal.votes_against }}</div>
+              </div>
+              <p><strong>{{ _('Период голосования') }}:</strong> {{ proposal.start_date.strftime('%d.%m.%Y') }} - {{ proposal.end_date.strftime('%d.%m.%Y') }}</p>
+              <a href="{{ url_for('blockchain.dao_proposal_detail', proposal_id=proposal.id) }}" class="btn btn-outline-success">{{ _('Детали и голосование') }}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      {{ _('В настоящее время нет активных предложений для голосования.') }}
+    </div>
+  {% endif %}
+  
+  <!-- Ожидающие предложения -->
+  <h2 class="mb-3 mt-4">{{ _('Предстоящие голосования') }}</h2>
+  {% if pending_proposals %}
+    <div class="row">
+      {% for proposal in pending_proposals %}
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header bg-secondary text-white">
+              <h5 class="mb-0">{{ get_dao_proposal_title(proposal) }}</h5>
+            </div>
+            <div class="card-body">
+              <p>{{ get_dao_proposal_description(proposal)|truncate(150) }}</p>
+              <p><strong>{{ _('Период голосования') }}:</strong> {{ proposal.start_date.strftime('%d.%m.%Y') }} - {{ proposal.end_date.strftime('%d.%m.%Y') }}</p>
+              <a href="{{ url_for('blockchain.dao_proposal_detail', proposal_id=proposal.id) }}" class="btn btn-outline-secondary">{{ _('Подробнее') }}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      {{ _('В настоящее время нет предстоящих предложений.') }}
+    </div>
+  {% endif %}
+  
+  <!-- Завершенные предложения -->
+  <h2 class="mb-3 mt-4">{{ _('Завершенные голосования') }}</h2>
+  {% if completed_proposals %}
+    <div class="row">
+      {% for proposal in completed_proposals %}
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-header {{ 'bg-success' if proposal.votes_for > proposal.votes_against else 'bg-danger' }} text-white">
+              <h5 class="mb-0">{{ get_dao_proposal_title(proposal) }}</h5>
+            </div>
+            <div class="card-body">
+              <p>{{ get_dao_proposal_description(proposal)|truncate(150) }}</p>
+              <div class="progress mb-3">
+                <div class="progress-bar bg-success" role="progressbar" style="width: {{ (proposal.votes_for / (proposal.votes_for + proposal.votes_against or 1) * 100)|round|int }}%">{{ _('За') }}: {{ proposal.votes_for }}</div>
+                <div class="progress-bar bg-danger" role="progressbar" style="width: {{ (proposal.votes_against / (proposal.votes_for + proposal.votes_against or 1) * 100)|round|int }}%">{{ _('Против') }}: {{ proposal.votes_against }}</div>
+              </div>
+              <p><strong>{{ _('Результат') }}:</strong> 
+                {% if proposal.votes_for > proposal.votes_against %}
+                  <span class="text-success">{{ _('Принято') }}</span>
+                {% else %}
+                  <span class="text-danger">{{ _('Отклонено') }}</span>
+                {% endif %}
+              </p>
+              <a href="{{ url_for('blockchain.dao_proposal_detail', proposal_id=proposal.id) }}" class="btn btn-outline-secondary">{{ _('Подробнее') }}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      {{ _('В настоящее время нет завершенных предложений.') }}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

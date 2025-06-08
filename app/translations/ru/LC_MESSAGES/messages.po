@@ -1,0 +1,225 @@
+# Russian translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-05-29 23:09+0200\n"
+"PO-Revision-Date: 2025-05-29 23:10+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: app/templates/block_detail.html:32
+msgid "Перейти до оплати"
+msgstr "Перейти к оплате"
+
+#: app/templates/contacts.html:2 app/templates/contacts.html:5
+msgid "Контакти"
+msgstr "Контакты"
+
+#: app/templates/contacts.html:6
+msgid "Тут будуть контактні дані."
+msgstr "Здесь будут контактные данные."
+
+#: app/templates/impressum.html:2 app/templates/impressum.html:5
+msgid "Імпресум"
+msgstr "Импрессум"
+
+#: app/templates/impressum.html:6
+msgid "Тут буде інформація про компанію."
+msgstr "Здесь будет информация о компании."
+
+#: app/templates/index.html:3
+msgid "Головна"
+msgstr "Главная"
+
+#: app/templates/index.html:99
+msgid "Оплата онлайн"
+msgstr "Онлайн-оплата"
+
+#: app/templates/index.html:100
+msgid "Виберіть зручний спосіб оплати для вашого замовлення. Ми підтримуємо Stripe, PayPal, банківські перекази та інші сучасні методи."
+msgstr "Выберите удобный способ оплаты для вашего заказа. Мы поддерживаем Stripe, PayPal, банковские переводы и другие современные методы."
+
+#: app/templates/index.html:128 app/templates/payment.html:36
+msgid "Оплатити через Stripe"
+msgstr "Оплатить через Stripe"
+
+#: app/templates/index.html:130 app/templates/payment.html:38
+msgid "Оплатити через PayPal"
+msgstr "Оплатить через PayPal"
+
+#: app/templates/index.html:132 app/templates/payment.html:40
+msgid "Реквізити"
+msgstr "Реквизиты"
+
+#: app/templates/index.html:135 app/templates/payment.html:43
+msgid "Завантажити рахунок PDF"
+msgstr "Скачать счет PDF"
+
+#: app/templates/login.html:2
+msgid "Вхід в адмінку"
+msgstr "Вход в админку"
+
+#: app/templates/login.html:5
+msgid "Вхід"
+msgstr "Вход"
+
+#: app/templates/login.html:19
+msgid "Увійти"
+msgstr "Войти"
+
+#: app/templates/payment.html:2 app/templates/payment.html:6
+msgid "Оплата"
+msgstr "Оплата"
+
+#: app/templates/privacy.html:2 app/templates/privacy.html:5
+msgid "Політика конфіденційності"
+msgstr "Политика конфиденциальности"
+
+#: app/templates/privacy.html:7
+msgid "Ми поважаємо вашу приватність і дотримуємося вимог Загального регламенту захисту даних (GDPR) та інших законів ЄС щодо захисту персональних даних."
+msgstr "Мы уважаем вашу приватность и соблюдаем требования Общего регламента по защите данных (GDPR) и других законов ЕС о защите персональных данных."
+
+#: app/templates/privacy.html:9
+msgid "Які дані ми збираємо?"
+msgstr "Какие данные мы собираем?"
+
+#: app/templates/privacy.html:11
+msgid "Ми не збираємо жодних персональних даних автоматично."
+msgstr "Мы не собираем никаких персональных данных автоматически."
+
+#: app/templates/privacy.html:12
+msgid "Ми отримуємо ваші контактні дані (ім'я, email, телефон) лише якщо ви самостійно залишаєте їх для зв'язку або оформлення заявки/оплати."
+msgstr "Мы получаем ваши контактные данные (имя, email, телефон) только если вы самостоятельно оставляете их для связи или оформления заявки/оплаты."
+
+#: app/templates/privacy.html:15
+msgid "Як ми використовуємо ваші дані?"
+msgstr "Как мы используем ваши данные?"
+
+#: app/templates/privacy.html:17
+msgid "Ваші дані використовуються виключно для зв'язку з вами або для виконання вашого запиту (наприклад, для зворотного зв'язку чи виставлення рахунку)."
+msgstr "Ваши данные используются исключительно для связи с вами или для выполнения вашего запроса (например, для обратной связи или выставления счета)."
+
+#: app/templates/privacy.html:18
+msgid "Ми не передаємо ваші дані третім особам, окрім випадків, коли це прямо вимагається законом."
+msgstr "Мы не передаем ваши данные третьим лицам, кроме случаев, когда это прямо требуется законом."
+
+#: app/templates/privacy.html:21
+msgid "Реклама та сторонні сервіси"
+msgstr "Реклама и сторонние сервисы"
+
+#: app/templates/privacy.html:23
+msgid "На сайті можуть бути інтегровані сторонні сервіси (наприклад, Facebook, Google), які можуть збирати дані про вас відповідно до своїх політик конфіденційності."
+msgstr "На сайте могут быть интегрированы сторонние сервисы (например, Facebook, Google), которые могут собирать данные о вас согласно своим политикам конфиденциальности."
+
+#: app/templates/privacy.html:24
+msgid "Ми не маємо доступу до цих даних і не контролюємо їх збір."
+msgstr "Мы не имеем доступа к этим данным и не контролируем их сбор."
+
+#: app/templates/privacy.html:25
+msgid "Детальніше про політику конфіденційності Facebook:"
+msgstr "Подробнее о политике конфиденциальности Facebook:"
+
+#: app/templates/privacy.html:26
+msgid "Детальніше про політику конфіденційності Google:"
+msgstr "Подробнее о политике конфиденциальности Google:"
+
+#: app/templates/privacy.html:29
+msgid "Ваші права"
+msgstr "Ваши права"
+
+#: app/templates/privacy.html:31
+msgid "Ви маєте право отримати інформацію про свої персональні дані, які ми зберігаємо (якщо такі є), вимагати їх виправлення або видалення."
+msgstr "Вы имеете право получить информацию о своих персональных данных, которые мы храним (если таковые есть), требовать их исправления или удаления."
+
+#: app/templates/privacy.html:32
+msgid "Для цього напишіть нам на"
+msgstr "Для этого напишите нам на"
+
+#: app/templates/privacy.html:35
+msgid "Зміни до політики"
+msgstr "Изменения в политике"
+
+#: app/templates/privacy.html:37
+msgid "Ми можемо періодично оновлювати цю політику. Актуальна версія завжди доступна на цій сторінці."
+msgstr "Мы можем периодически обновлять эту политику. Актуальная версия всегда доступна на этой странице."
+
+#: app/templates/privacy.html:40
+msgid "Використовуючи наш сайт, ви погоджуєтесь із цією політикою конфіденційності."
+msgstr "Используя наш сайт, вы соглашаетесь с этой политикой конфиденциальности."
+
+#: app/templates/admin/dashboard.html:2
+msgid "Адмінка"
+msgstr "Админка"
+
+#: app/templates/admin/dashboard.html:6
+msgid "Адмін-панель"
+msgstr "Админ-панель"
+
+#: app/templates/admin/dashboard.html:8
+msgid "Блоки сайту"
+msgstr "Блоки сайта"
+
+#: app/templates/admin/dashboard.html:9
+msgid "Способи оплати"
+msgstr "Способы оплаты"
+
+#: app/templates/admin/dashboard.html:10 app/templates/admin/payments.html:2 app/templates/admin/payments.html:6
+msgid "Історія оплат"
+msgstr "История оплат"
+
+#: app/templates/admin/dashboard.html:11
+msgid "Налаштування соцмереж"
+msgstr "Настройки соцсетей"
+
+#: app/templates/admin/dashboard.html:12
+msgid "Вийти"
+msgstr "Выйти"
+
+#: app/templates/admin/dashboard.html:14
+msgid "Останні оплати"
+msgstr "Последние оплаты"
+
+#: app/templates/admin/settings.html:2
+msgid "Налаштування сайту"
+msgstr "Настройки сайта"
+
+#: app/templates/admin/settings.html:5
+msgid "Налаштування соцмереж і email"
+msgstr "Настройки соцсетей и email"
+
+#: app/templates/admin/settings.html:12
+msgid "Зберегти"
+msgstr "Сохранить"
+
+#: app/templates/errors/404.html:2
+msgid "Сторінку не знайдено"
+msgstr "Страница не найдена"
+
+#: app/templates/errors/404.html:5
+msgid "Не знайдено"
+msgstr "Не найдено"
+
+#: app/templates/errors/404.html:6 app/templates/errors/500.html:6
+msgid "На головну"
+msgstr "На главную"
+
+#: app/templates/errors/500.html:2
+msgid "Помилка сервера"
+msgstr "Ошибка сервера"
+
+#: app/templates/errors/500.html:5
+msgid "Внутрішня помилка"
+msgstr "Внутренняя ошибка"
+

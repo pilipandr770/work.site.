@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Історія оплат') }}{% endblock %}
+
+{% block content %}
+<div class="page-container">
+  <h1>{{ _('Історія оплат') }}</h1>
+  <ul>
+    {% for payment in payments %}
+      <li>
+        {{ payment.created_at }} | {{ payment.user_name }} | {{ payment.amount }} | {{ _(payment.status) }}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

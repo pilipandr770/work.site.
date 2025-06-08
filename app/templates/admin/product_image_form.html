@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}Добавить изображение{% endblock %}
+
+{% block content %}
+<div class="container-fluid admin-page">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>Добавить изображение</h1>
+                <a href="{{ url_for('admin.product_edit', product_id=product.id) }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Назад к продукту
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Добавить изображение для "{{ product.name }}"</h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-images"></i> <strong>Загрузка изображений:</strong><br>
+                        • Поддерживаемые форматы: JPG, PNG, GIF<br>
+                        • Максимальный размер: 5MB<br>
+                        • Рекомендуемое разрешение: 800x600 пикселей<br>
+                        • Первое изображение станет главным для товара
+                    </div>
+                    
+                    <form method="POST" enctype="multipart/form-data" id="imageForm">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="mb-3">
+                            {{ form.image.label(class="form-label") }}
+                            <span class="text-danger">*</span>
+                            {{ form.image(class="form-control") }}
+                            <small class="form-text text-muted">Выберите изображение для товара</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.title.label(class="form-label") }}
+                            {{ form.title(class="form-control", placeholder="Например: Общий вид, Функции, Интерфейс") }}
+                            <small class="form-text text-muted">Краткое описание изображения (необязательно)</small>
+                        </div>
+                    
+                    <div class="mb-3">
+                        {{ form.description.label(class="form-label") }}
+                        {{ form.description(class="form-control", rows="3", placeholder="Описание изображения (опционально)") }}
+                    </div>
+                      <div class="mb-3">
+                        <div class="form-check">
+                            {{ form.is_main(class="form-check-input") }}
+                            {{ form.is_main.label(class="form-check-label") }}
+                            <div class="form-text">Если отмечено, это изображение станет главным для продукта</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Кнопки сохранения внутри формы -->
+                    <div class="mt-4 p-3 bg-light rounded">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">Готовы загрузить изображение?</h6>
+                                <small class="text-muted">Проверьте выбранный файл и описание</small>
+                            </div>
+                            <div>
+                                <a href="{{ url_for('admin.product_edit', product_id=product.id) }}" class="btn btn-secondary me-2">
+                                    <i class="fas fa-times"></i> Отмена
+                                </a>
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-upload"></i> Загрузить изображение
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Информация о продукте</h6>
+            </div>
+            <div class="card-body">
+                {% if product.image %}
+                    <img src="{{ url_for('static', filename='uploads/' + product.image) }}" 
+                         alt="{{ product.name }}" class="img-fluid mb-3 rounded">
+                {% endif %}
+                <h6>{{ product.name }}</h6>
+                <p class="text-muted">{{ product.description|truncate(100) }}</p>
+                <p><strong>Цена:</strong> €{{ "%.2f"|format(product.price) }}</p>
+                {% if product.category %}
+                    <p><strong>Категория:</strong> {{ product.category.name }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,591 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+/* Переменные */
+:root {
+    --page-bg: #f8f9fa; /* светлый нейтральный фон */
+    --block-bg: #fff;
+    --main-font: 'Inter', 'Montserrat', Arial, sans-serif;
+    --page-accent: #7a5c15;
+    --page-accent-light: #cfb78c;
+    --header-footer-bg: #f7f5ed;
+}
+
+
+
+/* ========== Хедер и Футер одинакового цвета ========== */
+header, footer#site-footer {
+    background: var(--header-footer-bg) !important;
+    color: #232323 !important;
+    box-shadow: 0 8px 48px #0002;
+    z-index: 1000;
+}
+header { position: fixed; top: 0; left: 0; right: 0; width: 100%; padding: 1.2em 0; }
+footer#site-footer { 
+    position: fixed;
+    left: 0; right: 0; bottom: 0; width: 100%;
+    padding: 1.2em 0.5em; text-align: center;
+    box-shadow: 0 -4px 32px #efe1caaa;
+    background: var(--header-footer-bg) !important;
+}
+
+/* ========== Общий фон, шрифты и анимации ========== */
+body {
+    background: var(--page-bg) !important;
+    color: #100f0f;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: var(--main-font);
+}
+a, .block-card a, .block-card h3 a, .block-card p a {
+    text-decoration: none !important;
+    color: inherit;
+    transition: color 0.18s;
+}
+
+@keyframes cardFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+@keyframes fadeBg {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes popupIn {
+    0% { opacity: 0; transform: scale(0.88) translateY(90px);}
+    100% { opacity: 1; transform: scale(1) translateY(0);}
+}
+
+/* ========== КОНТЕНТНЫЕ/АДМИН-СТРАНИЦЫ ========== */
+.page-content, .page-container {
+    max-width: 660px;
+    margin: 80px auto 90px auto;
+    padding: 44px 28px 36px 28px;
+    background: var(--block-bg);
+    border-radius: 30px;
+    box-shadow: 0 6px 32px 0 rgba(183, 151, 122, 0.08), 0 2px 48px 0 #dac7a258;
+    color: #786c6c;
+    font-size: 1.21em;
+    line-height: 1.74;
+    letter-spacing: 0.01em;
+    text-align: left;
+    word-break: break-word;
+}
+.page-content h1, .page-content h2, .page-content h3,
+.page-container h1, .page-container h2, .page-container h3 { 
+    text-align: center; 
+    margin-top: 16px; 
+    margin-bottom: 30px; 
+    font-weight: 800;
+    font-family: var(--main-font);
+}
+.page-content ul, .page-content ol, .page-container ul, .page-container ol {
+    text-align: left;
+    display: block;
+    margin: 1.3em 0 1.3em 1.3em;
+    font-size: 1em;
+    line-height: 1.5;
+    padding-left: 1.5em;
+}
+.page-content li, .page-container li { margin-bottom: 0.4em; text-align: left; }
+
+.page-container form {
+    background: var(--page-bg);
+    border-radius: 16px;
+    box-shadow: 0 2px 16px #e0e0e020;
+    padding: 2em 1.5em 1.5em 1.5em;
+}
+.form-control {
+    padding: 0.6em 0.8em;
+    border-radius: 10px;
+    border: 1.5px solid #a29d8e42;
+    width: 100%;
+    background: #a0a02d;
+    font-size: 1em;
+    font-family: var(--main-font);
+    margin-top: 0.2em;
+    margin-bottom: 0.4em;
+    box-sizing: border-box;
+}
+
+/* ========== Блоки на главной ========== */
+.blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+.block-card {
+    width: calc(100vw - 30mm);
+    max-width: 1200px;
+    min-height: 380px;
+    background: var(--block-bg);
+    border-radius: 44px;
+    box-shadow: 0 6px 32px 0 rgba(142, 97, 97, 0.12), 0 2px 96px 0 rgba(84,65,18,0.14);
+    padding: 60px 46px 46px 46px;
+    margin: 15mm 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+    transition: 
+      box-shadow 0.34s cubic-bezier(.6,1.4,.44,1.03),
+      transform 0.24s cubic-bezier(.51,1.5,.57,1.02);
+    border: none;
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    animation: cardFadeIn 0.85s cubic-bezier(.31,1.2,.32,1.02) forwards;
+}
+.blocks .block-card { animation-delay: 0.18s; }
+.blocks .block-card:nth-child(2) { animation-delay: 0.28s; }
+.blocks .block-card:nth-child(3) { animation-delay: 0.36s; }
+.blocks .block-card:nth-child(4) { animation-delay: 0.45s; }
+.blocks .block-card:nth-child(5) { animation-delay: 0.60s; }
+.blocks .block-card:nth-child(6) { animation-delay: 0.70s; }
+.blocks .block-card:nth-child(7) { animation-delay: 0.78s; }
+.block-card:hover {
+    box-shadow: 0 12px 64px 0 #bfae7e33, 0 8px 120px 0 #ead9b73a, 0 2px 96px 0 rgba(222, 216, 200, 0.18);
+    transform: translateY(-6px) scale(1.017);
+}
+.block-card img {
+    width: 100%;
+    max-width: 760px;
+    max-height: 320px;
+    height: auto;
+    object-fit: contain; /* АККУРАТНОЕ ВПИСЫВАНИЕ! */
+    border-radius: 36px;
+    margin-bottom: 38px;
+    box-shadow: 0 6px 26px rgba(207, 95, 95, 0.133);
+    transition: box-shadow 0.22s;
+    background: #f8f6ef;
+}
+.block-card img:hover {
+    box-shadow: 0 12px 44px #bfae7e19;
+}
+.block-card h3 {
+    margin: 0 0 20px 0;
+    font-size: 2.4em;
+    color: #843636;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    text-shadow: 0 1px 0 #fff2;
+    font-family: var(--main-font);
+    text-decoration: none !important;
+}
+.block-card p {
+    font-size: 1.23em;
+    color: #323232;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-family: var(--main-font);
+    text-decoration: none !important;
+}
+
+/* --- Payment --- */
+.payment-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.payment-card {
+  background: #fdfaf0;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  width: 280px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.payment-card img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.payment-card .btn,
+.payment-card .btn-primary {
+  width: 100%;
+  font-weight: bold;
+  padding: 12px 16px;
+  margin-top: 18px;
+  margin-bottom: 0;
+  align-self: flex-end;
+}
+
+/* Зберігаємо адаптивність для мобільних */
+@media (max-width: 600px) {
+  .payment-card {
+    min-height: 340px;
+    width: 98vw;
+    padding: 12px 4vw;
+  }
+}
+
+/* ========== КНОПКИ ========== */
+.btn, .btn-primary {
+    display: inline-block;
+    background: var(--page-accent);
+    color: #fff !important;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75em 2em;
+    margin-top: 1em;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.18s, color 0.16s;
+    font-family: var(--main-font);
+    box-shadow: 0 2px 8px #e9e2cf;
+}
+.btn:hover, .btn-primary:hover { background: var(--page-accent-light); color: #232323 !important; }
+
+/* ========== BOOTSTRAP BUTTON ENHANCEMENTS ========== */
+/* Ensure Bootstrap buttons are properly visible and styled */
+.btn {
+    font-family: var(--main-font) !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    white-space: nowrap !important;
+}
+
+.btn-primary {
+    background-color: var(--page-accent) !important;
+    border-color: var(--page-accent) !important;
+}
+
+.btn-primary:hover {
+    background-color: #5a4310 !important;
+    border-color: #5a4310 !important;
+    transform: translateY(-1px) !important;
+}
+
+.btn-lg {
+    padding: 12px 24px !important;
+    font-size: 1.1rem !important;
+}
+
+.btn-secondary {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62 !important;
+    border-color: #545b62 !important;
+}
+
+/* Ensure submit buttons are always visible */
+button[type="submit"], input[type="submit"] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-block !important;
+}
+
+/* Admin form button styling */
+.bg-light {
+    background-color: #f8f9fa !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.justify-content-between {
+    justify-content: space-between !important;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.me-2 {
+    margin-right: 0.5rem !important;
+}
+
+/* Tab styling */
+.nav-tabs {
+    border-bottom: 2px solid #dee2e6 !important;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid transparent !important;
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: var(--page-accent) !important;
+    color: white !important;
+    border-color: var(--page-accent) !important;
+}
+
+/* Alert styling */
+.alert-info {
+    background-color: #d1ecf1 !important;
+    border-color: #bee5eb !important;
+    color: #0c5460 !important;
+    border-radius: 8px !important;
+}
+
+/* Card styling */
+.card {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 12px !important;
+    background: var(--block-bg) !important;
+}
+
+.card-header {
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+}
+
+/* Form styling */
+.form-control {
+    border: 1px solid #ced4da !important;
+    border-radius: 6px !important;
+    padding: 0.75rem !important;
+}
+
+.form-control:focus {
+    border-color: var(--page-accent) !important;
+    box-shadow: 0 0 0 0.2rem rgba(122, 92, 21, 0.25) !important;
+}
+
+.form-label {
+    font-weight: 600 !important;
+    color: #495057 !important;
+}
+
+/* Ensure text is visible */
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.form-text {
+    font-size: 0.875em !important;
+}
+
+/* Container styling */
+.container-fluid {
+    padding: 0 15px !important;
+}
+
+.row {
+    margin: 0 !important;
+}
+
+.col-md-8, .col-md-4, .col-md-6, .col-12 {
+    padding: 0 15px !important;
+}
+
+/* ========== ПОПАП блок (детальный просмотр карточки) ========== */
+#block-detail-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(18,17,15,0.97);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    animation: fadeBg 0.35s cubic-bezier(.19,1.1,.46,1.06);
+    overflow: auto;
+}
+.popup-card {
+    background: #fff;
+    border-radius: 48px;
+    box-shadow: 0 24px 72px 0 #0006, 0 4px 128px #b9a78530;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 100%;
+    min-width: 250px;
+    padding: 48px 32px 38px 32px;
+    text-align: center;
+    position: relative;
+    animation: popupIn 0.55s cubic-bezier(.21,1.12,.47,1.08);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.popup-close {
+    position: absolute;
+    top: 18px;
+    right: 38px;
+    font-size: 2.4em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #aaa;
+    transition: color 0.17s;
+    z-index: 10;
+}
+.popup-card img {
+    width: auto;
+    max-width: 100%;
+    max-height: 35vh;
+    height: auto;
+    object-fit: contain;
+    border-radius: 24px;
+    box-shadow: 0 6px 44px #0001;
+    margin-bottom: 36px;
+    margin-top: 2px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: #f8f6ef;
+}
+.popup-card h2 {
+    font-size: 2.25em;
+    margin: 0 0 20px 0;
+    font-family: var(--main-font);
+    font-weight: 800;
+    color: #1a1a1a;
+}
+.popup-card .desc, .popup-card p {
+    font-size: 1.18em;
+    color: #232323;
+    margin-bottom: 0;
+    font-family: var(--main-font);
+    word-break: break-word;
+    overflow-wrap: break-word;
+    text-align: left;
+    line-height: 1.6;
+    width: 100%;
+    max-width: 90vw;
+    white-space: pre-line;
+    margin-bottom: 1em;
+}
+
+/* ========== ADMIN PAGES SPACING ========== */
+/* Ensure admin pages don't hide behind header and footer */
+.admin-page {
+    margin-top: 80px !important; /* Space for fixed header (padding 1.2em + content) */
+    margin-bottom: 100px !important; /* Space for fixed footer (padding 1.2em + content) */
+    padding-top: 20px !important;
+    padding-bottom: 40px !important;
+    min-height: calc(100vh - 180px) !important; /* Ensure full height minus header/footer */
+}
+
+/* Admin container adjustments */
+.admin-page .container-fluid {
+    padding-top: 20px !important;
+    padding-bottom: 60px !important;
+}
+
+/* Ensure admin content is fully visible */
+.admin-page .card {
+    margin-bottom: 30px !important;
+}
+
+/* Admin form buttons - ensure they're above footer */
+.admin-page .bg-light {
+    margin-bottom: 40px !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* Admin header buttons spacing */
+.admin-page .d-flex.justify-content-between.align-items-center {
+    margin-bottom: 30px !important;
+    margin-top: 20px !important;
+}
+
+/* Special spacing for mobile admin pages */
+@media (max-width: 800px) {
+    .admin-page {
+        margin-top: 100px !important;
+        margin-bottom: 120px !important;
+        padding: 15px !important;
+    }
+    
+    .admin-page .container-fluid {
+        padding: 10px 5px 80px 5px !important;
+    }
+    
+    .admin-page .bg-light {
+        margin-bottom: 60px !important;
+    }
+}
+
+/* Shop page specific styles */
+.shop-page {
+    margin-top: 100px !important; /* Відступ для хедера */
+    margin-bottom: 110px !important; /* Відступ для футера */
+    padding-top: 20px !important;
+    padding-bottom: 40px !important;
+    min-height: calc(100vh - 210px) !important;
+}
+
+@media (max-width: 800px) {
+    .shop-page {
+        margin-top: 120px !important;
+        margin-bottom: 130px !important;
+        padding: 15px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .shop-page {
+        margin-top: 90px !important;
+        margin-bottom: 120px !important;
+        padding: 8px 2vw !important;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .block-card { max-width: 98vw; padding: 24px 1.5vw; }
+}
+@media (max-width: 900px) {
+    .block-card { min-height: 200px; padding: 14px 0.5em; width: 96vw !important; }
+    .block-card img { max-width: 94vw; max-height: 160px; }
+}
+@media (max-width: 800px) {
+    .page-content, .page-container { padding: 16px 4vw 24px 4vw; }
+    .popup-card {
+        border-radius: 20px;
+        max-width: 96vw;
+        max-height: 96vh;
+        padding: 18px 8px 13px 8px;
+    }
+    .popup-card img {
+        max-height: 22vh;
+        border-radius: 10px;
+    }
+}
+@media (max-width: 600px) {
+    .block-card { min-height: 120px; padding: 0.5em 0.3em; width: 98vw !important; }
+    .block-card img { max-width: 98vw; max-height: 120px; }
+    body { padding-bottom: 120px; }
+    .page-content, .page-container { 
+        margin: 82px 1vw 100px 1vw !important;
+        padding: 16px 2vw;
+        border-radius: 16px;
+    }
+}

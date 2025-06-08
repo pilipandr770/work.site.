@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}{{ _('Налаштування сайту') }}{% endblock %}
+{% block content %}
+<div class="page-container">
+  <h1>{{ _('Налаштування соцмереж і email') }}</h1>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <div style="margin-bottom:1em;">{{ form.facebook.label }}<br>{{ form.facebook(class_='form-control', style='width:100%;') }}</div>
+    <div style="margin-bottom:1em;">{{ form.instagram.label }}<br>{{ form.instagram(class_='form-control', style='width:100%;') }}</div>
+    <div style="margin-bottom:1em;">{{ form.telegram.label }}<br>{{ form.telegram(class_='form-control', style='width:100%;') }}</div>
+    <div style="margin-bottom:1em;">{{ form.email.label }}<br>{{ form.email(class_='form-control', style='width:100%;') }}</div>
+    <button type="submit" class="btn btn-success" style="width:100%;font-size:1.1em;">{{ _('Зберегти') }}</button>
+  </form>
+</div>
+{% endblock %}

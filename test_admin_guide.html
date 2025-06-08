@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест админки - Платежные методы</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .json-example {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        .correct { border-left: 4px solid #28a745; }
+        .incorrect { border-left: 4px solid #dc3545; }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Тест админки - Платежные методы</h1>
+    
+    <div class="test-section">
+        <h2>📋 Инструкция по добавлению URL платежей</h2>
+        <p><strong>Главное правило:</strong> В JSON используйте только <strong>двойные кавычки</strong> (" "), не одинарные (' ')!</p>
+        
+        <h3>✅ Правильные примеры:</h3>
+        
+        <h4>💳 Stripe:</h4>
+        <div class="json-example correct">
+{"url": "https://buy.stripe.com/test_14k5n29uF9h82f6bII"}
+        </div>
+        
+        <h4>💰 PayPal:</h4>
+        <div class="json-example correct">
+{"url": "https://paypal.me/yourstore/100"}
+        </div>
+        
+        <h4>🏦 Банк:</h4>
+        <div class="json-example correct">
+{"iban": "UA123456789", "bic": "PRIVAT", "recipient": "ФОП Іванов"}
+        </div>
+        
+        <h4>₿ Bitcoin:</h4>
+        <div class="json-example correct">
+{"address": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa", "network": "Bitcoin"}
+        </div>
+        
+        <h3>❌ Неправильные примеры (НЕ РАБОТАЮТ):</h3>
+        
+        <div class="json-example incorrect">
+{'url': 'https://example.com'}  ← Одинарные кавычки
+        </div>
+        
+        <div class="json-example incorrect">
+{url: "https://example.com"}  ← Ключ без кавычек
+        </div>
+        
+        <div class="json-example incorrect">
+{"url": "https://example.com",}  ← Лишняя запятая
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎯 Пошаговая инструкция</h2>
+        <ol>
+            <li>Откройте админку: <a href="http://localhost:5000/admin" class="btn">Админка</a></li>
+            <li>Логин: <code>andrii770</code>, Пароль: <code>Dnepr75ok10</code></li>
+            <li>Заполните форму:
+                <ul>
+                    <li><strong>Название:</strong> PayPal Test</li>
+                    <li><strong>Тип:</strong> paypal</li>
+                    <li><strong>Реквизиты:</strong> скопируйте правильный JSON сверху</li>
+                    <li>Отметьте ✅ <strong>Активный</strong></li>
+                </ul>
+            </li>
+            <li>Нажмите <strong>Сохранить</strong></li>
+            <li>Проверьте результат: <a href="http://localhost:5000/payment" class="btn">Страница оплаты</a></li>
+        </ol>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔍 Проверка результата</h2>
+        <p>После добавления метода проверьте:</p>
+        <ul>
+            <li>✅ Метод появился в списке админки</li>
+            <li>✅ На странице /payment есть кнопка с вашим URL</li>
+            <li>✅ Клик по кнопке ведет на правильный URL</li>
+        </ul>
+    </div>
+    
+    <div class="test-section">
+        <h2>🚨 Если не работает</h2>
+        <p>Проверьте:</p>
+        <ul>
+            <li>🔍 JSON содержит только <strong>двойные кавычки</strong></li>
+            <li>🔍 Нет лишних запятых в конце</li>
+            <li>🔍 URL начинается с <code>http://</code> или <code>https://</code></li>
+            <li>🔍 Метод отмечен как <strong>Активный</strong></li>
+        </ul>
+    </div>
+    
+    <script>
+        console.log('Тестовая страница загружена');
+        console.log('Используйте инструкции выше для тестирования админки');
+    </script>
+</body>
+</html>
