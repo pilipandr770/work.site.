@@ -128,7 +128,7 @@ msgstr "Welche Daten sammeln wir?"
 
 #: app/templates/privacy.html:11
 msgid "Ми не збираємо жодних персональних даних автоматично."
-msgstr "Wir sammeln keine personenbezogenen Daten автоматично."
+msgstr "Wir sammeln keine personenbezogenen Daten автоматisch."
 
 #: app/templates/privacy.html:12
 msgid "Ми отримуємо ваші контактні дані (ім'я, email, телефон) лише якщо ви самостійно залишаєте їх для зв'язку або оформлення заявки/оплати."
@@ -253,4 +253,44 @@ msgstr "Serverfehler"
 #: app/templates/errors/500.html:5
 msgid "Внутрішня помилка"
 msgstr "Interner Fehler"
+
+#: app/templates/blockchain/token_sale_detail.html:63 app/templates/blockchain/token_sale_list.html:19 app/templates/blockchain/token.html:61
+msgid "Купить на Uniswap"
+msgstr "Auf Uniswap kaufen"
+
+#: app/templates/blockchain/token_sale_detail.html:68
+msgid "Купить через MetaMask"
+msgstr "Mit MetaMask kaufen"
+
+#: app/templates/blockchain/token_sale_detail.html:73
+msgid "Посмотреть контракт"
+msgstr "Vertrag ansehen"
+
+#: app/templates/blockchain/token_sale_detail.html:77 app/templates/blockchain/airdrop_detail.html:41
+msgid "Подключить кошелек"
+msgstr "Wallet verbinden"
+
+#: app/templates/blockchain/token_sale_detail.html:81
+msgid "Традиционная покупка"
+msgstr "Traditioneller Kauf"
+
+#: app/templates/blockchain/token_sale_detail.html:88 app/templates/blockchain/airdrop_detail.html:50
+msgid "Войти"
+msgstr "Anmelden"
+
+#: app/templates/blockchain/token_sale_detail.html:188
+msgid "Добавить в MetaMask"
+msgstr "Zu MetaMask hinzufügen"
+
+#: app/templates/blockchain/airdrop_detail.html:45
+msgid "Зарегистрироваться на аирдроп"
+msgstr "Für Airdrop registrieren"
+
+#: app/templates/blockchain/dao_index.html:9
+msgid "Создать предложение"
+msgstr "Vorschlag erstellen"
+
+#: app/templates/blockchain/dao_index.html:63
+msgid "Детали и голосование"
+msgstr "Details und Abstimmung"
 

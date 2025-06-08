@@ -733,3 +733,43 @@ msgstr ""
 msgid "Not a valid float value."
 msgstr ""
 
+#: app/templates/blockchain/token_sale_detail.html:63 app/templates/blockchain/token_sale_list.html:19 app/templates/blockchain/token.html:61
+msgid "Купить на Uniswap"
+msgstr "Buy on Uniswap"
+
+#: app/templates/blockchain/token_sale_detail.html:68
+msgid "Купить через MetaMask"
+msgstr "Buy with MetaMask"
+
+#: app/templates/blockchain/token_sale_detail.html:73
+msgid "Посмотреть контракт"
+msgstr "View Contract"
+
+#: app/templates/blockchain/token_sale_detail.html:77 app/templates/blockchain/airdrop_detail.html:41
+msgid "Подключить кошелек"
+msgstr "Connect Wallet"
+
+#: app/templates/blockchain/token_sale_detail.html:81
+msgid "Традиционная покупка"
+msgstr "Traditional Purchase"
+
+#: app/templates/blockchain/token_sale_detail.html:88 app/templates/blockchain/airdrop_detail.html:50
+msgid "Войти"
+msgstr "Login"
+
+#: app/templates/blockchain/token_sale_detail.html:188
+msgid "Добавить в MetaMask"
+msgstr "Add to MetaMask"
+
+#: app/templates/blockchain/airdrop_detail.html:45
+msgid "Зарегистрироваться на аирдроп"
+msgstr "Register for Airdrop"
+
+#: app/templates/blockchain/dao_index.html:9
+msgid "Создать предложение"
+msgstr "Create Proposal"
+
+#: app/templates/blockchain/dao_index.html:63
+msgid "Детали и голосование"
+msgstr "Details and Voting"
+

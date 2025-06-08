@@ -255,3 +255,43 @@ msgstr "Ошибка сервера"
 msgid "Внутрішня помилка"
 msgstr "Внутренняя ошибка"
 
+#: app/templates/blockchain/token_sale_detail.html:63 app/templates/blockchain/token_sale_list.html:19 app/templates/blockchain/token.html:61
+msgid "Купить на Uniswap"
+msgstr "Купить на Uniswap"
+
+#: app/templates/blockchain/token_sale_detail.html:68
+msgid "Купить через MetaMask"
+msgstr "Купить через MetaMask"
+
+#: app/templates/blockchain/token_sale_detail.html:73
+msgid "Посмотреть контракт"
+msgstr "Посмотреть контракт"
+
+#: app/templates/blockchain/token_sale_detail.html:77 app/templates/blockchain/airdrop_detail.html:41
+msgid "Подключить кошелек"
+msgstr "Подключить кошелек"
+
+#: app/templates/blockchain/token_sale_detail.html:81
+msgid "Традиционная покупка"
+msgstr "Традиционная покупка"
+
+#: app/templates/blockchain/token_sale_detail.html:88 app/templates/blockchain/airdrop_detail.html:50
+msgid "Войти"
+msgstr "Войти"
+
+#: app/templates/blockchain/token_sale_detail.html:188
+msgid "Добавить в MetaMask"
+msgstr "Добавить в MetaMask"
+
+#: app/templates/blockchain/airdrop_detail.html:45
+msgid "Зарегистрироваться на аирдроп"
+msgstr "Зарегистрироваться на аирдроп"
+
+#: app/templates/blockchain/dao_index.html:9
+msgid "Создать предложение"
+msgstr "Создать предложение"
+
+#: app/templates/blockchain/dao_index.html:63
+msgid "Детали и голосование"
+msgstr "Детали и голосование"
+
