@@ -1,0 +1,84 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}{{ _('Імпорт тем з CSV') }}{% endblock %}
+
+{% block admin_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h3 class="card-title">{{ _('Імпорт тем з CSV-файлу') }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-info-circle"></i> {{ _('Інструкції') }}</h5>
+                        <p>{{ _('Завантажте CSV-файл з темами для блогу. Формат файлу:') }}</p>
+                        <ul>
+                            <li>{{ _('Перший стовпчик: назва теми (обов\'язково)') }}</li>
+                            <li>{{ _('Другий стовпчик: опис/ключові слова (необов\'язково)') }}</li>
+                        </ul>
+                        <p>{{ _('Приклад:') }}</p>
+                        <pre class="bg-light p-2">Криптовалюти та їх вплив на економіку,Біткоін блокчейн фінанси інвестиції
+Сучасні тренди цифрового маркетингу,SMM SEO контент-маркетинг цифрові стратегії
+Штучний інтелект в повсякденному житті,Технології AI ML автоматизація
+</pre>
+                    </div>
+                    
+                    <form method="post" enctype="multipart/form-data">
+                        {{ form.csrf_token }}
+                        
+                        <div class="mb-4">
+                            {{ form.file.label(class="form-label") }}
+                            {{ form.file(class="form-control" + (" is-invalid" if form.file.errors else "")) }}
+                            {% if form.file.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.file.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('blog_automation.topics') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left"></i> {{ _('Назад') }}
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-upload"></i> {{ _('Завантажити та обробити') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Sample CSV Template -->
+            <div class="card mt-4">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">{{ _('Завантажити шаблон CSV') }}</h5>
+                </div>
+                <div class="card-body">
+                    <p>{{ _('Ви можете завантажити шаблон CSV-файлу, щоб правильно підготувати дані для імпорту.') }}</p>
+                    <a href="#" class="btn btn-outline-primary" onclick="downloadCSVTemplate()">
+                        <i class="fas fa-download"></i> {{ _('Завантажити шаблон') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function downloadCSVTemplate() {
+    const csvContent = "Назва теми,Опис/Ключові слова\nЦифрова трансформація бізнесу,Діджиталізація оптимізація процесів інновації\nТренди в IT галузі,Програмування технології розвиток кар'єра";
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "blog_topics_template.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
+{% endblock %}

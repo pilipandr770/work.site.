@@ -1,0 +1,117 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}{{ _('Теми для автогенерації') }}{% endblock %}
+
+{% block admin_content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <div>
+                <h2>{{ _('Теми для автогенерації') }}</h2>
+                <p class="text-muted">{{ _('Керуйте темами для автоматичного створення контенту') }}</p>
+            </div>
+            <div>
+                <a href="{{ url_for('blog_automation.add_topic') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> {{ _('Додати тему') }}
+                </a>
+                <a href="{{ url_for('blog_automation.bulk_upload_topics') }}" class="btn btn-info">
+                    <i class="fas fa-file-upload"></i> {{ _('Імпортувати з CSV') }}
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Topics Table -->
+    <div class="card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>{{ _('Назва теми') }}</th>
+                            <th>{{ _('Опис/Ключові слова') }}</th>
+                            <th>{{ _('Статус') }}</th>
+                            <th>{{ _('Створено') }}</th>
+                            <th>{{ _('Заплановано') }}</th>
+                            <th>{{ _('Дії') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for topic in topics %}
+                        <tr>
+                            <td>{{ topic.id }}</td>
+                            <td>{{ topic.title }}</td>
+                            <td>
+                                {% if topic.description %}
+                                <span class="text-muted">{{ topic.description }}</span>
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if topic.status == 'pending' %}
+                                    <span class="badge bg-warning text-dark">{{ _('Очікує') }}</span>
+                                {% elif topic.status == 'processing' %}
+                                    <span class="badge bg-info">{{ _('В процесі') }}</span>
+                                {% elif topic.status == 'completed' %}
+                                    <span class="badge bg-success">{{ _('Завершено') }}</span>
+                                {% elif topic.status == 'failed' %}
+                                    <span class="badge bg-danger">{{ _('Помилка') }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ topic.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ topic.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>
+                                {% if topic.scheduled_for %}
+                                    {{ topic.scheduled_for.strftime('%Y-%m-%d %H:%M') }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    {% if topic.status == 'pending' %}
+                                    <a href="{{ url_for('blog_automation.edit_topic', id=topic.id) }}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="{{ url_for('blog_automation.test_content_generation', topic_id=topic.id) }}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-success" title="{{ _('Тестова генерація') }}">
+                                            <i class="fas fa-play"></i>
+                                        </button>
+                                    </form>
+                                    <form action="{{ url_for('blog_automation.delete_topic', id=topic.id) }}" method="post" class="d-inline" 
+                                          onsubmit="return confirm('{{ _('Ви впевнені, що хочете видалити цю тему?') }}')">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                    {% elif topic.status == 'failed' %}
+                                    <form action="{{ url_for('blog_automation.test_content_generation', topic_id=topic.id) }}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-warning" title="{{ _('Спробувати знову') }}">
+                                            <i class="fas fa-redo"></i>
+                                        </button>
+                                    </form>
+                                    {% elif topic.status == 'completed' and topic.blog_block %}
+                                    <a href="{{ url_for('blog.edit_block', id=topic.blog_block.id) }}" class="btn btn-sm btn-outline-info" title="{{ _('Переглянути блог') }}">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center py-4">
+                                <p class="text-muted mb-0">{{ _('Не знайдено жодної теми. Додайте нові теми для генерації контенту.') }}</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

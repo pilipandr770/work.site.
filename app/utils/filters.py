@@ -46,5 +46,22 @@ def register_filters(app):
             strip=True
         )
         
-        # Mark the result as safe to avoid double-escaping in Jinja
+    # Mark the result as safe to avoid double-escaping in Jinja
         return Markup(clean_html)
+        
+    @app.template_filter('nl2br')
+    def nl2br_filter(text):
+        """
+        Convert newlines to <br> tags
+        
+        Usage in templates:
+        {{ log_message|nl2br|safe }}
+        """
+        if not text:
+            return ""
+        
+        # Replace newlines with <br> tags
+        html = text.replace('\n', '<br>')
+        
+        # Mark the result as safe to avoid double-escaping in Jinja
+        return Markup(html)

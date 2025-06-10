@@ -1,0 +1,76 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}{{ _('Редагувати тему') }}{% endblock %}
+
+{% block admin_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h3 class="card-title">{{ _('Редагувати тему') }}</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {{ form.csrf_token }}
+                        
+                        <div class="mb-3">
+                            {{ form.title.label(class="form-label") }}
+                            {{ form.title(class="form-control" + (" is-invalid" if form.title.errors else ""), placeholder=_('Введіть тему для генерації контенту')) }}
+                            {% if form.title.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.title.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <small class="form-text text-muted">
+                                {{ _('Вкажіть чітку та конкретну тему для кращих результатів генерації') }}
+                            </small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.description.label(class="form-label") }}
+                            {{ form.description(class="form-control" + (" is-invalid" if form.description.errors else ""), rows=4, placeholder=_('Додаткова інформація, ключові слова, контекст')) }}
+                            {% if form.description.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.description.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <small class="form-text text-muted">
+                                {{ _('Додаткова інформація та контекст допоможуть створити більш точний вміст') }}
+                            </small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.scheduled_for.label(class="form-label") }}
+                            {{ form.scheduled_for(class="form-control" + (" is-invalid" if form.scheduled_for.errors else "")) }}
+                            {% if form.scheduled_for.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.scheduled_for.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <small class="form-text text-muted">
+                                {{ _('Опціонально: запланувати генерацію на конкретний час') }}
+                            </small>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('blog_automation.topics') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left"></i> {{ _('Назад') }}
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> {{ _('Оновити') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

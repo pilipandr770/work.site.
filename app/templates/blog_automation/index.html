@@ -1,0 +1,227 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}{{ _('Автоматизація блогу') }}{% endblock %}
+
+{% block admin_content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2>{{ _('Панель автоматизації блогу') }}</h2>
+            <p class="lead">{{ _('Керуйте AI-генерацією контенту та автоматичним постингом') }}</p>
+        </div>
+    </div>
+    
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ _('Всього тем') }}</h5>
+                    <p class="card-text display-4">{{ total_topics }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ _('Очікують') }}</h5>
+                    <p class="card-text display-4">{{ pending_topics }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ _('Виконано') }}</h5>
+                    <p class="card-text display-4">{{ completed_topics }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-danger text-white mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ _('Помилки') }}</h5>
+                    <p class="card-text display-4">{{ failed_topics }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5>{{ _('Швидкі дії') }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="{{ url_for('blog_automation.add_topic') }}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> {{ _('Додати тему') }}
+                        </a>
+                        <a href="{{ url_for('blog_automation.bulk_upload_topics') }}" class="btn btn-info">
+                            <i class="fas fa-file-upload"></i> {{ _('Імпортувати теми з CSV') }}
+                        </a>
+                        <a href="{{ url_for('blog_automation.settings') }}" class="btn btn-secondary">
+                            <i class="fas fa-cog"></i> {{ _('Налаштування') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Autoposting Status -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5>{{ _('Статус автопостингу') }}</h5>
+                </div>
+                <div class="card-body">
+                    {% if settings.is_active %}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i> {{ _('Автопостинг активовано') }}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i> {{ _('Автопостинг деактивовано') }}
+                    </div>
+                    {% endif %}
+                    
+                    <h6>{{ _('Графік постингу') }}</h6>
+                    <p>
+                        <strong>{{ _('Дні:') }}</strong> 
+                        {% set days = {
+                            '0': 'Понеділок',
+                            '1': 'Вівторок',
+                            '2': 'Середа',
+                            '3': 'Четвер',
+                            '4': "П'ятниця",
+                            '5': 'Субота',
+                            '6': 'Неділя'
+                        } %}
+                        {% set selected_days = settings.days_of_week.split(',') %}
+                        {% for day_num, day_name in days.items() %}
+                            {% if day_num in selected_days %}
+                                {{ day_name }}{% if not loop.last %}, {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p><strong>{{ _('Час:') }}</strong> {{ settings.posting_time }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('blog_automation.settings') }}" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-edit"></i> {{ _('Змінити налаштування') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature Status -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5>{{ _('Активні функції') }}</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ _('Автоматичний переклад') }}
+                            {% if settings.auto_translate %}
+                                <span class="badge bg-success rounded-pill">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary rounded-pill">
+                                    <i class="fas fa-times"></i>
+                                </span>
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ _('Генерація зображень') }}
+                            {% if settings.generate_images %}
+                                <span class="badge bg-success rounded-pill">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary rounded-pill">
+                                    <i class="fas fa-times"></i>
+                                </span>
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ _('Постинг у Telegram') }}
+                            {% if settings.post_to_telegram %}
+                                <span class="badge bg-success rounded-pill">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary rounded-pill">
+                                    <i class="fas fa-times"></i>
+                                </span>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Logs -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">{{ _('Останні операції') }}</h5>
+                    <a href="{{ url_for('blog_automation.logs') }}" class="btn btn-sm btn-outline-primary">
+                        {{ _('Всі логи') }} <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>{{ _('Дата') }}</th>
+                                    <th>{{ _('Тема') }}</th>
+                                    <th>{{ _('Дія') }}</th>
+                                    <th>{{ _('Статус') }}</th>
+                                    <th>{{ _('Повідомлення') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for log in logs %}
+                                <tr>
+                                    <td>{{ log.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                    <td>
+                                        {% if log.topic %}
+                                            {{ log.topic.title }}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ log.action }}</td>
+                                    <td>
+                                        {% if log.status == 'success' %}
+                                            <span class="badge bg-success">{{ log.status }}</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">{{ log.status }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ log.message }}</td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">{{ _('Немає записів') }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

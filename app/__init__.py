@@ -35,6 +35,20 @@ def create_app():
     with app.app_context():
         db.create_all()
         print("Database tables created with db.create_all()")
+        
+        # Start blog automation scheduler if enabled
+        from app.blog_automation.models import AutopostingSchedule
+        from app.blog_automation.scheduler import get_scheduler
+        
+        try:
+            schedule = AutopostingSchedule.query.filter_by(is_active=True).first()
+            if schedule:
+                scheduler = get_scheduler(app)
+                if scheduler:
+                    scheduler.start()
+                    print("Blog automation scheduler started")
+        except Exception as e:
+            print(f"Error starting blog automation scheduler: {str(e)}")
     
     # Ensure uploads directory exists
     uploads_dir = os.path.join(app.root_path, 'static', 'uploads')
@@ -66,12 +80,14 @@ def create_app():
     from app.blockchain.routes import blockchain
     from .assist import assist_bp
     from .blog import blog_bp
+    from .blog_automation import blog_automation_bp
     app.register_blueprint(main)
     app.register_blueprint(admin, url_prefix='/admin')
     app.register_blueprint(shop)
     app.register_blueprint(blockchain)
     app.register_blueprint(assist_bp)
     app.register_blueprint(blog_bp, url_prefix='/blog')
+    app.register_blueprint(blog_automation_bp)
 
     # Регистрируем template helper функции как глобальные в Jinja2
     from app.main.routes import (

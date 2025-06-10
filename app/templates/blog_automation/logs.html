@@ -1,0 +1,133 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}{{ _('Логи генерації контенту') }}{% endblock %}
+
+{% block admin_content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2>{{ _('Логи генерації контенту') }}</h2>
+            <p class="text-muted">{{ _('Історія операцій з автоматичного створення контенту блогу') }}</p>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header bg-light">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ _('Останні операції') }}</h5>
+                
+                <div class="btn-group">
+                    <a href="{{ url_for('blog_automation.index') }}" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> {{ _('Повернутись до панелі') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>{{ _('Дата') }}</th>
+                            <th>{{ _('Тема') }}</th>
+                            <th>{{ _('Дія') }}</th>
+                            <th>{{ _('Статус') }}</th>
+                            <th>{{ _('Повідомлення') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr>
+                            <td>{{ log.id }}</td>
+                            <td>{{ log.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            <td>
+                                {% if log.topic %}
+                                    <a href="{{ url_for('blog_automation.edit_topic', id=log.topic.id) }}">
+                                        {{ log.topic.title }}
+                                    </a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if log.action == 'generate_content' %}
+                                    <span class="badge bg-primary">{{ _('Генерація контенту') }}</span>
+                                {% elif log.action == 'translate_to_en' %}
+                                    <span class="badge bg-info">{{ _('Переклад (EN)') }}</span>
+                                {% elif log.action == 'translate_to_de' %}
+                                    <span class="badge bg-info">{{ _('Переклад (DE)') }}</span>
+                                {% elif log.action == 'translate_to_ru' %}
+                                    <span class="badge bg-info">{{ _('Переклад (RU)') }}</span>
+                                {% elif log.action == 'generate_image_prompt' %}
+                                    <span class="badge bg-secondary">{{ _('Генерація промпту') }}</span>
+                                {% elif log.action == 'generate_image' %}
+                                    <span class="badge bg-primary">{{ _('Генерація зображення') }}</span>
+                                {% elif log.action == 'post_to_telegram' %}
+                                    <span class="badge bg-info">{{ _('Telegram публікація') }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ log.action }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if log.status == 'success' %}
+                                    <span class="badge bg-success">{{ _('Успіх') }}</span>
+                                {% elif log.status == 'failed' %}
+                                    <span class="badge bg-danger">{{ _('Помилка') }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ log.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if log.message|length > 100 %}
+                                    {{ log.message[:100] }}...
+                                    <button type="button" class="btn btn-sm btn-link p-0" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#logModal{{ log.id }}">
+                                        {{ _('Детальніше') }}
+                                    </button>
+                                    
+                                    <!-- Modal with full log message -->
+                                    <div class="modal fade" id="logModal{{ log.id }}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">{{ _('Деталі лога') }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="text-muted mb-1">{{ log.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                                                    <p class="mb-3">
+                                                        {% if log.topic %}
+                                                            <strong>{{ _('Тема:') }}</strong> {{ log.topic.title }}
+                                                        {% endif %}
+                                                    </p>
+                                                    <div class="border p-2 bg-light">
+                                                        {{ log.message|nl2br }}
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        {{ _('Закрити') }}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    {{ log.message }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center py-4">{{ _('Ще немає записів логів') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
