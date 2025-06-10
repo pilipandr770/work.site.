@@ -1,0 +1,117 @@
+# Blog translations in English
+
+# Blog public pages
+msgid "Блог"
+msgstr "Blog"
+
+msgid "Останні публікації"
+msgstr "Latest Posts"
+
+msgid "Читати далі"
+msgstr "Read More"
+
+msgid "Опубліковано"
+msgstr "Published"
+
+msgid "Автор"
+msgstr "Author"
+
+msgid "Теги"
+msgstr "Tags"
+
+msgid "Поділитися"
+msgstr "Share"
+
+msgid "Коментарі"
+msgstr "Comments"
+
+msgid "Схожі статті"
+msgstr "Related Articles"
+
+# Blog admin pages
+msgid "Статті"
+msgstr "Articles"
+
+msgid "Теми"
+msgstr "Topics"
+
+msgid "Розклад публікацій"
+msgstr "Publication Schedule"
+
+msgid "Створити нову статтю"
+msgstr "Create New Article"
+
+msgid "Редагувати статтю"
+msgstr "Edit Article"
+
+msgid "Видалити статтю"
+msgstr "Delete Article"
+
+msgid "Заголовок (UA)"
+msgstr "Title (UA)"
+
+msgid "Заголовок (EN)"
+msgstr "Title (EN)"
+
+msgid "Заголовок (RU)"
+msgstr "Title (RU)"
+
+msgid "Зміст (UA)"
+msgstr "Content (UA)"
+
+msgid "Зміст (EN)"
+msgstr "Content (EN)"
+
+msgid "Зміст (RU)"
+msgstr "Content (RU)"
+
+msgid "Опублікувати"
+msgstr "Publish"
+
+msgid "Зберегти як чернетку"
+msgstr "Save as Draft"
+
+msgid "Статус"
+msgstr "Status"
+
+msgid "Опубліковано"
+msgstr "Published"
+
+msgid "Чернетка"
+msgstr "Draft"
+
+msgid "Тема"
+msgstr "Topic"
+
+msgid "Автоматична генерація"
+msgstr "Automatic Generation"
+
+msgid "Згенерувати статтю за допомогою AI"
+msgstr "Generate Article with AI"
+
+msgid "Надіслати в Telegram"
+msgstr "Send to Telegram"
+
+msgid "Налаштувати розклад публікації"
+msgstr "Configure Publication Schedule"
+
+msgid "Частота публікацій"
+msgstr "Publication Frequency"
+
+msgid "Щоденно"
+msgstr "Daily"
+
+msgid "Щотижня"
+msgstr "Weekly"
+
+msgid "Щомісяця"
+msgstr "Monthly"
+
+msgid "Час публікації"
+msgstr "Publication Time"
+
+msgid "Масове імпортування тем"
+msgstr "Bulk Import Topics"
+
+msgid "Імпортувати"
+msgstr "Import"

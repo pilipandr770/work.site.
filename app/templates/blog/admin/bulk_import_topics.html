@@ -1,0 +1,50 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}Массовый импорт тем{% endblock %}
+
+{% block admin_content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Массовый импорт тем</h1>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Импорт тем из списка</h6>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-group mb-3">
+                    <label class="form-label">Список тем</label>
+                    {{ form.topics_text(class="form-control", rows=15) }}
+                    <div class="form-text text-muted">Вставьте список тем, каждая на отдельной строке</div>
+                </div>
+                
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-success") }}
+                    <a href="{{ url_for('blog.admin_topics') }}" class="btn btn-secondary">Отмена</a>
+                </div>
+                
+                <div class="mt-4">
+                    <div class="alert alert-info">
+                        <h5 class="alert-heading">Инструкция</h5>
+                        <p>
+                            Вы можете скопировать темы из текстового файла или электронной таблицы. 
+                            Каждая тема должна быть на отдельной строке.
+                        </p>
+                        <hr>
+                        <p class="mb-0">
+                            Примеры:
+                        </p>
+                        <pre><code>Особенности веб-дизайна в 2025 году
+Как начать карьеру в IT
+10 инструментов для повышения продуктивности
+Искусственный интеллект в повседневной жизни
+Топ-5 трендов в разработке мобильных приложений</code></pre>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

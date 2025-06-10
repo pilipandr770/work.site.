@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block title %}{{ _('Адмінка') }}{% endblock %}
 
 {% block content %}
@@ -24,6 +25,20 @@
       </div>
     </div>
     
+    <!-- Blog Management Section -->
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h6 class="mb-0"><i class="fas fa-blog me-2"></i>{{ _('Блог') }}</h6>
+        </div>
+        <div class="list-group list-group-flush">
+          <a href="{{ url_for('blog.admin_dashboard') }}" class="list-group-item list-group-item-action">
+            <i class="fas fa-th-large me-2"></i> {{ _('Блоки блога') }}
+          </a>
+        </div>
+      </div>
+    </div>
+    
     <div class="col-md-3">
       <div class="card">
         <div class="card-header bg-success text-white">
@@ -31,10 +46,10 @@
         </div>
         <div class="list-group list-group-flush">
           <a href="{{ url_for('admin.products') }}" class="list-group-item list-group-item-action">
-            <i class="fas fa-box me-2"></i> {{ _('Продукты') }}
+            <i class="fas fa-box me-2"></i> {{ _('Продукти') }}
           </a>
           <a href="{{ url_for('admin.categories') }}" class="list-group-item list-group-item-action">
-            <i class="fas fa-tags me-2"></i> {{ _('Категории') }}
+            <i class="fas fa-tags me-2"></i> {{ _('Категорії') }}
           </a>
         </div>
       </div>

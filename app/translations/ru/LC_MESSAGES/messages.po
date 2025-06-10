@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-08 18:00+0200\n"
+"POT-Creation-Date: 2025-06-09 09:37+0200\n"
 "PO-Revision-Date: 2025-06-08 18:00+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,57 +19,89 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: app/templates/index.html:41 app/templates/index.html:43
-msgid "Магазин товарів"
-msgstr "Магазин товаров"
+#: app/templates/base.html:266
+msgid "Дім"
+msgstr "Главная"
+
+#: app/templates/base.html:304
+msgid "Політика конфіденційності"
+msgstr "Политика конфиденциальности"
+
+#: app/templates/base.html:305
+msgid "Імпресум"
+msgstr "Импрессум"
+
+#: app/templates/base.html:306
+msgid "Контакти"
+msgstr "Контакты"
 
 #: app/templates/block_detail.html:32
 msgid "Перейти до оплати"
 msgstr "Перейти к оплате"
 
-#: app/templates/contacts.html:2 app/templates/contacts.html:5
-msgid "Контакти"
-msgstr "Контакты"
-
-#: app/templates/contacts.html:6
-msgid "Тут будуть контактні дані."
-msgstr "Здесь будут контактные данные."
-
-#: app/templates/impressum.html:2 app/templates/impressum.html:5
-msgid "Імпресум"
-msgstr "Импрессум"
-
-#: app/templates/impressum.html:6
-msgid "Тут буде інформація про компанію."
-msgstr "Здесь будет информация о компании."
-
-#: app/templates/index.html:3
+#: app/templates/index.html:2
 msgid "Головна"
 msgstr "Главная"
 
-#: app/templates/index.html:99
+#: app/templates/index.html:23
+msgid "Узнать о токене"
+msgstr ""
+
+#: app/templates/index.html:39 app/templates/index.html:41
+msgid "Магазин товарів"
+msgstr "Магазин товаров"
+
+#: app/templates/index.html:43
+msgid "Перейти в магазин"
+msgstr "Перейти в магазин"
+
+#: app/templates/blockchain/airdrop_detail.html:2
+#: app/templates/blockchain/token.html:143 app/templates/index.html:65
+msgid "Аирдроп"
+msgstr ""
+
+#: app/templates/blockchain/token.html:123
+#: app/templates/blockchain/token_sale_detail.html:2
+#: app/templates/index.html:67
+msgid "Токенсейл"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:2
+#: app/templates/blockchain/dao_proposal_new.html:2 app/templates/index.html:69
+msgid "DAO"
+msgstr ""
+
+#: app/templates/index.html:78 app/templates/index.html:82
 msgid "Оплата онлайн"
 msgstr "Онлайн-оплата"
 
-#: app/templates/index.html:100
-msgid "Виберіть зручний спосіб оплати для вашого замовлення. Ми підтримуємо Stripe, PayPal, банківські перекази та інші сучасні методи."
-msgstr "Выберите удобный способ оплаты для вашего заказа. Мы поддерживаем Stripe, PayPal, банковские переводы и другие современные методы."
+#: app/templates/index.html:79 app/templates/index.html:84
+msgid ""
+"Виберіть зручний спосіб оплати для вашого замовлення. Ми підтримуємо "
+"Stripe, PayPal, банківські перекази та інші сучасні методи."
+msgstr ""
+"Выберите удобный способ оплаты для вашего заказа. Мы поддерживаем Stripe,"
+" PayPal, банковские переводы и другие современные методы."
 
-#: app/templates/index.html:128 app/templates/payment.html:36
+#: app/templates/index.html:116 app/templates/payment.html:43
 msgid "Оплатити через Stripe"
 msgstr "Оплатить через Stripe"
 
-#: app/templates/index.html:130 app/templates/payment.html:38
+#: app/templates/index.html:118 app/templates/payment.html:45
 msgid "Оплатити через PayPal"
 msgstr "Оплатить через PayPal"
 
-#: app/templates/index.html:132 app/templates/payment.html:40
+#: app/templates/index.html:120 app/templates/payment.html:47
 msgid "Реквізити"
 msgstr "Реквизиты"
 
-#: app/templates/index.html:135 app/templates/payment.html:43
+#: app/templates/index.html:123 app/templates/payment.html:50
 msgid "Завантажити рахунок PDF"
 msgstr "Скачать счет PDF"
+
+#: app/templates/index.html:129
+msgid "Всі способи оплати та реквізити"
+msgstr "Все способы оплаты и реквизиты"
 
 #: app/templates/login.html:2
 msgid "Вхід в адмінку"
@@ -83,145 +115,13 @@ msgstr "Вход"
 msgid "Увійти"
 msgstr "Войти"
 
-#: app/templates/payment.html:2 app/templates/payment.html:6
+#: app/templates/payment.html:2 app/templates/payment.html:13
 msgid "Оплата"
 msgstr "Оплата"
 
-#: app/templates/privacy.html:2 app/templates/privacy.html:5
-msgid "Політика конфіденційності"
-msgstr "Политика конфиденциальности"
-
-#: app/templates/privacy.html:7
-msgid "Ми поважаємо вашу приватність і дотримуємося вимог Загального регламенту захисту даних (GDPR) та інших законів ЄС щодо захисту персональних даних."
-msgstr "Мы уважаем вашу приватность и соблюдаем требования Общего регламента по защите данных (GDPR) и других законов ЕС о защите персональных данных."
-
-#: app/templates/privacy.html:9
-msgid "Які дані ми збираємо?"
-msgstr "Какие данные мы собираем?"
-
-#: app/templates/privacy.html:11
-msgid "Ми не збираємо жодних персональних даних автоматично."
-msgstr "Мы не собираем никаких персональных данных автоматически."
-
-#: app/templates/privacy.html:12
-msgid "Ми отримуємо ваші контактні дані (ім'я, email, телефон) лише якщо ви самостійно залишаєте їх для зв'язку або оформлення заявки/оплати."
-msgstr "Мы получаем ваши контактные данные (имя, email, телефон) только если вы самостоятельно оставляете их для связи или оформления заявки/оплаты."
-
-#: app/templates/privacy.html:15
-msgid "Як ми використовуємо ваші дані?"
-msgstr "Как мы используем ваши данные?"
-
-#: app/templates/privacy.html:17
-msgid "Ваші дані використовуються виключно для зв'язку з вами або для виконання вашого запиту (наприклад, для зворотного зв'язку чи виставлення рахунку)."
-msgstr "Ваши данные используются исключительно для связи с вами или для выполнения вашего запроса (например, для обратной связи или выставления счета)."
-
-#: app/templates/privacy.html:18
-msgid "Ми не передаємо ваші дані третім особам, окрім випадків, коли це прямо вимагається законом."
-msgstr "Мы не передаем ваши данные третьим лицам, кроме случаев, когда это прямо требуется законом."
-
-#: app/templates/privacy.html:21
-msgid "Реклама та сторонні сервіси"
-msgstr "Реклама и сторонние сервисы"
-
-#: app/templates/privacy.html:23
-msgid "На сайті можуть бути інтегровані сторонні сервіси (наприклад, Facebook, Google), які можуть збирати дані про вас відповідно до своїх політик конфіденційності."
-msgstr "На сайте могут быть интегрированы сторонние сервисы (например, Facebook, Google), которые могут собирать данные о вас согласно своим политикам конфиденциальности."
-
-#: app/templates/privacy.html:24
-msgid "Ми не маємо доступу до цих даних і не контролюємо їх збір."
-msgstr "Мы не имеем доступа к этим данным и не контролируем их сбор."
-
-#: app/templates/privacy.html:25
-msgid "Детальніше про політику конфіденційності Facebook:"
-msgstr "Подробнее о политике конфиденциальности Facebook:"
-
-#: app/templates/privacy.html:26
-msgid "Детальніше про політику конфіденційності Google:"
-msgstr "Подробнее о политике конфиденциальности Google:"
-
-#: app/templates/privacy.html:29
-msgid "Ваші права"
-msgstr "Ваши права"
-
-#: app/templates/privacy.html:31
-msgid "Ви маєте право отримати інформацію про свої персональні дані, які ми зберігаємо (якщо такі є), вимагати їх виправлення або видалення."
-msgstr "Вы имеете право получить информацию о своих персональных данных, которые мы храним (если таковые есть), требовать их исправления или удаления."
-
-#: app/templates/privacy.html:32
-msgid "Для цього напишіть нам на"
-msgstr "Для этого напишите нам на"
-
-#: app/templates/privacy.html:35
-msgid "Зміни до політики"
-msgstr "Изменения в политике"
-
-#: app/templates/privacy.html:37
-msgid "Ми можемо періодично оновлювати цю політику. Актуальна версія завжди доступна на цій сторінці."
-msgstr "Мы можем периодически обновлять эту политику. Актуальная версия всегда доступна на этой странице."
-
-#: app/templates/privacy.html:40
-msgid "Використовуючи наш сайт, ви погоджуєтесь із цією політикою конфіденційності."
-msgstr "Используя наш сайт, вы соглашаетесь с этой политикой конфиденциальности."
-
-#: app/templates/shop/index.html:48
-msgid "В корзину"
-msgstr "В корзину"
-
-#: app/templates/shop/product.html:79
-msgid "Добавить в корзину"
-msgstr "Добавить в корзину"
-
-#: app/templates/shop/index.html:50 app/templates/blockchain/dao_index.html:65 app/templates/blockchain/dao_index.html:100 app/templates/blockchain/token_sale_list.html:52
-msgid "Подробнее"
-msgstr "Подробнее"
-
-#: app/templates/index.html:43
-msgid "Перейти в магазин"
-msgstr "Перейти в магазин"
-
-#: app/templates/index.html:129
-msgid "Всі способи оплати та реквізити"
-msgstr "Все способы оплаты и реквизиты"
-
-#: app/templates/shop/order_confirmation.html:10
-msgid "Переглянути всі способи оплати та реквізити"
-msgstr "Просмотреть все способы оплаты и реквизиты"
-
-#: app/templates/shop/order_confirmation.html:16
-msgid "Повернутися до магазину"
-msgstr "Вернуться в магазин"
-
-#: app/templates/admin/dashboard.html:2
-msgid "Адмінка"
-msgstr "Админка"
-
-#: app/templates/admin/dashboard.html:6
-msgid "Адмін-панель"
-msgstr "Админ-панель"
-
-#: app/templates/admin/dashboard.html:8
-msgid "Блоки сайту"
-msgstr "Блоки сайта"
-
-#: app/templates/admin/dashboard.html:9
-msgid "Способи оплати"
-msgstr "Способы оплаты"
-
-#: app/templates/admin/dashboard.html:10 app/templates/admin/payments.html:2 app/templates/admin/payments.html:6
+#: app/templates/admin/payments.html:2 app/templates/admin/payments.html:6
 msgid "Історія оплат"
 msgstr "История оплат"
-
-#: app/templates/admin/dashboard.html:11
-msgid "Налаштування соцмереж"
-msgstr "Настройки соцсетей"
-
-#: app/templates/admin/dashboard.html:12
-msgid "Вийти"
-msgstr "Выйти"
-
-#: app/templates/admin/dashboard.html:14
-msgid "Останні оплати"
-msgstr "Последние оплаты"
 
 #: app/templates/admin/settings.html:2
 msgid "Налаштування сайту"
@@ -234,6 +134,774 @@ msgstr "Настройки соцсетей и email"
 #: app/templates/admin/settings.html:12
 msgid "Зберегти"
 msgstr "Сохранить"
+
+#: app/templates/blockchain/airdrop_detail.html:22
+#: app/templates/blockchain/airdrop_list.html:18
+#: app/templates/blockchain/token_sale_detail.html:42
+msgid "Количество токенов"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:23
+#: app/templates/blockchain/token_sale_detail.html:26
+msgid "Начало"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:24
+#: app/templates/blockchain/token_sale_detail.html:27
+msgid "Окончание"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:25
+#: app/templates/blockchain/token_sale_detail.html:28
+msgid "Всего токенов"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:33
+#: app/templates/blockchain/token.html:77
+#: app/templates/blockchain/token.html:149
+#, fuzzy
+msgid "Участвовать в аирдропе"
+msgstr "Зарегистрироваться на аирдроп"
+
+#: app/templates/blockchain/airdrop_detail.html:39
+msgid "Адрес кошелька Ethereum/Polygon"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:44
+#: app/templates/blockchain/dao_proposal_detail.html:107
+#: app/templates/blockchain/token_sale_detail.html:79
+#: app/templates/shop/product.html:82
+msgid "Подключить кошелек"
+msgstr "Подключить кошелек"
+
+#: app/templates/blockchain/airdrop_detail.html:48
+msgid "Зарегистрироваться на аирдроп"
+msgstr "Зарегистрироваться на аирдроп"
+
+#: app/templates/blockchain/airdrop_detail.html:53
+msgid "Для участия в аирдропе вам необходимо войти в аккаунт."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:54
+#: app/templates/blockchain/token_sale_detail.html:88
+msgid "Войти"
+msgstr "Войти"
+
+#: app/templates/blockchain/airdrop_detail.html:59
+msgid "Вы уже зарегистрированы!"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:60
+msgid ""
+"Вы успешно зарегистрировались для участия в этом аирдропе. Токены будут "
+"распределены после окончания периода регистрации."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:67
+#: app/templates/blockchain/dao_proposal_detail.html:130
+#: app/templates/blockchain/token_sale_detail.html:96
+#: app/templates/shop/product.html:89
+msgid "Информация о кошельке"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:68
+#: app/templates/blockchain/dao_proposal_detail.html:131
+#: app/templates/blockchain/token_sale_detail.html:97
+#: app/templates/shop/product.html:90
+msgid "Баланс токенов"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:80
+msgid "Как получить токены"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:84
+msgid ""
+"Зарегистрируйтесь для участия в аирдропе, указав адрес своего кошелька "
+"Ethereum/Polygon."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:85
+msgid ""
+"Подключите ваш кошелек к сети Polygon Mumbai Testnet (для тестовой "
+"версии) или Polygon Mainnet (для основной сети)."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:86
+msgid "Дождитесь окончания периода регистрации."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:87
+msgid "Токены будут автоматически отправлены на ваш кошелек."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:88
+msgid ""
+"Используйте токены для оплаты товаров и услуг в нашем магазине или "
+"участия в DAO."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_list.html:2
+msgid "Аирдропы"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_list.html:6
+msgid "Доступные аирдропы"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_list.html:19
+#: app/templates/blockchain/token_sale_list.html:48
+msgid "Период"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_list.html:20
+msgid "Участвовать"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_list.html:28
+msgid "В настоящее время нет активных аирдропов. Пожалуйста, проверьте позже."
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:6
+msgid "Децентрализованная автономная организация (DAO)"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:10
+msgid "О нашем DAO"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:11
+msgid ""
+"Участвуйте в управлении нашей экосистемой с помощью токенов. Держатели "
+"токенов могут голосовать за предложения и создавать свои собственные."
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:14
+#: app/templates/blockchain/dao_proposal_new.html:2
+#: app/templates/blockchain/dao_proposal_new.html:83
+msgid "Создать предложение"
+msgstr "Создать предложение"
+
+#: app/templates/blockchain/dao_index.html:17
+msgid ""
+"Для создания предложений и голосования необходимо войти в систему и иметь"
+" токены."
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:24
+#, fuzzy
+msgid "Активные голосования"
+msgstr "Детали и голосование"
+
+#: app/templates/blockchain/dao_index.html:36
+#: app/templates/blockchain/dao_index.html:90
+#: app/templates/blockchain/dao_proposal_detail.html:37
+msgid "За"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:37
+#: app/templates/blockchain/dao_index.html:91
+#: app/templates/blockchain/dao_proposal_detail.html:41
+msgid "Против"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:39
+#: app/templates/blockchain/dao_index.html:64
+#, fuzzy
+msgid "Период голосования"
+msgstr "Детали и голосование"
+
+#: app/templates/blockchain/dao_index.html:40
+msgid "Детали и голосование"
+msgstr "Детали и голосование"
+
+#: app/templates/blockchain/dao_index.html:48
+msgid "В настоящее время нет активных предложений для голосования."
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:53
+#, fuzzy
+msgid "Предстоящие голосования"
+msgstr "Детали и голосование"
+
+#: app/templates/blockchain/dao_index.html:65
+#: app/templates/blockchain/dao_index.html:100
+#: app/templates/blockchain/token_sale_list.html:52
+#: app/templates/shop/index.html:50
+msgid "Подробнее"
+msgstr "Подробнее"
+
+#: app/templates/blockchain/dao_index.html:73
+msgid "В настоящее время нет предстоящих предложений."
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:78
+msgid "Завершенные голосования"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:93
+#: app/templates/blockchain/dao_proposal_detail.html:60
+msgid "Результат"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:95
+msgid "Принято"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:97
+msgid "Отклонено"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:108
+msgid "В настоящее время нет завершенных предложений."
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:2
+#, fuzzy
+msgid "DAO Предложение"
+msgstr "Создать предложение"
+
+#: app/templates/blockchain/dao_proposal_detail.html:22
+msgid "Автор"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:23
+#, fuzzy
+msgid "Начало голосования"
+msgstr "Детали и голосование"
+
+#: app/templates/blockchain/dao_proposal_detail.html:24
+msgid "Окончание голосования"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:25
+msgid "Минимальное количество токенов для голосования"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:32
+#, fuzzy
+msgid "Результаты голосования"
+msgstr "Детали и голосование"
+
+#: app/templates/blockchain/dao_proposal_detail.html:45
+msgid "Всего голосов"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:49
+#: app/templates/blockchain/dao_proposal_detail.html:54
+#: app/templates/blockchain/dao_proposal_detail.html:59
+#: app/templates/blockchain/token_sale_detail.html:121
+msgid "Статус"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:49
+msgid "Активно"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:50
+msgid "Голосование завершится"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:54
+msgid "Ожидание"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:55
+msgid "Голосование начнется"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:59
+#: app/templates/blockchain/token_sale_detail.html:137
+msgid "Завершено"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:62
+msgid "Предложение принято"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:64
+msgid "Предложение отклонено"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:80
+#, fuzzy
+msgid "Голосование"
+msgstr "Детали и голосование"
+
+#: app/templates/blockchain/dao_proposal_detail.html:89
+#, fuzzy
+msgid "Голосовать ЗА"
+msgstr "Главная"
+
+#: app/templates/blockchain/dao_proposal_detail.html:97
+msgid "Голосовать ПРОТИВ"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:104
+msgid "Для голосования необходимо иметь минимум"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:105
+msgid "Ваш текущий баланс"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:112
+msgid "Вы уже проголосовали!"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:113
+#, fuzzy
+msgid "Ваш голос"
+msgstr "На главную"
+
+#: app/templates/blockchain/dao_proposal_detail.html:115
+msgid "ЗА"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:117
+msgid "ПРОТИВ"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:120
+msgid "Вес вашего голоса (количество токенов)"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:6
+#, fuzzy
+msgid "Создать новое предложение"
+msgstr "Создать предложение"
+
+#: app/templates/blockchain/dao_proposal_new.html:10
+msgid "Новое предложение для DAO"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:52
+msgid "Продолжительность голосования в днях (по умолчанию 14 дней)"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:67
+msgid "Минимальное количество токенов для участия в голосовании"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:73
+msgid "Требования для создания предложения"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:75
+msgid "Необходимо иметь минимум 100 токенов"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:76
+msgid "Предложение должно быть четким и конкретным"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:77
+msgid "Голосование будет активно в течение указанного периода"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:78
+msgid "Для принятия предложения требуется простое большинство голосов"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:84
+msgid "Отмена"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:92
+msgid "Примеры предложений"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:97
+msgid "Технические предложения"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:99
+msgid "Обновление смарт-контракта"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:100
+msgid "Интеграция с новой биржей"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:101
+msgid "Добавление новых функций"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:105
+#, fuzzy
+msgid "Финансовые предложения"
+msgstr "Создать предложение"
+
+#: app/templates/blockchain/dao_proposal_new.html:107
+msgid "Выделение средств на маркетинг"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:108
+msgid "Изменение комиссий"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:109
+msgid "Распределение прибыли"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:113
+msgid "Управленческие предложения"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:115
+msgid "Изменение правил голосования"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:116
+msgid "Назначение новых администраторов"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:117
+msgid "Партнерские соглашения"
+msgstr ""
+
+#: app/templates/blockchain/token.html:2 app/templates/blockchain/token.html:36
+msgid "Токен проекта"
+msgstr ""
+
+#: app/templates/blockchain/token.html:44
+#: app/templates/blockchain/token.html:101
+#: app/templates/blockchain/token_sale_detail.html:161
+#, fuzzy
+msgid "Адрес контракта"
+msgstr "Посмотреть контракт"
+
+#: app/templates/blockchain/token.html:48
+#: app/templates/blockchain/token.html:103
+msgid "Копировать адрес"
+msgstr ""
+
+#: app/templates/blockchain/token.html:50
+msgid "Текущая цена"
+msgstr ""
+
+#: app/templates/blockchain/token.html:51
+#: app/templates/blockchain/token_sale_detail.html:178
+#, fuzzy
+msgid "Общее предложение"
+msgstr "Создать предложение"
+
+#: app/templates/blockchain/token.html:52
+msgid "В обращении"
+msgstr ""
+
+#: app/templates/blockchain/token.html:57
+#: app/templates/blockchain/token_sale_detail.html:199
+#: app/templates/blockchain/token_sale_list.html:30
+msgid "Добавить в MetaMask"
+msgstr "Добавить в MetaMask"
+
+#: app/templates/blockchain/token.html:61
+#: app/templates/blockchain/token_sale_detail.html:63
+#: app/templates/blockchain/token_sale_list.html:19
+msgid "Купить на Uniswap"
+msgstr "Купить на Uniswap"
+
+#: app/templates/blockchain/token.html:68
+msgid "О токене"
+msgstr ""
+
+#: app/templates/blockchain/token.html:74
+#: app/templates/blockchain/token_sale_detail.html:35
+msgid "Купить токены"
+msgstr ""
+
+#: app/templates/blockchain/token.html:80
+msgid "DAO Управление"
+msgstr ""
+
+#: app/templates/blockchain/token.html:83
+msgid "Посмотреть на PolygonScan"
+msgstr ""
+
+#: app/templates/blockchain/token.html:94
+#: app/templates/blockchain/token_sale_detail.html:153
+msgid "Техническая информация"
+msgstr ""
+
+#: app/templates/blockchain/token.html:99
+#: app/templates/blockchain/token_sale_detail.html:194
+msgid "Сеть"
+msgstr ""
+
+#: app/templates/blockchain/token.html:100
+msgid "Стандарт токена"
+msgstr ""
+
+#: app/templates/blockchain/token.html:107
+#: app/templates/blockchain/token_sale_detail.html:170
+msgid "Символ"
+msgstr ""
+
+#: app/templates/blockchain/token.html:108
+msgid "Децимали"
+msgstr ""
+
+#: app/templates/blockchain/token.html:109
+msgid "Верифицирован"
+msgstr ""
+
+#: app/templates/blockchain/token.html:110
+msgid "Да"
+msgstr ""
+
+#: app/templates/blockchain/token.html:126
+msgid "Участвуйте в токенсейле и получите токены по специальной цене!"
+msgstr ""
+
+#: app/templates/blockchain/token.html:129
+msgid "Подробнее о токенсейле"
+msgstr ""
+
+#: app/templates/blockchain/token.html:133
+msgid "Купить сейчас"
+msgstr ""
+
+#: app/templates/blockchain/token.html:146
+msgid "Получите бесплатные токены, участвуя в аирдропе!"
+msgstr ""
+
+#: app/templates/blockchain/token.html:152
+#, fuzzy
+msgid "Добавить токен"
+msgstr "Добавить в корзину"
+
+#: app/templates/blockchain/token.html:178
+#: app/templates/blockchain/token_sale_detail.html:265
+#: app/templates/blockchain/token_sale_list.html:94
+#, fuzzy
+msgid "Токен добавлен в MetaMask!"
+msgstr "Добавить в MetaMask"
+
+#: app/templates/blockchain/token.html:181
+#, fuzzy
+msgid "Ошибка при добавлении токена в MetaMask"
+msgstr "Добавить в MetaMask"
+
+#: app/templates/blockchain/token.html:184
+msgid ""
+"MetaMask не установлен. Пожалуйста, установите MetaMask для использования"
+" этой функции."
+msgstr ""
+
+#: app/templates/blockchain/token.html:194
+msgid "Скопировано!"
+msgstr ""
+
+#: app/templates/blockchain/token.html:211
+msgid "Не удалось скопировать в буфер обмена"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:23
+#: app/templates/blockchain/token_sale_list.html:46
+msgid "Цена токена"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:24
+#: app/templates/blockchain/token_sale_list.html:47
+#, fuzzy
+msgid "Минимальная покупка"
+msgstr "Традиционная покупка"
+
+#: app/templates/blockchain/token_sale_detail.html:25
+#, fuzzy
+msgid "Максимальная покупка"
+msgstr "Традиционная покупка"
+
+#: app/templates/blockchain/token_sale_detail.html:44
+msgid "Минимум"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:44
+msgid "Максимум"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:48
+msgid "Итого к оплате"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:58
+msgid "Способы покупки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:68
+msgid "Купить через MetaMask"
+msgstr "Купить через MetaMask"
+
+#: app/templates/blockchain/token_sale_detail.html:74
+#: app/templates/blockchain/token_sale_list.html:25
+msgid "Посмотреть контракт"
+msgstr "Посмотреть контракт"
+
+#: app/templates/blockchain/token_sale_detail.html:83
+msgid "Традиционная покупка"
+msgstr "Традиционная покупка"
+
+#: app/templates/blockchain/token_sale_detail.html:87
+msgid "Для отслеживания покупок войдите в аккаунт"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:110
+msgid "Ваши покупки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:117
+#, fuzzy
+msgid "Дата"
+msgstr "Оплата"
+
+#: app/templates/blockchain/token_sale_detail.html:118
+#: app/templates/shop/cart.html:27 app/templates/shop/product.html:58
+msgid "Количество"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:119
+#: app/templates/shop/cart.html:26
+msgid "Цена"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:120
+msgid "Сумма"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:133
+msgid "Ожидается"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:135
+msgid "Подтверждено"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:139
+msgid "Ошибка"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:158
+msgid "Данные контракта"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:174
+msgid "Десятичные знаки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:184
+msgid "Сеть и интеграции"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:195
+msgid "Стандарт"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:196
+msgid "Контракт верифицирован"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:208
+msgid "Преимущества токена"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:212
+msgid "Для магазина"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:214
+#, python-format
+msgid "Оплата товаров и услуг со скидкой до 20%%"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:215
+msgid "Кешбэк на покупки в токенах"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:216
+msgid "Эксклюзивный доступ к специальным предложениям"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:220
+msgid "Для экосистемы"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:222
+msgid "Участие в управлении проектом через DAO"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:223
+msgid "Возможность заработка на росте стоимости токенов"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:224
+msgid "Получение дивидендов от прибыли проекта"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:268
+#: app/templates/blockchain/token_sale_list.html:97
+#, fuzzy
+msgid "Ошибка добавления токена в MetaMask"
+msgstr "Добавить в MetaMask"
+
+#: app/templates/blockchain/token_sale_detail.html:271
+#: app/templates/blockchain/token_sale_list.html:100
+msgid "MetaMask не установлен!"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:283
+msgid "Введите количество токенов для покупки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:289
+msgid "Для покупки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:290
+#, fuzzy
+msgid "Откройте MetaMask"
+msgstr "Купить через MetaMask"
+
+#: app/templates/blockchain/token_sale_detail.html:291
+msgid "Перейдите на Polygon сеть"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:292
+#, fuzzy
+msgid "Используйте адрес контракта"
+msgstr "Посмотреть контракт"
+
+#: app/templates/blockchain/token_sale_detail.html:293
+msgid "Или используйте Uniswap для покупки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:302
+msgid "Ошибка подключения к MetaMask"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:305
+msgid "MetaMask не установлен! Установите MetaMask для покупки токенов."
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:328
+msgid "Ошибка копирования адреса"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_list.html:2
+msgid "Токенсейлы"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_list.html:10
+msgid "Доступные токенсейлы"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_list.html:57
+msgid "Купить"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_list.html:68
+msgid "В настоящее время нет активных токенсейлов. Пожалуйста, проверьте позже."
+msgstr ""
 
 #: app/templates/errors/404.html:2
 msgid "Сторінку не знайдено"
@@ -255,47 +923,240 @@ msgstr "Ошибка сервера"
 msgid "Внутрішня помилка"
 msgstr "Внутренняя ошибка"
 
-#: app/templates/blockchain/token_sale_detail.html:63 app/templates/blockchain/token_sale_list.html:19 app/templates/blockchain/token.html:61
-msgid "Купить на Uniswap"
-msgstr "Купить на Uniswap"
+#: app/templates/shop/cart.html:2 app/templates/shop/cart.html:16
+#, fuzzy
+msgid "Корзина"
+msgstr "В корзину"
 
-#: app/templates/blockchain/token_sale_detail.html:68
-msgid "Купить через MetaMask"
-msgstr "Купить через MetaMask"
+#: app/templates/shop/cart.html:25 app/templates/shop/product.html:2
+msgid "Товар"
+msgstr ""
 
-#: app/templates/blockchain/token_sale_detail.html:73
-msgid "Посмотреть контракт"
-msgstr "Посмотреть контракт"
+#: app/templates/shop/cart.html:28
+msgid "Итого"
+msgstr ""
 
-#: app/templates/blockchain/token_sale_detail.html:77 app/templates/blockchain/airdrop_detail.html:41
-msgid "Подключить кошелек"
-msgstr "Подключить кошелек"
+#: app/templates/shop/cart.html:29
+msgid "Действия"
+msgstr ""
 
-#: app/templates/blockchain/token_sale_detail.html:81
-msgid "Традиционная покупка"
-msgstr "Традиционная покупка"
+#: app/templates/shop/cart.html:78 app/templates/shop/product.html:63
+#, fuzzy
+msgid "Способ оплаты"
+msgstr "Способы оплаты"
 
-#: app/templates/blockchain/token_sale_detail.html:88 app/templates/blockchain/airdrop_detail.html:50
-msgid "Войти"
-msgstr "Войти"
+#: app/templates/shop/cart.html:82 app/templates/shop/product.html:67
+#, fuzzy
+msgid "Стандартная оплата"
+msgstr "Последние оплаты"
 
-#: app/templates/blockchain/token_sale_detail.html:188
-msgid "Добавить в MetaMask"
-msgstr "Добавить в MetaMask"
+#: app/templates/shop/cart.html:88 app/templates/shop/product.html:73
+#, fuzzy
+msgid "Оплата токенами"
+msgstr "Онлайн-оплата"
 
-#: app/templates/blockchain/airdrop_detail.html:45
-msgid "Зарегистрироваться на аирдроп"
-msgstr "Зарегистрироваться на аирдроп"
+#: app/templates/shop/cart.html:89 app/templates/shop/product.html:74
+msgid "Экономия"
+msgstr ""
 
-#: app/templates/blockchain/dao_index.html:9
-msgid "Создать предложение"
-msgstr "Создать предложение"
+#: app/templates/shop/cart.html:96
+msgid "Оформить заказ"
+msgstr ""
 
-#: app/templates/blockchain/dao_index.html:63
-msgid "Детали и голосование"
-msgstr "Детали и голосование"
+#: app/templates/shop/cart.html:103
+#, fuzzy
+msgid "Ваша корзина пуста."
+msgstr "В корзину"
 
-#: app/templates/base.html:266
-msgid "Дім"
-msgstr "Главная"
+#: app/templates/shop/category.html:27
+msgid "Немає товарів у цій категорії."
+msgstr ""
+
+#: app/templates/shop/index.html:2 app/templates/shop/product.html:20
+#, fuzzy
+msgid "Магазин"
+msgstr "Магазин товаров"
+
+#: app/templates/shop/index.html:6
+msgid "IT-услуги и продукты"
+msgstr ""
+
+#: app/templates/shop/index.html:27
+msgid "Популярные предложения"
+msgstr ""
+
+#: app/templates/shop/index.html:48
+msgid "В корзину"
+msgstr "В корзину"
+
+#: app/templates/shop/order_confirmation.html:2
+msgid "Замовлення оформлено"
+msgstr ""
+
+#: app/templates/shop/order_confirmation.html:6
+msgid "Дякуємо за замовлення!"
+msgstr ""
+
+#: app/templates/shop/order_confirmation.html:7
+msgid "Ваше замовлення прийнято та знаходиться в обробці."
+msgstr ""
+
+#: app/templates/shop/order_confirmation.html:10
+msgid "Переглянути всі способи оплати та реквізити"
+msgstr "Просмотреть все способы оплаты и реквизиты"
+
+#: app/templates/shop/order_confirmation.html:13
+msgid ""
+"Ви можете оплатити замовлення будь-яким зручним способом: Stripe, "
+"криптовалюта, банківський переказ тощо."
+msgstr ""
+
+#: app/templates/shop/order_confirmation.html:16
+msgid "Повернутися до магазину"
+msgstr "Вернуться в магазин"
+
+#: app/templates/shop/product.html:45
+msgid "или"
+msgstr ""
+
+#: app/templates/shop/product.html:79
+msgid "Добавить в корзину"
+msgstr "Добавить в корзину"
+
+#: app/templates/shop/product.html:100
+msgid "Похожие товары"
+msgstr ""
+
+#~ msgid "Тут будуть контактні дані."
+#~ msgstr "Здесь будут контактные данные."
+
+#~ msgid "Тут буде інформація про компанію."
+#~ msgstr "Здесь будет информация о компании."
+
+#~ msgid ""
+#~ "Ми поважаємо вашу приватність і "
+#~ "дотримуємося вимог Загального регламенту "
+#~ "захисту даних (GDPR) та інших законів"
+#~ " ЄС щодо захисту персональних даних."
+#~ msgstr ""
+#~ "Мы уважаем вашу приватность и соблюдаем"
+#~ " требования Общего регламента по защите "
+#~ "данных (GDPR) и других законов ЕС "
+#~ "о защите персональных данных."
+
+#~ msgid "Які дані ми збираємо?"
+#~ msgstr "Какие данные мы собираем?"
+
+#~ msgid "Ми не збираємо жодних персональних даних автоматично."
+#~ msgstr "Мы не собираем никаких персональных данных автоматически."
+
+#~ msgid ""
+#~ "Ми отримуємо ваші контактні дані (ім'я,"
+#~ " email, телефон) лише якщо ви "
+#~ "самостійно залишаєте їх для зв'язку або"
+#~ " оформлення заявки/оплати."
+#~ msgstr ""
+#~ "Мы получаем ваши контактные данные (имя,"
+#~ " email, телефон) только если вы "
+#~ "самостоятельно оставляете их для связи "
+#~ "или оформления заявки/оплаты."
+
+#~ msgid "Як ми використовуємо ваші дані?"
+#~ msgstr "Как мы используем ваши данные?"
+
+#~ msgid ""
+#~ "Ваші дані використовуються виключно для "
+#~ "зв'язку з вами або для виконання "
+#~ "вашого запиту (наприклад, для зворотного "
+#~ "зв'язку чи виставлення рахунку)."
+#~ msgstr ""
+#~ "Ваши данные используются исключительно для "
+#~ "связи с вами или для выполнения "
+#~ "вашего запроса (например, для обратной "
+#~ "связи или выставления счета)."
+
+#~ msgid ""
+#~ "Ми не передаємо ваші дані третім "
+#~ "особам, окрім випадків, коли це прямо"
+#~ " вимагається законом."
+#~ msgstr ""
+#~ "Мы не передаем ваши данные третьим "
+#~ "лицам, кроме случаев, когда это прямо"
+#~ " требуется законом."
+
+#~ msgid "Реклама та сторонні сервіси"
+#~ msgstr "Реклама и сторонние сервисы"
+
+#~ msgid ""
+#~ "На сайті можуть бути інтегровані "
+#~ "сторонні сервіси (наприклад, Facebook, "
+#~ "Google), які можуть збирати дані про "
+#~ "вас відповідно до своїх політик "
+#~ "конфіденційності."
+#~ msgstr ""
+#~ "На сайте могут быть интегрированы "
+#~ "сторонние сервисы (например, Facebook, "
+#~ "Google), которые могут собирать данные о"
+#~ " вас согласно своим политикам "
+#~ "конфиденциальности."
+
+#~ msgid "Ми не маємо доступу до цих даних і не контролюємо їх збір."
+#~ msgstr "Мы не имеем доступа к этим данным и не контролируем их сбор."
+
+#~ msgid "Детальніше про політику конфіденційності Facebook:"
+#~ msgstr "Подробнее о политике конфиденциальности Facebook:"
+
+#~ msgid "Детальніше про політику конфіденційності Google:"
+#~ msgstr "Подробнее о политике конфиденциальности Google:"
+
+#~ msgid "Ваші права"
+#~ msgstr "Ваши права"
+
+#~ msgid ""
+#~ "Ви маєте право отримати інформацію про"
+#~ " свої персональні дані, які ми "
+#~ "зберігаємо (якщо такі є), вимагати їх"
+#~ " виправлення або видалення."
+#~ msgstr ""
+#~ "Вы имеете право получить информацию о"
+#~ " своих персональных данных, которые мы "
+#~ "храним (если таковые есть), требовать их"
+#~ " исправления или удаления."
+
+#~ msgid "Для цього напишіть нам на"
+#~ msgstr "Для этого напишите нам на"
+
+#~ msgid "Зміни до політики"
+#~ msgstr "Изменения в политике"
+
+#~ msgid ""
+#~ "Ми можемо періодично оновлювати цю "
+#~ "політику. Актуальна версія завжди доступна "
+#~ "на цій сторінці."
+#~ msgstr ""
+#~ "Мы можем периодически обновлять эту "
+#~ "политику. Актуальная версия всегда доступна"
+#~ " на этой странице."
+
+#~ msgid ""
+#~ "Використовуючи наш сайт, ви погоджуєтесь "
+#~ "із цією політикою конфіденційності."
+#~ msgstr ""
+#~ "Используя наш сайт, вы соглашаетесь с"
+#~ " этой политикой конфиденциальности."
+
+#~ msgid "Адмінка"
+#~ msgstr "Админка"
+
+#~ msgid "Адмін-панель"
+#~ msgstr "Админ-панель"
+
+#~ msgid "Блоки сайту"
+#~ msgstr "Блоки сайта"
+
+#~ msgid "Налаштування соцмереж"
+#~ msgstr "Настройки соцсетей"
+
+#~ msgid "Вийти"
+#~ msgstr "Выйти"
 

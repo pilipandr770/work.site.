@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ get_blog_block_title(block) }} - {{ _('Інформаційний портал') }}{% endblock %}
+
+{% block head %}
+<meta name="description" content="{{ get_blog_block_summary(block)|striptags }}">
+<meta property="og:title" content="{{ get_blog_block_title(block) }} - {{ _('Інформаційний портал') }}">
+<meta property="og:description" content="{{ get_blog_block_summary(block)|striptags }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ url_for('blog.block_detail', position=block.position, _external=True) }}">
+{% if block.featured_image %}
+<meta property="og:image" content="{{ url_for('static', filename='uploads/blog/' + block.featured_image, _external=True) }}">
+{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+{% endblock %}
+
+{% block content %}
+<section class="blog-detail py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Breadcrumbs -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('main.index') }}">
+                            {% if g.get('lang') == 'en' %}
+                                Home
+                            {% elif g.get('lang') == 'de' %}
+                                Startseite
+                            {% elif g.get('lang') == 'ru' %}
+                                Главная
+                            {% else %}
+                                Головна
+                            {% endif %}
+                        </a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('blog.index') }}">
+                            {% if g.get('lang') == 'en' %}
+                                Blog
+                            {% elif g.get('lang') == 'de' %}
+                                Blog
+                            {% elif g.get('lang') == 'ru' %}
+                                Блог
+                            {% else %}
+                                Блог
+                            {% endif %}
+                        </a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ get_blog_block_title(block) }}</li>
+                    </ol>
+                </nav>
+                
+                <!-- Post Header -->
+                <h1 class="mb-4">{{ get_blog_block_title(block) }}</h1>
+                
+                <!-- Featured Image -->
+                {% if block.featured_image %}
+                <div class="featured-image-container mb-4">
+                    <img src="{{ url_for('static', filename='uploads/blog/' + block.featured_image) }}" 
+                         class="img-fluid rounded w-100" 
+                         alt="{{ get_blog_block_title(block) }}"
+                         onerror="this.src='{{ url_for('static', filename='uploads/' + block.featured_image) }}'">
+                </div>
+                {% endif %}
+                
+                <!-- Post Content -->
+                <div class="blog-content">
+                    {{ get_blog_block_content(block)|safe }}
+                </div>
+                
+                <!-- Back Button -->
+                <div class="mt-5">
+                    <a href="{{ url_for('blog.index') }}" class="btn btn-outline-primary">
+                        {% if g.get('lang') == 'en' %}
+                            Back to Blog
+                        {% elif g.get('lang') == 'de' %}
+                            Zurück zum Blog
+                        {% elif g.get('lang') == 'ru' %}
+                            Вернуться к блогу
+                        {% else %}
+                            Повернутися до блогу
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+    .blog-content {
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+    .blog-content h2, .blog-content h3, .blog-content h4 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .blog-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin: 1rem 0;
+    }
+    .blog-content blockquote {
+        border-left: 4px solid #007bff;
+        padding-left: 1rem;
+        font-style: italic;
+        color: #6c757d;
+    }
+    .featured-image-container {
+        max-height: 500px;
+        overflow: hidden;
+    }
+    .featured-image-container img {
+        width: 100%;
+        object-fit: cover;
+    }
+</style>
+{% endblock %}

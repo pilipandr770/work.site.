@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-08 19:52+0200\n"
+"POT-Creation-Date: 2025-06-09 09:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,84 +115,8 @@ msgstr ""
 msgid "Оплата"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:2
-msgid "Адмінка"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:8
-msgid "Адмін-панель"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:17
-msgid "Контент"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:21
-msgid "Блоки сайту"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:30 app/templates/shop/index.html:2
-#: app/templates/shop/product.html:20
-msgid "Магазин"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:34
-msgid "Продукты"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:37
-msgid "Категории"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:46
-msgid "Платежи"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:50
-msgid "Способи оплати"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:53 app/templates/admin/payments.html:2
-#: app/templates/admin/payments.html:6
+#: app/templates/admin/payments.html:2 app/templates/admin/payments.html:6
 msgid "Історія оплат"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:62
-msgid "Настройки"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:66
-msgid "Налаштування соцмереж"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:69
-msgid "Вийти"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:76
-msgid "Останні оплати"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:84
-#: app/templates/blockchain/token_sale_detail.html:117
-msgid "Дата"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:85
-#: app/templates/blockchain/token_sale_detail.html:120
-msgid "Сумма"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:86
-#: app/templates/blockchain/dao_proposal_detail.html:49
-#: app/templates/blockchain/dao_proposal_detail.html:54
-#: app/templates/blockchain/dao_proposal_detail.html:59
-#: app/templates/blockchain/token_sale_detail.html:121
-msgid "Статус"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:108
-msgid "Платежей пока нет"
 msgstr ""
 
 #: app/templates/admin/settings.html:2
@@ -450,6 +374,13 @@ msgstr ""
 
 #: app/templates/blockchain/dao_proposal_detail.html:45
 msgid "Всего голосов"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:49
+#: app/templates/blockchain/dao_proposal_detail.html:54
+#: app/templates/blockchain/dao_proposal_detail.html:59
+#: app/templates/blockchain/token_sale_detail.html:121
+msgid "Статус"
 msgstr ""
 
 #: app/templates/blockchain/dao_proposal_detail.html:49
@@ -796,6 +727,10 @@ msgstr ""
 msgid "Ваши покупки"
 msgstr ""
 
+#: app/templates/blockchain/token_sale_detail.html:117
+msgid "Дата"
+msgstr ""
+
 #: app/templates/blockchain/token_sale_detail.html:118
 #: app/templates/shop/cart.html:27 app/templates/shop/product.html:58
 msgid "Количество"
@@ -804,6 +739,10 @@ msgstr ""
 #: app/templates/blockchain/token_sale_detail.html:119
 #: app/templates/shop/cart.html:26
 msgid "Цена"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:120
+msgid "Сумма"
 msgstr ""
 
 #: app/templates/blockchain/token_sale_detail.html:133
@@ -999,6 +938,10 @@ msgstr ""
 
 #: app/templates/shop/category.html:27
 msgid "Немає товарів у цій категорії."
+msgstr ""
+
+#: app/templates/shop/index.html:2 app/templates/shop/product.html:20
+msgid "Магазин"
 msgstr ""
 
 #: app/templates/shop/index.html:6

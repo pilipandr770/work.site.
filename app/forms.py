@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import (
     StringField, PasswordField, TextAreaField, BooleanField, FileField,
-    FloatField, SelectField, SubmitField, IntegerField
+    FloatField, SelectField, SubmitField, IntegerField, DateTimeField,
+    TimeField, DateField, SelectMultipleField
 )
 from wtforms.validators import DataRequired, Email, Optional, Length
 
@@ -121,3 +122,70 @@ class CategoryForm(FlaskForm):
     order = IntegerField('Порядок', validators=[Optional()], default=1)
     
     submit = SubmitField('Сохранить')
+
+# Blog Forms
+class BlogBlockForm(FlaskForm):
+    """Form for editing blog blocks"""
+    title = StringField('Заголовок (UA)', validators=[DataRequired(), Length(max=255)])
+    title_en = StringField('Заголовок (EN)', validators=[Optional(), Length(max=255)])
+    title_de = StringField('Заголовок (DE)', validators=[Optional(), Length(max=255)])
+    title_ru = StringField('Заголовок (RU)', validators=[Optional(), Length(max=255)])
+    
+    content = TextAreaField('Контент (UA)', validators=[DataRequired()])
+    content_en = TextAreaField('Контент (EN)', validators=[Optional()])
+    content_de = TextAreaField('Контент (DE)', validators=[Optional()])
+    content_ru = TextAreaField('Контент (RU)', validators=[Optional()])
+    
+    summary = TextAreaField('Краткое описание (UA)', validators=[Optional(), Length(max=500)])
+    summary_en = TextAreaField('Краткое описание (EN)', validators=[Optional(), Length(max=500)])
+    summary_de = TextAreaField('Краткое описание (DE)', validators=[Optional(), Length(max=500)])
+    summary_ru = TextAreaField('Краткое описание (RU)', validators=[Optional(), Length(max=500)])
+    
+    featured_image = FileField('Изображение', validators=[Optional()])
+    is_active = BooleanField('Активен', default=True)
+    
+    submit = SubmitField('Сохранить')
+
+class BlogTopicForm(FlaskForm):
+    """Form for creating and managing blog topics"""
+    title = StringField('Название темы', validators=[DataRequired(), Length(max=255)])
+    description = TextAreaField('Описание', validators=[Optional(), Length(max=1000)])
+    priority = IntegerField('Приоритет', validators=[Optional()], default=0)
+    status = SelectField('Статус', choices=[
+        ('pending', 'Ожидает'),
+        ('scheduled', 'Запланировано'),
+        ('published', 'Опубликовано'),
+        ('rejected', 'Отклонено')
+    ], default='pending')
+    
+    submit = SubmitField('Сохранить')
+
+class TopicBulkImportForm(FlaskForm):
+    """Form for bulk importing blog topics"""
+    topics_text = TextAreaField('Темы (по одной на строку)', validators=[DataRequired()])
+    submit = SubmitField('Импортировать')
+    
+class PublicationScheduleForm(FlaskForm):
+    """Form for scheduling automatic blog posts"""
+    topic_id = SelectField('Тема', coerce=int, validators=[Optional()])
+    platform = SelectField('Платформа', choices=[
+        ('blog', 'Блог'),
+        ('telegram', 'Telegram'),
+        ('all', 'Все платформы')
+    ], default='all')
+    
+    repeat_weekly = BooleanField('Повторять еженедельно', default=False)
+    day_of_week = SelectField('День недели', choices=[
+        ('0', 'Понедельник'),
+        ('1', 'Вторник'),
+        ('2', 'Среда'),
+        ('3', 'Четверг'),
+        ('4', 'Пятница'),
+        ('5', 'Суббота'),
+        ('6', 'Воскресенье')
+    ], validators=[Optional()])
+    
+    time_of_day = StringField('Время (ЧЧ:ММ)', validators=[Optional()])
+    scheduled_time = DateTimeField('Дата и время публикации', format='%Y-%m-%d %H:%M', validators=[Optional()])
+    
+    submit = SubmitField('Запланировать')

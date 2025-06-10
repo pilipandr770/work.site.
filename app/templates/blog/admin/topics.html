@@ -1,0 +1,178 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}Управление темами блога{% endblock %}
+
+{% block admin_content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Управление темами блога</h1>
+    
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Добавить тему</h6>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('blog.create_topic') }}">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="form-group mb-3">
+                            {{ form.title.label(class="form-label") }}
+                            {{ form.title(class="form-control") }}
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            {{ form.description.label(class="form-label") }}
+                            {{ form.description(class="form-control", rows=3) }}
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form.priority.label(class="form-label") }}
+                                    {{ form.priority(class="form-control") }}
+                                    <div class="form-text text-muted">Приоритет для очереди публикаций</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form.status.label(class="form-label") }}
+                                    {{ form.status(class="form-control") }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card shadow">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Массовый импорт тем</h6>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('blog.bulk_import_topics') }}">
+                        {{ bulk_form.hidden_tag() }}
+                        
+                        <div class="form-group mb-3">
+                            <label class="form-label">Список тем</label>
+                            {{ bulk_form.topics_text(class="form-control", rows=10, placeholder="Введите каждую тему на отдельной строке") }}
+                            <div class="form-text text-muted">Вставьте список тем, каждая на отдельной строке</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ bulk_form.submit(class="btn btn-success") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Все темы</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Название</th>
+                                    <th>Статус</th>
+                                    <th>Приоритет</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for topic in topics %}
+                                <tr>
+                                    <td>{{ topic.id }}</td>
+                                    <td>{{ topic.title }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if topic.status == 'pending' %}bg-warning
+                                            {% elif topic.status == 'scheduled' %}bg-info
+                                            {% elif topic.status == 'published' %}bg-success
+                                            {% elif topic.status == 'rejected' %}bg-danger
+                                            {% endif %}">
+                                            {{ topic.status }}
+                                        </span>
+                                    </td>
+                                    <td>{{ topic.priority }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ url_for('blog.edit_topic', id=topic.id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-danger" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#deleteTopicModal" 
+                                                    data-topic-id="{{ topic.id }}" 
+                                                    data-topic-title="{{ topic.title }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            {% if topic.status == 'pending' %}
+                                            <form method="POST" action="{{ url_for('blog.generate_post', topic_id=topic.id) }}">
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    <i class="fas fa-magic"></i> Генерировать
+                                                </button>
+                                            </form>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Topic Modal -->
+<div class="modal fade" id="deleteTopicModal" tabindex="-1" aria-labelledby="deleteTopicModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteTopicModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что хотите удалить тему "<span id="topicTitle"></span>"?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <form id="deleteTopicForm" method="POST">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+        
+        $('#deleteTopicModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var topicId = button.data('topic-id');
+            var topicTitle = button.data('topic-title');
+            
+            var modal = $(this);
+            modal.find('#topicTitle').text(topicTitle);
+            modal.find('#deleteTopicForm').attr('action', '{{ url_for("blog.delete_topic", id=0) }}'.replace('0', topicId));
+        });
+    });
+</script>
+{% endblock %}

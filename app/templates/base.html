@@ -17,6 +17,26 @@
     {% block head %}{% endblock %}
     {% block extra_css %}{% endblock %}
     <style>
+    /* Стили для блока последней статьи в верхнем блоке */
+    .latest-post-block {
+        margin-top: 25px;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .latest-post-block h4 {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+        color: #007bff;
+    }
+    
+    .latest-post-info h5 {
+        font-size: 1.15em;
+        margin-bottom: 5px;
+    }
     /* === ЧАТ ВІДЖЕТ СТИЛІ === */
     .chat-circle-btn {
         position: fixed;
@@ -170,6 +190,10 @@
         display: flex;
         justify-content: flex-start;
     }
+    
+    .nav-left a {
+        margin-right: 20px;
+    }
 
     .nav-center {
         flex: 1;
@@ -261,9 +285,21 @@
     
     <header>
       <nav>
-        <!-- Ліва частина: Дім -->
+        <!-- Ліва частина: Дім, Блог, Магазин -->
         <div class="nav-left">
           <a href="{{ url_for('main.index') }}">{{ _('Дім') }}</a>
+          <a href="{{ url_for('blog.index') }}">{{ _('Блог') }}</a>
+          <a href="{{ url_for('shop.index') }}">
+            {% if g.get('lang') == 'en' %}
+              {{ _('Shop') }}
+            {% elif g.get('lang') == 'de' %}
+              {{ _('Shop') }}
+            {% elif g.get('lang') == 'ru' %}
+              {{ _('Магазин') }}
+            {% else %}
+              {{ _('Магазин') }}
+            {% endif %}
+          </a>
         </div>
         
         <!-- Центральна частина: Соцмережі -->

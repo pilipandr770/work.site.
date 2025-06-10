@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-08 18:00+0200\n"
+"POT-Creation-Date: 2025-06-09 09:37+0200\n"
 "PO-Revision-Date: 2025-06-08 18:00+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,57 +18,89 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: app/templates/index.html:41 app/templates/index.html:43
-msgid "Магазин товарів"
-msgstr "Digital Goods Store"
+#: app/templates/base.html:266
+msgid "Дім"
+msgstr "Home"
+
+#: app/templates/base.html:304
+msgid "Політика конфіденційності"
+msgstr "Privacy Policy"
+
+#: app/templates/base.html:305
+msgid "Імпресум"
+msgstr "Impressum"
+
+#: app/templates/base.html:306
+msgid "Контакти"
+msgstr "Contacts"
 
 #: app/templates/block_detail.html:32
 msgid "Перейти до оплати"
 msgstr "Proceed to payment"
 
-#: app/templates/contacts.html:2 app/templates/contacts.html:5
-msgid "Контакти"
-msgstr "Contacts"
-
-#: app/templates/contacts.html:6
-msgid "Тут будуть контактні дані."
-msgstr "Contact details will be here."
-
-#: app/templates/impressum.html:2 app/templates/impressum.html:5
-msgid "Імпресум"
-msgstr "Impressum"
-
-#: app/templates/impressum.html:6
-msgid "Тут буде інформація про компанію."
-msgstr "Company information will be here."
-
-#: app/templates/index.html:3
+#: app/templates/index.html:2
 msgid "Головна"
 msgstr "Home"
 
-#: app/templates/index.html:99
+#: app/templates/index.html:23
+msgid "Узнать о токене"
+msgstr ""
+
+#: app/templates/index.html:39 app/templates/index.html:41
+msgid "Магазин товарів"
+msgstr "Digital Goods Store"
+
+#: app/templates/index.html:43
+msgid "Перейти в магазин"
+msgstr "Go to shop"
+
+#: app/templates/blockchain/airdrop_detail.html:2
+#: app/templates/blockchain/token.html:143 app/templates/index.html:65
+msgid "Аирдроп"
+msgstr ""
+
+#: app/templates/blockchain/token.html:123
+#: app/templates/blockchain/token_sale_detail.html:2
+#: app/templates/index.html:67
+msgid "Токенсейл"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:2
+#: app/templates/blockchain/dao_proposal_new.html:2 app/templates/index.html:69
+msgid "DAO"
+msgstr ""
+
+#: app/templates/index.html:78 app/templates/index.html:82
 msgid "Оплата онлайн"
 msgstr "Online payment"
 
-#: app/templates/index.html:100
-msgid "Виберіть зручний спосіб оплати для вашого замовлення. Ми підтримуємо Stripe, PayPal, банківські перекази та інші сучасні методи."
-msgstr "Choose a convenient payment method for your order. We support Stripe, PayPal, bank transfers, and other modern methods."
+#: app/templates/index.html:79 app/templates/index.html:84
+msgid ""
+"Виберіть зручний спосіб оплати для вашого замовлення. Ми підтримуємо "
+"Stripe, PayPal, банківські перекази та інші сучасні методи."
+msgstr ""
+"Choose a convenient payment method for your order. We support Stripe, "
+"PayPal, bank transfers, and other modern methods."
 
-#: app/templates/index.html:128 app/templates/payment.html:36
+#: app/templates/index.html:116 app/templates/payment.html:43
 msgid "Оплатити через Stripe"
 msgstr "Pay via Stripe"
 
-#: app/templates/index.html:130 app/templates/payment.html:38
+#: app/templates/index.html:118 app/templates/payment.html:45
 msgid "Оплатити через PayPal"
 msgstr "Pay via PayPal"
 
-#: app/templates/index.html:132 app/templates/payment.html:40
+#: app/templates/index.html:120 app/templates/payment.html:47
 msgid "Реквізити"
 msgstr "Bank details"
 
-#: app/templates/index.html:135 app/templates/payment.html:43
+#: app/templates/index.html:123 app/templates/payment.html:50
 msgid "Завантажити рахунок PDF"
 msgstr "Download invoice PDF"
+
+#: app/templates/index.html:129
+msgid "Всі способи оплати та реквізити"
+msgstr "All payment methods and details"
 
 #: app/templates/login.html:2
 msgid "Вхід в адмінку"
@@ -82,117 +114,13 @@ msgstr "Login"
 msgid "Увійти"
 msgstr "Sign in"
 
-#: app/templates/payment.html:2 app/templates/payment.html:6
+#: app/templates/payment.html:2 app/templates/payment.html:13
 msgid "Оплата"
 msgstr "Payment"
 
-#: app/templates/privacy.html:2 app/templates/privacy.html:5
-msgid "Політика конфіденційності"
-msgstr "Privacy Policy"
-
-#: app/templates/privacy.html:7
-msgid "Ми поважаємо вашу приватність і дотримуємося вимог Загального регламенту захисту даних (GDPR) та інших законів ЄС щодо захисту персональних даних."
-msgstr "We respect your privacy and comply with the General Data Protection Regulation (GDPR) and other EU data protection laws."
-
-#: app/templates/privacy.html:9
-msgid "Які дані ми збираємо?"
-msgstr "What data do we collect?"
-
-#: app/templates/privacy.html:11
-msgid "Ми не збираємо жодних персональних даних автоматично."
-msgstr "We do not collect any personal data automatically."
-
-#: app/templates/privacy.html:12
-msgid "Ми отримуємо ваші контактні дані (ім'я, email, телефон) лише якщо ви самостійно залишаєте їх для зв'язку або оформлення заявки/оплати."
-msgstr "We receive your contact details (name, email, phone) only if you voluntarily provide them for contact or order/payment."
-
-#: app/templates/privacy.html:15
-msgid "Як ми використовуємо ваші дані?"
-msgstr "How do we use your data?"
-
-#: app/templates/privacy.html:17
-msgid "Ваші дані використовуються виключно для зв'язку з вами або для виконання вашого запиту (наприклад, для зворотного зв'язку чи виставлення рахунку)."
-msgstr "Your data is used solely to contact you or fulfill your request (e.g., for feedback or invoicing)."
-
-#: app/templates/privacy.html:18
-msgid "Ми не передаємо ваші дані третім особам, окрім випадків, коли це прямо вимагається законом."
-msgstr "We do not share your data with third parties except as required by law."
-
-#: app/templates/privacy.html:21
-msgid "Реклама та сторонні сервіси"
-msgstr "Advertising and third-party services"
-
-#: app/templates/privacy.html:23
-msgid "На сайті можуть бути інтегровані сторонні сервіси (наприклад, Facebook, Google), які можуть збирати дані про вас відповідно до своїх політик конфіденційності."
-msgstr "Third-party services (e.g., Facebook, Google) may be integrated on the site and may collect data about you according to their privacy policies."
-
-#: app/templates/privacy.html:24
-msgid "Ми не маємо доступу до цих даних і не контролюємо їх збір."
-msgstr "We do not have access to or control over this data collection."
-
-#: app/templates/privacy.html:25
-msgid "Детальніше про політику конфіденційності Facebook:"
-msgstr "More about Facebook's privacy policy:"
-
-#: app/templates/privacy.html:26
-msgid "Детальніше про політику конфіденційності Google:"
-msgstr "More about Google's privacy policy:"
-
-#: app/templates/privacy.html:29
-msgid "Ваші права"
-msgstr "Your rights"
-
-#: app/templates/privacy.html:31
-msgid "Ви маєте право отримати інформацію про свої персональні дані, які ми зберігаємо (якщо такі є), вимагати їх виправлення або видалення."
-msgstr "You have the right to obtain information about your personal data we store (if any), and to request correction or deletion."
-
-#: app/templates/privacy.html:32
-msgid "Для цього напишіть нам на"
-msgstr "To do this, write to us at"
-
-#: app/templates/privacy.html:35
-msgid "Зміни до політики"
-msgstr "Policy changes"
-
-#: app/templates/privacy.html:37
-msgid "Ми можемо періодично оновлювати цю політику. Актуальна версія завжди доступна на цій сторінці."
-msgstr "We may periodically update this policy. The current version is always available on this page."
-
-#: app/templates/privacy.html:40
-msgid "Використовуючи наш сайт, ви погоджуєтесь із цією політикою конфіденційності."
-msgstr "By using our site, you agree to this privacy policy."
-
-#: app/templates/admin/dashboard.html:2
-msgid "Адмінка"
-msgstr "Admin panel"
-
-#: app/templates/admin/dashboard.html:6
-msgid "Адмін-панель"
-msgstr "Admin dashboard"
-
-#: app/templates/admin/dashboard.html:8
-msgid "Блоки сайту"
-msgstr "Site blocks"
-
-#: app/templates/admin/dashboard.html:9
-msgid "Способи оплати"
-msgstr "Payment methods"
-
-#: app/templates/admin/dashboard.html:10 app/templates/admin/payments.html:2 app/templates/admin/payments.html:6
+#: app/templates/admin/payments.html:2 app/templates/admin/payments.html:6
 msgid "Історія оплат"
 msgstr "Payment history"
-
-#: app/templates/admin/dashboard.html:11
-msgid "Налаштування соцмереж"
-msgstr "Social settings"
-
-#: app/templates/admin/dashboard.html:12
-msgid "Вийти"
-msgstr "Logout"
-
-#: app/templates/admin/dashboard.html:14
-msgid "Останні оплати"
-msgstr "Recent payments"
 
 #: app/templates/admin/settings.html:2
 msgid "Налаштування сайту"
@@ -205,6 +133,774 @@ msgstr "Social and email settings"
 #: app/templates/admin/settings.html:12
 msgid "Зберегти"
 msgstr "Save"
+
+#: app/templates/blockchain/airdrop_detail.html:22
+#: app/templates/blockchain/airdrop_list.html:18
+#: app/templates/blockchain/token_sale_detail.html:42
+msgid "Количество токенов"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:23
+#: app/templates/blockchain/token_sale_detail.html:26
+msgid "Начало"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:24
+#: app/templates/blockchain/token_sale_detail.html:27
+msgid "Окончание"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:25
+#: app/templates/blockchain/token_sale_detail.html:28
+msgid "Всего токенов"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:33
+#: app/templates/blockchain/token.html:77
+#: app/templates/blockchain/token.html:149
+#, fuzzy
+msgid "Участвовать в аирдропе"
+msgstr "Register for Airdrop"
+
+#: app/templates/blockchain/airdrop_detail.html:39
+msgid "Адрес кошелька Ethereum/Polygon"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:44
+#: app/templates/blockchain/dao_proposal_detail.html:107
+#: app/templates/blockchain/token_sale_detail.html:79
+#: app/templates/shop/product.html:82
+msgid "Подключить кошелек"
+msgstr "Connect Wallet"
+
+#: app/templates/blockchain/airdrop_detail.html:48
+msgid "Зарегистрироваться на аирдроп"
+msgstr "Register for Airdrop"
+
+#: app/templates/blockchain/airdrop_detail.html:53
+msgid "Для участия в аирдропе вам необходимо войти в аккаунт."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:54
+#: app/templates/blockchain/token_sale_detail.html:88
+msgid "Войти"
+msgstr "Login"
+
+#: app/templates/blockchain/airdrop_detail.html:59
+msgid "Вы уже зарегистрированы!"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:60
+msgid ""
+"Вы успешно зарегистрировались для участия в этом аирдропе. Токены будут "
+"распределены после окончания периода регистрации."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:67
+#: app/templates/blockchain/dao_proposal_detail.html:130
+#: app/templates/blockchain/token_sale_detail.html:96
+#: app/templates/shop/product.html:89
+msgid "Информация о кошельке"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:68
+#: app/templates/blockchain/dao_proposal_detail.html:131
+#: app/templates/blockchain/token_sale_detail.html:97
+#: app/templates/shop/product.html:90
+msgid "Баланс токенов"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:80
+msgid "Как получить токены"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:84
+msgid ""
+"Зарегистрируйтесь для участия в аирдропе, указав адрес своего кошелька "
+"Ethereum/Polygon."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:85
+msgid ""
+"Подключите ваш кошелек к сети Polygon Mumbai Testnet (для тестовой "
+"версии) или Polygon Mainnet (для основной сети)."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:86
+msgid "Дождитесь окончания периода регистрации."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:87
+msgid "Токены будут автоматически отправлены на ваш кошелек."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_detail.html:88
+msgid ""
+"Используйте токены для оплаты товаров и услуг в нашем магазине или "
+"участия в DAO."
+msgstr ""
+
+#: app/templates/blockchain/airdrop_list.html:2
+msgid "Аирдропы"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_list.html:6
+msgid "Доступные аирдропы"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_list.html:19
+#: app/templates/blockchain/token_sale_list.html:48
+msgid "Период"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_list.html:20
+msgid "Участвовать"
+msgstr ""
+
+#: app/templates/blockchain/airdrop_list.html:28
+msgid "В настоящее время нет активных аирдропов. Пожалуйста, проверьте позже."
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:6
+msgid "Децентрализованная автономная организация (DAO)"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:10
+msgid "О нашем DAO"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:11
+msgid ""
+"Участвуйте в управлении нашей экосистемой с помощью токенов. Держатели "
+"токенов могут голосовать за предложения и создавать свои собственные."
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:14
+#: app/templates/blockchain/dao_proposal_new.html:2
+#: app/templates/blockchain/dao_proposal_new.html:83
+msgid "Создать предложение"
+msgstr "Create Proposal"
+
+#: app/templates/blockchain/dao_index.html:17
+msgid ""
+"Для создания предложений и голосования необходимо войти в систему и иметь"
+" токены."
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:24
+#, fuzzy
+msgid "Активные голосования"
+msgstr "Details and Voting"
+
+#: app/templates/blockchain/dao_index.html:36
+#: app/templates/blockchain/dao_index.html:90
+#: app/templates/blockchain/dao_proposal_detail.html:37
+msgid "За"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:37
+#: app/templates/blockchain/dao_index.html:91
+#: app/templates/blockchain/dao_proposal_detail.html:41
+msgid "Против"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:39
+#: app/templates/blockchain/dao_index.html:64
+#, fuzzy
+msgid "Период голосования"
+msgstr "Details and Voting"
+
+#: app/templates/blockchain/dao_index.html:40
+msgid "Детали и голосование"
+msgstr "Details and Voting"
+
+#: app/templates/blockchain/dao_index.html:48
+msgid "В настоящее время нет активных предложений для голосования."
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:53
+#, fuzzy
+msgid "Предстоящие голосования"
+msgstr "Details and Voting"
+
+#: app/templates/blockchain/dao_index.html:65
+#: app/templates/blockchain/dao_index.html:100
+#: app/templates/blockchain/token_sale_list.html:52
+#: app/templates/shop/index.html:50
+msgid "Подробнее"
+msgstr "More details"
+
+#: app/templates/blockchain/dao_index.html:73
+msgid "В настоящее время нет предстоящих предложений."
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:78
+msgid "Завершенные голосования"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:93
+#: app/templates/blockchain/dao_proposal_detail.html:60
+msgid "Результат"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:95
+msgid "Принято"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:97
+msgid "Отклонено"
+msgstr ""
+
+#: app/templates/blockchain/dao_index.html:108
+msgid "В настоящее время нет завершенных предложений."
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:2
+#, fuzzy
+msgid "DAO Предложение"
+msgstr "Create Proposal"
+
+#: app/templates/blockchain/dao_proposal_detail.html:22
+msgid "Автор"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:23
+#, fuzzy
+msgid "Начало голосования"
+msgstr "Details and Voting"
+
+#: app/templates/blockchain/dao_proposal_detail.html:24
+msgid "Окончание голосования"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:25
+msgid "Минимальное количество токенов для голосования"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:32
+#, fuzzy
+msgid "Результаты голосования"
+msgstr "Details and Voting"
+
+#: app/templates/blockchain/dao_proposal_detail.html:45
+msgid "Всего голосов"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:49
+#: app/templates/blockchain/dao_proposal_detail.html:54
+#: app/templates/blockchain/dao_proposal_detail.html:59
+#: app/templates/blockchain/token_sale_detail.html:121
+msgid "Статус"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:49
+msgid "Активно"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:50
+msgid "Голосование завершится"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:54
+msgid "Ожидание"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:55
+msgid "Голосование начнется"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:59
+#: app/templates/blockchain/token_sale_detail.html:137
+msgid "Завершено"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:62
+msgid "Предложение принято"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:64
+msgid "Предложение отклонено"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:80
+#, fuzzy
+msgid "Голосование"
+msgstr "Details and Voting"
+
+#: app/templates/blockchain/dao_proposal_detail.html:89
+#, fuzzy
+msgid "Голосовать ЗА"
+msgstr "Home"
+
+#: app/templates/blockchain/dao_proposal_detail.html:97
+msgid "Голосовать ПРОТИВ"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:104
+msgid "Для голосования необходимо иметь минимум"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:105
+msgid "Ваш текущий баланс"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:112
+msgid "Вы уже проголосовали!"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:113
+#, fuzzy
+msgid "Ваш голос"
+msgstr "To home"
+
+#: app/templates/blockchain/dao_proposal_detail.html:115
+msgid "ЗА"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:117
+msgid "ПРОТИВ"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_detail.html:120
+msgid "Вес вашего голоса (количество токенов)"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:6
+#, fuzzy
+msgid "Создать новое предложение"
+msgstr "Create Proposal"
+
+#: app/templates/blockchain/dao_proposal_new.html:10
+msgid "Новое предложение для DAO"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:52
+msgid "Продолжительность голосования в днях (по умолчанию 14 дней)"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:67
+msgid "Минимальное количество токенов для участия в голосовании"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:73
+msgid "Требования для создания предложения"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:75
+msgid "Необходимо иметь минимум 100 токенов"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:76
+msgid "Предложение должно быть четким и конкретным"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:77
+msgid "Голосование будет активно в течение указанного периода"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:78
+msgid "Для принятия предложения требуется простое большинство голосов"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:84
+msgid "Отмена"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:92
+msgid "Примеры предложений"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:97
+msgid "Технические предложения"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:99
+msgid "Обновление смарт-контракта"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:100
+msgid "Интеграция с новой биржей"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:101
+msgid "Добавление новых функций"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:105
+#, fuzzy
+msgid "Финансовые предложения"
+msgstr "Create Proposal"
+
+#: app/templates/blockchain/dao_proposal_new.html:107
+msgid "Выделение средств на маркетинг"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:108
+msgid "Изменение комиссий"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:109
+msgid "Распределение прибыли"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:113
+msgid "Управленческие предложения"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:115
+msgid "Изменение правил голосования"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:116
+msgid "Назначение новых администраторов"
+msgstr ""
+
+#: app/templates/blockchain/dao_proposal_new.html:117
+msgid "Партнерские соглашения"
+msgstr ""
+
+#: app/templates/blockchain/token.html:2 app/templates/blockchain/token.html:36
+msgid "Токен проекта"
+msgstr ""
+
+#: app/templates/blockchain/token.html:44
+#: app/templates/blockchain/token.html:101
+#: app/templates/blockchain/token_sale_detail.html:161
+#, fuzzy
+msgid "Адрес контракта"
+msgstr "View Contract"
+
+#: app/templates/blockchain/token.html:48
+#: app/templates/blockchain/token.html:103
+msgid "Копировать адрес"
+msgstr ""
+
+#: app/templates/blockchain/token.html:50
+msgid "Текущая цена"
+msgstr ""
+
+#: app/templates/blockchain/token.html:51
+#: app/templates/blockchain/token_sale_detail.html:178
+#, fuzzy
+msgid "Общее предложение"
+msgstr "Create Proposal"
+
+#: app/templates/blockchain/token.html:52
+msgid "В обращении"
+msgstr ""
+
+#: app/templates/blockchain/token.html:57
+#: app/templates/blockchain/token_sale_detail.html:199
+#: app/templates/blockchain/token_sale_list.html:30
+msgid "Добавить в MetaMask"
+msgstr "Add to MetaMask"
+
+#: app/templates/blockchain/token.html:61
+#: app/templates/blockchain/token_sale_detail.html:63
+#: app/templates/blockchain/token_sale_list.html:19
+msgid "Купить на Uniswap"
+msgstr "Buy on Uniswap"
+
+#: app/templates/blockchain/token.html:68
+msgid "О токене"
+msgstr ""
+
+#: app/templates/blockchain/token.html:74
+#: app/templates/blockchain/token_sale_detail.html:35
+msgid "Купить токены"
+msgstr ""
+
+#: app/templates/blockchain/token.html:80
+msgid "DAO Управление"
+msgstr ""
+
+#: app/templates/blockchain/token.html:83
+msgid "Посмотреть на PolygonScan"
+msgstr ""
+
+#: app/templates/blockchain/token.html:94
+#: app/templates/blockchain/token_sale_detail.html:153
+msgid "Техническая информация"
+msgstr ""
+
+#: app/templates/blockchain/token.html:99
+#: app/templates/blockchain/token_sale_detail.html:194
+msgid "Сеть"
+msgstr ""
+
+#: app/templates/blockchain/token.html:100
+msgid "Стандарт токена"
+msgstr ""
+
+#: app/templates/blockchain/token.html:107
+#: app/templates/blockchain/token_sale_detail.html:170
+msgid "Символ"
+msgstr ""
+
+#: app/templates/blockchain/token.html:108
+msgid "Децимали"
+msgstr ""
+
+#: app/templates/blockchain/token.html:109
+msgid "Верифицирован"
+msgstr ""
+
+#: app/templates/blockchain/token.html:110
+msgid "Да"
+msgstr ""
+
+#: app/templates/blockchain/token.html:126
+msgid "Участвуйте в токенсейле и получите токены по специальной цене!"
+msgstr ""
+
+#: app/templates/blockchain/token.html:129
+msgid "Подробнее о токенсейле"
+msgstr ""
+
+#: app/templates/blockchain/token.html:133
+msgid "Купить сейчас"
+msgstr ""
+
+#: app/templates/blockchain/token.html:146
+msgid "Получите бесплатные токены, участвуя в аирдропе!"
+msgstr ""
+
+#: app/templates/blockchain/token.html:152
+#, fuzzy
+msgid "Добавить токен"
+msgstr "Add to cart"
+
+#: app/templates/blockchain/token.html:178
+#: app/templates/blockchain/token_sale_detail.html:265
+#: app/templates/blockchain/token_sale_list.html:94
+#, fuzzy
+msgid "Токен добавлен в MetaMask!"
+msgstr "Add to MetaMask"
+
+#: app/templates/blockchain/token.html:181
+#, fuzzy
+msgid "Ошибка при добавлении токена в MetaMask"
+msgstr "Add to MetaMask"
+
+#: app/templates/blockchain/token.html:184
+msgid ""
+"MetaMask не установлен. Пожалуйста, установите MetaMask для использования"
+" этой функции."
+msgstr ""
+
+#: app/templates/blockchain/token.html:194
+msgid "Скопировано!"
+msgstr ""
+
+#: app/templates/blockchain/token.html:211
+msgid "Не удалось скопировать в буфер обмена"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:23
+#: app/templates/blockchain/token_sale_list.html:46
+msgid "Цена токена"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:24
+#: app/templates/blockchain/token_sale_list.html:47
+#, fuzzy
+msgid "Минимальная покупка"
+msgstr "Traditional Purchase"
+
+#: app/templates/blockchain/token_sale_detail.html:25
+#, fuzzy
+msgid "Максимальная покупка"
+msgstr "Traditional Purchase"
+
+#: app/templates/blockchain/token_sale_detail.html:44
+msgid "Минимум"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:44
+msgid "Максимум"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:48
+msgid "Итого к оплате"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:58
+msgid "Способы покупки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:68
+msgid "Купить через MetaMask"
+msgstr "Buy with MetaMask"
+
+#: app/templates/blockchain/token_sale_detail.html:74
+#: app/templates/blockchain/token_sale_list.html:25
+msgid "Посмотреть контракт"
+msgstr "View Contract"
+
+#: app/templates/blockchain/token_sale_detail.html:83
+msgid "Традиционная покупка"
+msgstr "Traditional Purchase"
+
+#: app/templates/blockchain/token_sale_detail.html:87
+msgid "Для отслеживания покупок войдите в аккаунт"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:110
+msgid "Ваши покупки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:117
+#, fuzzy
+msgid "Дата"
+msgstr "Payment"
+
+#: app/templates/blockchain/token_sale_detail.html:118
+#: app/templates/shop/cart.html:27 app/templates/shop/product.html:58
+msgid "Количество"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:119
+#: app/templates/shop/cart.html:26
+msgid "Цена"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:120
+msgid "Сумма"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:133
+msgid "Ожидается"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:135
+msgid "Подтверждено"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:139
+msgid "Ошибка"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:158
+msgid "Данные контракта"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:174
+msgid "Десятичные знаки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:184
+msgid "Сеть и интеграции"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:195
+msgid "Стандарт"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:196
+msgid "Контракт верифицирован"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:208
+msgid "Преимущества токена"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:212
+msgid "Для магазина"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:214
+#, python-format
+msgid "Оплата товаров и услуг со скидкой до 20%%"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:215
+msgid "Кешбэк на покупки в токенах"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:216
+msgid "Эксклюзивный доступ к специальным предложениям"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:220
+msgid "Для экосистемы"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:222
+msgid "Участие в управлении проектом через DAO"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:223
+msgid "Возможность заработка на росте стоимости токенов"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:224
+msgid "Получение дивидендов от прибыли проекта"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:268
+#: app/templates/blockchain/token_sale_list.html:97
+#, fuzzy
+msgid "Ошибка добавления токена в MetaMask"
+msgstr "Add to MetaMask"
+
+#: app/templates/blockchain/token_sale_detail.html:271
+#: app/templates/blockchain/token_sale_list.html:100
+msgid "MetaMask не установлен!"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:283
+msgid "Введите количество токенов для покупки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:289
+msgid "Для покупки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:290
+#, fuzzy
+msgid "Откройте MetaMask"
+msgstr "Buy with MetaMask"
+
+#: app/templates/blockchain/token_sale_detail.html:291
+msgid "Перейдите на Polygon сеть"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:292
+#, fuzzy
+msgid "Используйте адрес контракта"
+msgstr "View Contract"
+
+#: app/templates/blockchain/token_sale_detail.html:293
+msgid "Или используйте Uniswap для покупки"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:302
+msgid "Ошибка подключения к MetaMask"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:305
+msgid "MetaMask не установлен! Установите MetaMask для покупки токенов."
+msgstr ""
+
+#: app/templates/blockchain/token_sale_detail.html:328
+msgid "Ошибка копирования адреса"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_list.html:2
+msgid "Токенсейлы"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_list.html:10
+msgid "Доступные токенсейлы"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_list.html:57
+msgid "Купить"
+msgstr ""
+
+#: app/templates/blockchain/token_sale_list.html:68
+msgid "В настоящее время нет активных токенсейлов. Пожалуйста, проверьте позже."
+msgstr ""
 
 #: app/templates/errors/404.html:2
 msgid "Сторінку не знайдено"
@@ -226,554 +922,673 @@ msgstr "Server error"
 msgid "Внутрішня помилка"
 msgstr "Internal error"
 
+#: app/templates/shop/cart.html:2 app/templates/shop/cart.html:16
+#, fuzzy
+msgid "Корзина"
+msgstr "Add to cart"
+
+#: app/templates/shop/cart.html:25 app/templates/shop/product.html:2
+msgid "Товар"
+msgstr ""
+
+#: app/templates/shop/cart.html:28
+msgid "Итого"
+msgstr ""
+
+#: app/templates/shop/cart.html:29
+msgid "Действия"
+msgstr ""
+
+#: app/templates/shop/cart.html:78 app/templates/shop/product.html:63
+#, fuzzy
+msgid "Способ оплаты"
+msgstr "Payment methods"
+
+#: app/templates/shop/cart.html:82 app/templates/shop/product.html:67
+#, fuzzy
+msgid "Стандартная оплата"
+msgstr "Recent payments"
+
+#: app/templates/shop/cart.html:88 app/templates/shop/product.html:73
+#, fuzzy
+msgid "Оплата токенами"
+msgstr "Online payment"
+
+#: app/templates/shop/cart.html:89 app/templates/shop/product.html:74
+msgid "Экономия"
+msgstr ""
+
+#: app/templates/shop/cart.html:96
+msgid "Оформить заказ"
+msgstr ""
+
+#: app/templates/shop/cart.html:103
+#, fuzzy
+msgid "Ваша корзина пуста."
+msgstr "Add to cart"
+
+#: app/templates/shop/category.html:27
+msgid "Немає товарів у цій категорії."
+msgstr ""
+
+#: app/templates/shop/index.html:2 app/templates/shop/product.html:20
+#, fuzzy
+msgid "Магазин"
+msgstr "Digital Goods Store"
+
+#: app/templates/shop/index.html:6
+msgid "IT-услуги и продукты"
+msgstr ""
+
+#: app/templates/shop/index.html:27
+msgid "Популярные предложения"
+msgstr ""
+
 #: app/templates/shop/index.html:48
 msgid "В корзину"
 msgstr "Add to cart"
 
-#: app/templates/shop/product.html:79
-msgid "Добавить в корзину"
-msgstr "Add to cart"
+#: app/templates/shop/order_confirmation.html:2
+msgid "Замовлення оформлено"
+msgstr ""
 
-#: app/templates/shop/index.html:50 app/templates/blockchain/dao_index.html:65 app/templates/blockchain/dao_index.html:100 app/templates/blockchain/token_sale_list.html:52
-msgid "Подробнее"
-msgstr "More details"
+#: app/templates/shop/order_confirmation.html:6
+msgid "Дякуємо за замовлення!"
+msgstr ""
 
-#: app/templates/index.html:43
-msgid "Перейти в магазин"
-msgstr "Go to shop"
-
-#: app/templates/index.html:129
-msgid "Всі способи оплати та реквізити"
-msgstr "All payment methods and details"
+#: app/templates/shop/order_confirmation.html:7
+msgid "Ваше замовлення прийнято та знаходиться в обробці."
+msgstr ""
 
 #: app/templates/shop/order_confirmation.html:10
 msgid "Переглянути всі способи оплати та реквізити"
 msgstr "View all payment methods and details"
 
+#: app/templates/shop/order_confirmation.html:13
+msgid ""
+"Ви можете оплатити замовлення будь-яким зручним способом: Stripe, "
+"криптовалюта, банківський переказ тощо."
+msgstr ""
+
 #: app/templates/shop/order_confirmation.html:16
 msgid "Повернутися до магазину"
 msgstr "Return to shop"
 
-#: venv/Lib/site-packages/click/_termui_impl.py:600
-#, python-brace-format
-msgid "{editor}: Editing failed"
-msgstr ""
+#: app/templates/shop/product.html:45
+msgid "или"
+msgstr ""
+
+#: app/templates/shop/product.html:79
+msgid "Добавить в корзину"
+msgstr "Add to cart"
+
+#: app/templates/shop/product.html:100
+msgid "Похожие товары"
+msgstr ""
+
+#~ msgid "Тут будуть контактні дані."
+#~ msgstr "Contact details will be here."
+
+#~ msgid "Тут буде інформація про компанію."
+#~ msgstr "Company information will be here."
+
+#~ msgid ""
+#~ "Ми поважаємо вашу приватність і "
+#~ "дотримуємося вимог Загального регламенту "
+#~ "захисту даних (GDPR) та інших законів"
+#~ " ЄС щодо захисту персональних даних."
+#~ msgstr ""
+#~ "We respect your privacy and comply "
+#~ "with the General Data Protection "
+#~ "Regulation (GDPR) and other EU data "
+#~ "protection laws."
+
+#~ msgid "Які дані ми збираємо?"
+#~ msgstr "What data do we collect?"
+
+#~ msgid "Ми не збираємо жодних персональних даних автоматично."
+#~ msgstr "We do not collect any personal data automatically."
+
+#~ msgid ""
+#~ "Ми отримуємо ваші контактні дані (ім'я,"
+#~ " email, телефон) лише якщо ви "
+#~ "самостійно залишаєте їх для зв'язку або"
+#~ " оформлення заявки/оплати."
+#~ msgstr ""
+#~ "We receive your contact details (name,"
+#~ " email, phone) only if you "
+#~ "voluntarily provide them for contact or"
+#~ " order/payment."
+
+#~ msgid "Як ми використовуємо ваші дані?"
+#~ msgstr "How do we use your data?"
+
+#~ msgid ""
+#~ "Ваші дані використовуються виключно для "
+#~ "зв'язку з вами або для виконання "
+#~ "вашого запиту (наприклад, для зворотного "
+#~ "зв'язку чи виставлення рахунку)."
+#~ msgstr ""
+#~ "Your data is used solely to "
+#~ "contact you or fulfill your request "
+#~ "(e.g., for feedback or invoicing)."
+
+#~ msgid ""
+#~ "Ми не передаємо ваші дані третім "
+#~ "особам, окрім випадків, коли це прямо"
+#~ " вимагається законом."
+#~ msgstr "We do not share your data with third parties except as required by law."
+
+#~ msgid "Реклама та сторонні сервіси"
+#~ msgstr "Advertising and third-party services"
+
+#~ msgid ""
+#~ "На сайті можуть бути інтегровані "
+#~ "сторонні сервіси (наприклад, Facebook, "
+#~ "Google), які можуть збирати дані про "
+#~ "вас відповідно до своїх політик "
+#~ "конфіденційності."
+#~ msgstr ""
+#~ "Third-party services (e.g., Facebook, "
+#~ "Google) may be integrated on the "
+#~ "site and may collect data about "
+#~ "you according to their privacy policies."
+
+#~ msgid "Ми не маємо доступу до цих даних і не контролюємо їх збір."
+#~ msgstr "We do not have access to or control over this data collection."
+
+#~ msgid "Детальніше про політику конфіденційності Facebook:"
+#~ msgstr "More about Facebook's privacy policy:"
+
+#~ msgid "Детальніше про політику конфіденційності Google:"
+#~ msgstr "More about Google's privacy policy:"
+
+#~ msgid "Ваші права"
+#~ msgstr "Your rights"
+
+#~ msgid ""
+#~ "Ви маєте право отримати інформацію про"
+#~ " свої персональні дані, які ми "
+#~ "зберігаємо (якщо такі є), вимагати їх"
+#~ " виправлення або видалення."
+#~ msgstr ""
+#~ "You have the right to obtain "
+#~ "information about your personal data we"
+#~ " store (if any), and to request "
+#~ "correction or deletion."
 
-#: venv/Lib/site-packages/click/_termui_impl.py:604
-#, python-brace-format
-msgid "{editor}: Editing failed: {e}"
-msgstr ""
+#~ msgid "Для цього напишіть нам на"
+#~ msgstr "To do this, write to us at"
 
-#: venv/Lib/site-packages/click/core.py:1084
-#: venv/Lib/site-packages/click/core.py:1121
-#, python-brace-format
-msgid "{text} {deprecated_message}"
-msgstr ""
+#~ msgid "Зміни до політики"
+#~ msgstr "Policy changes"
 
-#: venv/Lib/site-packages/click/core.py:1140
-msgid "Options"
-msgstr ""
+#~ msgid ""
+#~ "Ми можемо періодично оновлювати цю "
+#~ "політику. Актуальна версія завжди доступна "
+#~ "на цій сторінці."
+#~ msgstr ""
+#~ "We may periodically update this policy."
+#~ " The current version is always "
+#~ "available on this page."
 
-#: venv/Lib/site-packages/click/core.py:1202
-#, python-brace-format
-msgid "Got unexpected extra argument ({args})"
-msgid_plural "Got unexpected extra arguments ({args})"
-msgstr[0] ""
-msgstr[1] ""
-
-#: venv/Lib/site-packages/click/core.py:1221
-#, python-brace-format
-msgid "DeprecationWarning: The command {name!r} is deprecated.{extra_message}"
-msgstr ""
+#~ msgid ""
+#~ "Використовуючи наш сайт, ви погоджуєтесь "
+#~ "із цією політикою конфіденційності."
+#~ msgstr "By using our site, you agree to this privacy policy."
 
-#: venv/Lib/site-packages/click/core.py:1405
-msgid "Aborted!"
-msgstr ""
+#~ msgid "Адмінка"
+#~ msgstr "Admin panel"
 
-#: venv/Lib/site-packages/click/core.py:1779
-msgid "Commands"
-msgstr ""
+#~ msgid "Адмін-панель"
+#~ msgstr "Admin dashboard"
 
-#: venv/Lib/site-packages/click/core.py:1810
-msgid "Missing command."
-msgstr ""
+#~ msgid "Блоки сайту"
+#~ msgstr "Site blocks"
 
-#: venv/Lib/site-packages/click/core.py:1888
-#, python-brace-format
-msgid "No such command {name!r}."
-msgstr ""
+#~ msgid "Налаштування соцмереж"
+#~ msgstr "Social settings"
 
-#: venv/Lib/site-packages/click/core.py:2303
-msgid "Value must be an iterable."
-msgstr ""
+#~ msgid "Вийти"
+#~ msgstr "Logout"
 
-#: venv/Lib/site-packages/click/core.py:2324
-#, python-brace-format
-msgid "Takes {nargs} values but 1 was given."
-msgid_plural "Takes {nargs} values but {len} were given."
-msgstr[0] ""
-msgstr[1] ""
-
-#: venv/Lib/site-packages/click/core.py:2404
-#, python-brace-format
-msgid ""
-"DeprecationWarning: The {param_type} {name!r} is "
-"deprecated.{extra_message}"
-msgstr ""
+#~ msgid "{editor}: Editing failed"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/core.py:2807
-#, python-brace-format
-msgid "env var: {var}"
-msgstr ""
+#~ msgid "{editor}: Editing failed: {e}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/core.py:2810
-#, python-brace-format
-msgid "default: {default}"
-msgstr ""
+#~ msgid "{text} {deprecated_message}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/core.py:2814
-msgid "required"
-msgstr ""
+#~ msgid "Options"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/core.py:2870
-msgid "(dynamic)"
-msgstr ""
+#~ msgid "Got unexpected extra argument ({args})"
+#~ msgid_plural "Got unexpected extra arguments ({args})"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
 
-#: venv/Lib/site-packages/click/decorators.py:465
-#, python-format
-msgid "%(prog)s, version %(version)s"
-msgstr ""
+#~ msgid "DeprecationWarning: The command {name!r} is deprecated.{extra_message}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/decorators.py:522
-msgid "Show the version and exit."
-msgstr ""
+#~ msgid "Aborted!"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/decorators.py:548
-msgid "Show this message and exit."
-msgstr ""
+#~ msgid "Commands"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/exceptions.py:50
-#: venv/Lib/site-packages/click/exceptions.py:89
-#, python-brace-format
-msgid "Error: {message}"
-msgstr ""
+#~ msgid "Missing command."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/exceptions.py:81
-#, python-brace-format
-msgid "Try '{command} {option}' for help."
-msgstr ""
+#~ msgid "No such command {name!r}."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/exceptions.py:130
-#, python-brace-format
-msgid "Invalid value: {message}"
-msgstr ""
+#~ msgid "Value must be an iterable."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/exceptions.py:132
-#, python-brace-format
-msgid "Invalid value for {param_hint}: {message}"
-msgstr ""
+#~ msgid "Takes {nargs} values but 1 was given."
+#~ msgid_plural "Takes {nargs} values but {len} were given."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
 
-#: venv/Lib/site-packages/click/exceptions.py:190
-msgid "Missing argument"
-msgstr ""
+#~ msgid ""
+#~ "DeprecationWarning: The {param_type} {name!r} "
+#~ "is deprecated.{extra_message}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/exceptions.py:192
-msgid "Missing option"
-msgstr ""
+#~ msgid "env var: {var}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/exceptions.py:194
-msgid "Missing parameter"
-msgstr ""
+#~ msgid "default: {default}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/exceptions.py:196
-#, python-brace-format
-msgid "Missing {param_type}"
-msgstr ""
+#~ msgid "required"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/exceptions.py:203
-#, python-brace-format
-msgid "Missing parameter: {param_name}"
-msgstr ""
+#~ msgid "(dynamic)"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/exceptions.py:223
-#, python-brace-format
-msgid "No such option: {name}"
-msgstr ""
+#~ msgid "%(prog)s, version %(version)s"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/exceptions.py:235
-#, python-brace-format
-msgid "Did you mean {possibility}?"
-msgid_plural "(Possible options: {possibilities})"
-msgstr[0] ""
-msgstr[1] ""
-
-#: venv/Lib/site-packages/click/exceptions.py:282
-msgid "unknown error"
-msgstr ""
+#~ msgid "Show the version and exit."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/exceptions.py:289
-#, python-brace-format
-msgid "Could not open file {filename!r}: {message}"
-msgstr ""
+#~ msgid "Show this message and exit."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/parser.py:200
-#, python-brace-format
-msgid "Argument {name!r} takes {nargs} values."
-msgstr ""
+#~ msgid "Error: {message}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/parser.py:383
-#, python-brace-format
-msgid "Option {name!r} does not take a value."
-msgstr ""
+#~ msgid "Try '{command} {option}' for help."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/parser.py:444
-#, python-brace-format
-msgid "Option {name!r} requires an argument."
-msgid_plural "Option {name!r} requires {nargs} arguments."
-msgstr[0] ""
-msgstr[1] ""
-
-#: venv/Lib/site-packages/click/shell_completion.py:326
-msgid "Shell completion is not supported for Bash versions older than 4.4."
-msgstr ""
+#~ msgid "Invalid value: {message}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/shell_completion.py:333
-msgid "Couldn't detect Bash version, shell completion is not supported."
-msgstr ""
+#~ msgid "Invalid value for {param_hint}: {message}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/termui.py:162
-msgid "Repeat for confirmation"
-msgstr ""
+#~ msgid "Missing argument"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/termui.py:178
-msgid "Error: The value you entered was invalid."
-msgstr ""
+#~ msgid "Missing option"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/termui.py:180
-#, python-brace-format
-msgid "Error: {e.message}"
-msgstr ""
+#~ msgid "Missing parameter"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/termui.py:191
-msgid "Error: The two entered values do not match."
-msgstr ""
+#~ msgid "Missing {param_type}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/termui.py:247
-msgid "Error: invalid input"
-msgstr ""
+#~ msgid "Missing parameter: {param_name}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/termui.py:866
-msgid "Press any key to continue..."
-msgstr ""
+#~ msgid "No such option: {name}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:332
-#, python-brace-format
-msgid ""
-"Choose from:\n"
-"\t{choices}"
-msgstr ""
+#~ msgid "Did you mean {possibility}?"
+#~ msgid_plural "(Possible options: {possibilities})"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
 
-#: venv/Lib/site-packages/click/types.py:369
-#, python-brace-format
-msgid "{value!r} is not {choice}."
-msgid_plural "{value!r} is not one of {choices}."
-msgstr[0] ""
-msgstr[1] ""
-
-#: venv/Lib/site-packages/click/types.py:460
-#, python-brace-format
-msgid "{value!r} does not match the format {format}."
-msgid_plural "{value!r} does not match the formats {formats}."
-msgstr[0] ""
-msgstr[1] ""
-
-#: venv/Lib/site-packages/click/types.py:482
-#, python-brace-format
-msgid "{value!r} is not a valid {number_type}."
-msgstr ""
+#~ msgid "unknown error"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:538
-#, python-brace-format
-msgid "{value} is not in the range {range}."
-msgstr ""
+#~ msgid "Could not open file {filename!r}: {message}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:679
-#, python-brace-format
-msgid "{value!r} is not a valid boolean."
-msgstr ""
+#~ msgid "Argument {name!r} takes {nargs} values."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:703
-#, python-brace-format
-msgid "{value!r} is not a valid UUID."
-msgstr ""
+#~ msgid "Option {name!r} does not take a value."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:893
-msgid "file"
-msgstr ""
+#~ msgid "Option {name!r} requires an argument."
+#~ msgid_plural "Option {name!r} requires {nargs} arguments."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
 
-#: venv/Lib/site-packages/click/types.py:895
-msgid "directory"
-msgstr ""
+#~ msgid "Shell completion is not supported for Bash versions older than 4.4."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:897
-msgid "path"
-msgstr ""
+#~ msgid "Couldn't detect Bash version, shell completion is not supported."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:944
-#, python-brace-format
-msgid "{name} {filename!r} does not exist."
-msgstr ""
+#~ msgid "Repeat for confirmation"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:953
-#, python-brace-format
-msgid "{name} {filename!r} is a file."
-msgstr ""
+#~ msgid "Error: The value you entered was invalid."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:961
-#, python-brace-format
-msgid "{name} {filename!r} is a directory."
-msgstr ""
+#~ msgid "Error: {e.message}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:970
-#, python-brace-format
-msgid "{name} {filename!r} is not readable."
-msgstr ""
+#~ msgid "Error: The two entered values do not match."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:979
-#, python-brace-format
-msgid "{name} {filename!r} is not writable."
-msgstr ""
+#~ msgid "Error: invalid input"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:988
-#, python-brace-format
-msgid "{name} {filename!r} is not executable."
-msgstr ""
+#~ msgid "Press any key to continue..."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/click/types.py:1055
-#, python-brace-format
-msgid "{len_type} values are required, but {len_value} was given."
-msgid_plural "{len_type} values are required, but {len_value} were given."
-msgstr[0] ""
-msgstr[1] ""
-
-#: venv/Lib/site-packages/flask_wtf/file.py:55
-#: venv/Lib/site-packages/wtforms/validators.py:293
-#: venv/Lib/site-packages/wtforms/validators.py:323
-msgid "This field is required."
-msgstr ""
+#~ msgid ""
+#~ "Choose from:\n"
+#~ "\t{choices}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/flask_wtf/file.py:94
-#, python-brace-format
-msgid "File does not have an approved extension: {extensions}"
-msgstr ""
+#~ msgid "{value!r} is not {choice}."
+#~ msgid_plural "{value!r} is not one of {choices}."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
 
-#: venv/Lib/site-packages/flask_wtf/file.py:101
-msgid "File does not have an approved extension."
-msgstr ""
+#~ msgid "{value!r} does not match the format {format}."
+#~ msgid_plural "{value!r} does not match the formats {formats}."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:86
-#, python-format
-msgid "Invalid field name '%s'."
-msgstr ""
+#~ msgid "{value!r} is not a valid {number_type}."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:99
-#, python-format
-msgid "Field must be equal to %(other_name)s."
-msgstr ""
+#~ msgid "{value} is not in the range {range}."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:146
-#, python-format
-msgid "Field must be at least %(min)d character long."
-msgid_plural "Field must be at least %(min)d characters long."
-msgstr[0] ""
-msgstr[1] ""
-
-#: venv/Lib/site-packages/wtforms/validators.py:152
-#, python-format
-msgid "Field cannot be longer than %(max)d character."
-msgid_plural "Field cannot be longer than %(max)d characters."
-msgstr[0] ""
-msgstr[1] ""
-
-#: venv/Lib/site-packages/wtforms/validators.py:158
-#, python-format
-msgid "Field must be exactly %(max)d character long."
-msgid_plural "Field must be exactly %(max)d characters long."
-msgstr[0] ""
-msgstr[1] ""
-
-#: venv/Lib/site-packages/wtforms/validators.py:164
-#, python-format
-msgid "Field must be between %(min)d and %(max)d characters long."
-msgstr ""
+#~ msgid "{value!r} is not a valid boolean."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:216
-#, python-format
-msgid "Number must be at least %(min)s."
-msgstr ""
+#~ msgid "{value!r} is not a valid UUID."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:219
-#, python-format
-msgid "Number must be at most %(max)s."
-msgstr ""
+#~ msgid "file"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:222
-#, python-format
-msgid "Number must be between %(min)s and %(max)s."
-msgstr ""
+#~ msgid "directory"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:358
-msgid "Invalid input."
-msgstr ""
+#~ msgid "path"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:422
-msgid "Invalid email address."
-msgstr ""
+#~ msgid "{name} {filename!r} does not exist."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:460
-msgid "Invalid IP address."
-msgstr ""
+#~ msgid "{name} {filename!r} is a file."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:503
-msgid "Invalid Mac address."
-msgstr ""
+#~ msgid "{name} {filename!r} is a directory."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:540
-msgid "Invalid URL."
-msgstr ""
+#~ msgid "{name} {filename!r} is not readable."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:561
-msgid "Invalid UUID."
-msgstr ""
+#~ msgid "{name} {filename!r} is not writable."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:595
-#, python-format
-msgid "Invalid value, must be one of: %(values)s."
-msgstr ""
+#~ msgid "{name} {filename!r} is not executable."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:631
-#, python-format
-msgid "Invalid value, can't be any of: %(values)s."
-msgstr ""
+#~ msgid "{len_type} values are required, but {len_value} was given."
+#~ msgid_plural "{len_type} values are required, but {len_value} were given."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:700
-msgid "This field cannot be edited."
-msgstr ""
+#~ msgid "This field is required."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/validators.py:716
-msgid "This field is disabled and cannot have a value."
-msgstr ""
+#~ msgid "File does not have an approved extension: {extensions}"
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/csrf/core.py:96
-msgid "Invalid CSRF Token."
-msgstr ""
+#~ msgid "File does not have an approved extension."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/csrf/session.py:64
-msgid "CSRF token missing."
-msgstr ""
+#~ msgid "Invalid field name '%s'."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/csrf/session.py:72
-msgid "CSRF failed."
-msgstr ""
+#~ msgid "Field must be equal to %(other_name)s."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/csrf/session.py:77
-msgid "CSRF token expired."
-msgstr ""
+#~ msgid "Field must be at least %(min)d character long."
+#~ msgid_plural "Field must be at least %(min)d characters long."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
 
-#: venv/Lib/site-packages/wtforms/fields/choices.py:142
-msgid "Invalid Choice: could not coerce."
-msgstr ""
+#~ msgid "Field cannot be longer than %(max)d character."
+#~ msgid_plural "Field cannot be longer than %(max)d characters."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
 
-#: venv/Lib/site-packages/wtforms/fields/choices.py:149
-#: venv/Lib/site-packages/wtforms/fields/choices.py:203
-msgid "Choices cannot be None."
-msgstr ""
+#~ msgid "Field must be exactly %(max)d character long."
+#~ msgid_plural "Field must be exactly %(max)d characters long."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
 
-#: venv/Lib/site-packages/wtforms/fields/choices.py:155
-msgid "Not a valid choice."
-msgstr ""
+#~ msgid "Field must be between %(min)d and %(max)d characters long."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/fields/choices.py:194
-msgid "Invalid choice(s): one or more data inputs could not be coerced."
-msgstr ""
+#~ msgid "Number must be at least %(min)s."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/fields/choices.py:212
-#, python-format
-msgid "'%(value)s' is not a valid choice for this field."
-msgid_plural "'%(value)s' are not valid choices for this field."
-msgstr[0] ""
-msgstr[1] ""
-
-#: venv/Lib/site-packages/wtforms/fields/datetime.py:52
-msgid "Not a valid datetime value."
-msgstr ""
+#~ msgid "Number must be at most %(max)s."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/fields/datetime.py:78
-msgid "Not a valid date value."
-msgstr ""
+#~ msgid "Number must be between %(min)s and %(max)s."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/fields/datetime.py:104
-msgid "Not a valid time value."
-msgstr ""
+#~ msgid "Invalid input."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/fields/datetime.py:149
-msgid "Not a valid week value."
-msgstr ""
+#~ msgid "Invalid email address."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/fields/numeric.py:82
-#: venv/Lib/site-packages/wtforms/fields/numeric.py:92
-msgid "Not a valid integer value."
-msgstr ""
+#~ msgid "Invalid IP address."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/fields/numeric.py:168
-msgid "Not a valid decimal value."
-msgstr ""
+#~ msgid "Invalid Mac address."
+#~ msgstr ""
 
-#: venv/Lib/site-packages/wtforms/fields/numeric.py:197
-msgid "Not a valid float value."
-msgstr ""
+#~ msgid "Invalid URL."
+#~ msgstr ""
+
+#~ msgid "Invalid UUID."
+#~ msgstr ""
+
+#~ msgid "Invalid value, must be one of: %(values)s."
+#~ msgstr ""
+
+#~ msgid "Invalid value, can't be any of: %(values)s."
+#~ msgstr ""
+
+#~ msgid "This field cannot be edited."
+#~ msgstr ""
+
+#~ msgid "This field is disabled and cannot have a value."
+#~ msgstr ""
+
+#~ msgid "Invalid CSRF Token."
+#~ msgstr ""
+
+#~ msgid "CSRF token missing."
+#~ msgstr ""
+
+#~ msgid "CSRF failed."
+#~ msgstr ""
+
+#~ msgid "CSRF token expired."
+#~ msgstr ""
+
+#~ msgid "Invalid Choice: could not coerce."
+#~ msgstr ""
+
+#~ msgid "Choices cannot be None."
+#~ msgstr ""
+
+#~ msgid "Not a valid choice."
+#~ msgstr ""
+
+#~ msgid "Invalid choice(s): one or more data inputs could not be coerced."
+#~ msgstr ""
+
+#~ msgid "'%(value)s' is not a valid choice for this field."
+#~ msgid_plural "'%(value)s' are not valid choices for this field."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+
+#~ msgid "Not a valid datetime value."
+#~ msgstr ""
+
+#~ msgid "Not a valid date value."
+#~ msgstr ""
+
+#~ msgid "Not a valid time value."
+#~ msgstr ""
+
+#~ msgid "Not a valid week value."
+#~ msgstr ""
+
+#~ msgid "Not a valid integer value."
+#~ msgstr ""
+
+#~ msgid "Not a valid decimal value."
+#~ msgstr ""
+
+#~ msgid "Not a valid float value."
+#~ msgstr ""
+
+# Blog translations in English
+
+# Blog public pages
+msgid "Блог"
+msgstr "Blog"
+
+msgid "Останні публікації"
+msgstr "Latest Posts"
+
+msgid "Читати далі"
+msgstr "Read More"
+
+msgid "Опубліковано"
+msgstr "Published"
+
+msgid "Автор"
+msgstr "Author"
+
+msgid "Теги"
+msgstr "Tags"
+
+msgid "Поділитися"
+msgstr "Share"
+
+msgid "Коментарі"
+msgstr "Comments"
+
+msgid "Схожі статті"
+msgstr "Related Articles"
+
+# Blog admin pages
+msgid "Статті"
+msgstr "Articles"
+
+msgid "Теми"
+msgstr "Topics"
+
+msgid "Розклад публікацій"
+msgstr "Publication Schedule"
+
+msgid "Створити нову статтю"
+msgstr "Create New Article"
+
+msgid "Редагувати статтю"
+msgstr "Edit Article"
+
+msgid "Видалити статтю"
+msgstr "Delete Article"
+
+msgid "Заголовок (UA)"
+msgstr "Title (UA)"
+
+msgid "Заголовок (EN)"
+msgstr "Title (EN)"
+
+msgid "Заголовок (RU)"
+msgstr "Title (RU)"
+
+msgid "Зміст (UA)"
+msgstr "Content (UA)"
+
+msgid "Зміст (EN)"
+msgstr "Content (EN)"
+
+msgid "Зміст (RU)"
+msgstr "Content (RU)"
+
+msgid "Опублікувати"
+msgstr "Publish"
+
+msgid "Зберегти як чернетку"
+msgstr "Save as Draft"
+
+msgid "Статус"
+msgstr "Status"
+
+msgid "Опубліковано"
+msgstr "Published"
+
+msgid "Чернетка"
+msgstr "Draft"
 
-#: app/templates/blockchain/token_sale_detail.html:63 app/templates/blockchain/token_sale_list.html:19 app/templates/blockchain/token.html:61
-msgid "Купить на Uniswap"
-msgstr "Buy on Uniswap"
+msgid "Тема"
+msgstr "Topic"
 
-#: app/templates/blockchain/token_sale_detail.html:68
-msgid "Купить через MetaMask"
-msgstr "Buy with MetaMask"
+msgid "Автоматична генерація"
+msgstr "Automatic Generation"
 
-#: app/templates/blockchain/token_sale_detail.html:73
-msgid "Посмотреть контракт"
-msgstr "View Contract"
+msgid "Згенерувати статтю за допомогою AI"
+msgstr "Generate Article with AI"
 
-#: app/templates/blockchain/token_sale_detail.html:77 app/templates/blockchain/airdrop_detail.html:41
-msgid "Подключить кошелек"
-msgstr "Connect Wallet"
+msgid "Надіслати в Telegram"
+msgstr "Send to Telegram"
 
-#: app/templates/blockchain/token_sale_detail.html:81
-msgid "Традиционная покупка"
-msgstr "Traditional Purchase"
+msgid "Налаштувати розклад публікації"
+msgstr "Configure Publication Schedule"
 
-#: app/templates/blockchain/token_sale_detail.html:88 app/templates/blockchain/airdrop_detail.html:50
-msgid "Войти"
-msgstr "Login"
+msgid "Частота публікацій"
+msgstr "Publication Frequency"
 
-#: app/templates/blockchain/token_sale_detail.html:188
-msgid "Добавить в MetaMask"
-msgstr "Add to MetaMask"
+msgid "Щоденно"
+msgstr "Daily"
 
-#: app/templates/blockchain/airdrop_detail.html:45
-msgid "Зарегистрироваться на аирдроп"
-msgstr "Register for Airdrop"
+msgid "Щотижня"
+msgstr "Weekly"
 
-#: app/templates/blockchain/dao_index.html:9
-msgid "Создать предложение"
-msgstr "Create Proposal"
+msgid "Щомісяця"
+msgstr "Monthly"
 
-#: app/templates/blockchain/dao_index.html:63
-msgid "Детали и голосование"
-msgstr "Details and Voting"
+msgid "Час публікації"
+msgstr "Publication Time"
 
-#: app/templates/base.html:266
-msgid "Дім"
-msgstr "Home"
+msgid "Масове імпортування тем"
+msgstr "Bulk Import Topics"
 
+msgid "Імпортувати"
+msgstr "Import"

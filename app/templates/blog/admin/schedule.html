@@ -1,0 +1,224 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}Расписание публикаций{% endblock %}
+
+{% block admin_content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Расписание публикаций</h1>
+    
+    <div class="row mb-4">
+        <div class="col-md-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Новое расписание</h6>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('blog.create_schedule') }}">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="form-group mb-3">
+                            {{ form.topic_id.label(class="form-label") }}
+                            {{ form.topic_id(class="form-control") }}
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            {{ form.platform.label(class="form-label") }}
+                            {{ form.platform(class="form-control") }}
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            {{ form.repeat_weekly(class="form-check-input") }}
+                            {{ form.repeat_weekly.label(class="form-check-label") }}
+                        </div>
+                        
+                        <div class="weekly-options" style="display: none;">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form.day_of_week.label(class="form-label") }}
+                                        {{ form.day_of_week(class="form-control") }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form.time_of_day.label(class="form-label") }}
+                                        {{ form.time_of_day(class="form-control", placeholder="чч:мм") }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mb-3 one-time-option">
+                            {{ form.scheduled_time.label(class="form-label") }}
+                            {{ form.scheduled_time(class="form-control", type="datetime-local") }}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Инструкция</h6>
+                </div>
+                <div class="card-body">
+                    <h5>О расписании публикаций</h5>
+                    <p>
+                        Система расписания позволяет автоматически генерировать и публиковать статьи 
+                        на основе выбранных тем и расписания.
+                    </p>
+                    
+                    <h5>Типы расписания</h5>
+                    <ul>
+                        <li><strong>Однократное:</strong> статья будет сгенерирована и опубликована один раз в указанное время.</li>
+                        <li><strong>Еженедельное:</strong> статья будет генерироваться и публиковаться каждую неделю в указанный день и время.</li>
+                    </ul>
+                    
+                    <h5>Платформы</h5>
+                    <ul>
+                        <li><strong>Блог:</strong> публикация только на сайте</li>
+                        <li><strong>Telegram:</strong> публикация только в Telegram-канале</li>
+                        <li><strong>Все платформы:</strong> публикация на всех доступных платформах</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Текущие расписания</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Тема</th>
+                                    <th>Платформа</th>
+                                    <th>Расписание</th>
+                                    <th>Статус</th>
+                                    <th>Последний запуск</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for schedule in schedules %}
+                                <tr>
+                                    <td>{{ schedule.id }}</td>
+                                    <td>{{ schedule.topic.title if schedule.topic else 'Без темы' }}</td>
+                                    <td>{{ schedule.platform }}</td>
+                                    <td>
+                                        {% if schedule.repeat_weekly %}
+                                            Еженедельно, 
+                                            {% if schedule.day_of_week == 0 %}Пн
+                                            {% elif schedule.day_of_week == 1 %}Вт
+                                            {% elif schedule.day_of_week == 2 %}Ср
+                                            {% elif schedule.day_of_week == 3 %}Чт
+                                            {% elif schedule.day_of_week == 4 %}Пт
+                                            {% elif schedule.day_of_week == 5 %}Сб
+                                            {% elif schedule.day_of_week == 6 %}Вс
+                                            {% endif %}
+                                            {{ schedule.time_of_day }}
+                                        {% else %}
+                                            {{ schedule.scheduled_time.strftime('%d.%m.%Y %H:%M') if schedule.scheduled_time }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="badge {% if schedule.status == 'scheduled' %}bg-info
+                                            {% elif schedule.status == 'completed' %}bg-success
+                                            {% elif schedule.status == 'failed' %}bg-danger
+                                            {% endif %}">
+                                            {{ schedule.status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ schedule.last_run.strftime('%d.%m.%Y %H:%M') if schedule.last_run else 'Не запускалось' }}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-danger" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#deleteScheduleModal" 
+                                                data-schedule-id="{{ schedule.id }}" 
+                                                data-schedule-topic="{{ schedule.topic.title if schedule.topic else 'Без темы' }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Schedule Modal -->
+<div class="modal fade" id="deleteScheduleModal" tabindex="-1" aria-labelledby="deleteScheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteScheduleModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что хотите удалить расписание для темы "<span id="scheduleTopic"></span>"?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <form id="deleteScheduleForm" method="POST">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+        
+        // Toggle weekly/one-time options
+        $('#repeat_weekly').change(function() {
+            if(this.checked) {
+                $('.weekly-options').show();
+                $('.one-time-option').hide();
+            } else {
+                $('.weekly-options').hide();
+                $('.one-time-option').show();
+            }
+        });
+        
+        // Initialize visibility based on current state
+        if($('#repeat_weekly').is(':checked')) {
+            $('.weekly-options').show();
+            $('.one-time-option').hide();
+        } else {
+            $('.weekly-options').hide();
+            $('.one-time-option').show();
+        }
+        
+        // Delete modal setup
+        $('#deleteScheduleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var scheduleId = button.data('schedule-id');
+            var scheduleTopic = button.data('schedule-topic');
+            
+            var modal = $(this);
+            modal.find('#scheduleTopic').text(scheduleTopic);
+            modal.find('#deleteScheduleForm').attr('action', '{{ url_for("blog.delete_schedule", id=0) }}'.replace('0', scheduleId));
+        });
+    });
+</script>
+{% endblock %}

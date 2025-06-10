@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block meta %}
+<meta name="description" content="{{ get_blog_post_summary(post) }}">
+<!-- Open Graph data -->
+<meta property="og:title" content="{{ get_blog_post_title(post) }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.url }}">
+{% if post.featured_image %}
+<meta property="og:image" content="{{ url_for('static', filename='uploads/blog/' + post.featured_image, _external=True) }}">
+{% endif %}
+<meta property="og:description" content="{{ get_blog_post_summary(post) }}">
+<meta property="article:published_time" content="{{ post.publish_date.isoformat() }}">
+{% endblock %}
+
+{% block content %}
+<section class="blog-post-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Article Header -->                <header class="post-header mb-5">
+                    <div class="post-meta text-muted">
+                        <span class="post-date">{{ post.publish_date.strftime('%d.%m.%Y') if post.publish_date else '' }}</span>
+                        {% if post.topic %}
+                        <span class="post-topic ms-3">{{ post.topic.title }}</span>
+                        {% endif %}
+                    </div>                    <h1 class="post-title mt-2">{{ get_blog_post_title(post) }}</h1>
+                </header>                <!-- Featured Image -->
+                {% if post.featured_image %}
+                <div class="post-featured-image mb-5">
+                    <img src="{{ url_for('static', filename='uploads/blog/' + post.featured_image) }}" 
+                         class="img-fluid rounded shadow" 
+                         alt="{{ get_blog_post_title(post) }}"
+                         onerror="this.src='{{ url_for('static', filename='uploads/' + post.featured_image) }}'">
+                </div>
+                {% endif %}<!-- Article Content -->
+                <div class="post-content mb-5">
+                    {{ get_blog_post_content(post)|markdown|safe }}
+                </div>
+
+                <!-- Social Share -->
+                <div class="post-share mb-5 py-3 border-top border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h5>
+                                {% if g.get('lang') == 'en' %}
+                                    Share this article:
+                                {% elif g.get('lang') == 'de' %}
+                                    Artikel teilen:
+                                {% elif g.get('lang') == 'ru' %}
+                                    Поделиться статьей:
+                                {% else %}
+                                    Поділитися статтею:
+                                {% endif %}
+                            </h5>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-inline text-md-end mb-0">
+                                <li class="list-inline-item">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url|urlencode }}" 
+                                       target="_blank" class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-facebook"></i> Facebook
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://twitter.com/intent/tweet?url={{ request.url|urlencode }}&text={{ post.title|urlencode }}" 
+                                       target="_blank" class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-twitter"></i> Twitter
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://t.me/share/url?url={{ request.url|urlencode }}&text={{ post.title|urlencode }}" 
+                                       target="_blank" class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-telegram"></i> Telegram
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Posts -->
+                {% if related_posts %}
+                <div class="related-posts mt-5">
+                    <h3 class="mb-4">
+                        {% if g.get('lang') == 'en' %}
+                            Related Articles
+                        {% elif g.get('lang') == 'de' %}
+                            Ähnliche Artikel
+                        {% elif g.get('lang') == 'ru' %}
+                            Похожие статьи
+                        {% else %}
+                            Схожі статті
+                        {% endif %}
+                    </h3>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        {% for related_post in related_posts %}
+                        <div class="col">
+                            <div class="card h-100 shadow-sm">                                {% if related_post.featured_image %}
+                                <img src="{{ url_for('static', filename='uploads/blog/' + related_post.featured_image) }}" 
+                                     class="card-img-top" style="height: 150px; object-fit: cover;" 
+                                     alt="{{ related_post.title }}"
+                                     onerror="this.src='{{ url_for('static', filename='uploads/' + related_post.featured_image) }}'">
+                                {% endif %}                                <div class="card-body">                                    <h5 class="card-title">{{ get_blog_post_title(related_post) }}</h5>
+                                    <p class="card-text text-muted">
+                                        <small>{{ related_post.publish_date.strftime('%d.%m.%Y') if related_post.publish_date else '' }}</small>
+                                    </p>
+                                </div>
+                                <div class="card-footer bg-white border-0">
+                                    <a href="{{ url_for('blog.post_detail', slug=related_post.slug) }}" class="btn btn-sm btn-outline-primary">
+                                        {% if g.get('lang') == 'en' %}
+                                            Read
+                                        {% elif g.get('lang') == 'de' %}
+                                            Lesen
+                                        {% elif g.get('lang') == 'ru' %}
+                                            Читать
+                                        {% else %}
+                                            Читати
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+<style>
+    .post-content {
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+    .post-content h2 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+    .post-content h3 {
+        margin-top: 1.75rem;
+        margin-bottom: 0.75rem;
+    }
+    .post-content p {
+        margin-bottom: 1.5rem;
+    }
+    .post-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+    .post-content ul, .post-content ol {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+    }
+    .post-content blockquote {
+        border-left: 4px solid #0d6efd;
+        padding: 0.5rem 0 0.5rem 1rem;
+        margin: 1.5rem 0;
+        background-color: rgba(13, 110, 253, 0.05);
+    }
+    .related-posts .card {
+        transition: transform 0.3s;
+    }
+    .related-posts .card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}

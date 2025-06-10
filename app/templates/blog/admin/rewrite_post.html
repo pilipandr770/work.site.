@@ -1,0 +1,109 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}Переписать статью{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block admin_content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Переписать статью</h1>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">{{ post.title }}</h6>
+            <div>
+                <a href="{{ url_for('blog.edit_post', id=post.id) }}" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-arrow-left"></i> Вернуться к редактированию
+                </a>
+                <a href="{{ url_for('blog.post_detail', slug=post.slug) }}" target="_blank" class="btn btn-info btn-sm">
+                    <i class="fas fa-eye"></i> Просмотр текущей версии
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                
+                <div class="mb-4">
+                    <h5>Параметры переписывания</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.style.label(class="form-label") }}
+                                {{ form.style(class="form-select") }}
+                                <div class="form-text text-muted">Выберите стиль для новой версии статьи</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.instruction.label(class="form-label") }}
+                                {{ form.instruction(class="form-control") }}
+                                <div class="form-text text-muted">Дополнительные инструкции для переписывания</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <h5>Текущее содержание статьи</h5>
+                    <div class="alert alert-light border">
+                        <div id="currentContent">
+                            {{ post.content|safe }}
+                        </div>
+                    </div>
+                </div>
+                
+                {% if new_content %}
+                <div class="form-group mb-4">
+                    <h5>Новое содержание статьи</h5>
+                    <div class="alert alert-success">
+                        {{ form.new_content(class="form-control summernote") }}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    {{ form.apply.label(class="form-check-label") }}
+                    {{ form.apply(class="form-check-input ms-2") }}
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" name="action" value="save" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Сохранить новую версию
+                    </button>
+                </div>
+                {% else %}
+                <div class="form-group">
+                    <button type="submit" name="action" value="generate" class="btn btn-primary">
+                        <i class="fas fa-magic"></i> Сгенерировать новую версию
+                    </button>
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote({
+            height: 300,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    });
+</script>
+{% endblock %}

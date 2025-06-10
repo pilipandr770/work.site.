@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ _('Блог') }} - {{ _('Інформаційний портал') }}{% endblock %}
+
+{% block head %}
+<meta name="description" content="{{ _('Наш блог: корисні статті, новини та інформація в сфері бізнесу') }}">
+<meta property="og:title" content="{{ _('Блог') }} - {{ _('Інформаційний портал') }}">
+<meta property="og:description" content="{{ _('Наш блог: корисні статті, новини та інформація в сфері бізнесу') }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ url_for('blog.index', _external=True) }}">
+<meta name="twitter:card" content="summary_large_image">
+{% endblock %}
+
+{% block content %}
+<section class="blog-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-5">
+                    {% if g.get('lang') == 'en' %}
+                        Our Blog
+                    {% elif g.get('lang') == 'de' %}
+                        Unser Blog
+                    {% elif g.get('lang') == 'ru' %}
+                        Наш блог
+                    {% else %}
+                        Наш блог
+                    {% endif %}
+                </h1>
+            </div>
+        </div>
+
+        <!-- Blog Blocks -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for block in blocks %}
+            {% if block.is_active %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    {% if block.featured_image %}
+                    <img src="{{ url_for('static', filename='uploads/blog/' + block.featured_image) }}" 
+                         class="card-img-top" style="height: 200px; object-fit: cover;" 
+                         alt="{{ get_blog_block_title(block) }}"
+                         onerror="this.src='{{ url_for('static', filename='uploads/' + block.featured_image) }}'">
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title h5">{{ get_blog_block_title(block) }}</h3>
+                        <p class="card-text">{{ get_blog_block_summary(block)|safe }}</p>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a href="{{ url_for('blog.block_detail', position=block.position) }}" class="btn btn-outline-primary">
+                            {% if g.get('lang') == 'en' %}
+                                Read more
+                            {% elif g.get('lang') == 'de' %}
+                                Weiterlesen
+                            {% elif g.get('lang') == 'ru' %}
+                                Читать далее
+                            {% else %}
+                                Читати далі
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+    .blog-section .card {
+        transition: transform 0.3s;
+    }
+    .blog-section .card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}

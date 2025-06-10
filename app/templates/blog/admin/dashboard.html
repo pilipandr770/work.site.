@@ -1,0 +1,41 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}Управление блогом{% endblock %}
+
+{% block admin_content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Управление блогом</h1>
+    
+    <!-- Блоки блога -->
+    <div class="row">
+        {% for block in blocks %}
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-{{ 'primary' if block.is_active else 'secondary' }} shadow h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Блок #{{ block.position }}</h6>
+                    <span class="badge {{ 'bg-success' if block.is_active else 'bg-danger' }}">
+                        {{ 'Активен' if block.is_active else 'Неактивен' }}
+                    </span>
+                </div>
+                
+                {% if block.featured_image %}
+                <img src="{{ url_for('static', filename='uploads/blog/' + block.featured_image) }}" 
+                     class="card-img-top" style="height: 120px; object-fit: cover;" 
+                     alt="{{ block.title }}"
+                     onerror="this.src='{{ url_for('static', filename='uploads/' + block.featured_image) }}'">
+                {% endif %}
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{ block.title }}</h5>
+                    <p class="card-text small">{{ block.summary|truncate(100) }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('blog.edit_block', id=block.id) }}" class="btn btn-primary btn-sm">Редактировать</a>
+                    <a href="{{ url_for('blog.block_detail', position=block.position) }}" target="_blank" class="btn btn-outline-secondary btn-sm">Просмотр</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

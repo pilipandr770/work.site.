@@ -165,6 +165,48 @@ def get_dao_proposal_description(proposal):
         return proposal.description_ru or proposal.description
     return proposal.description
 
+# Эти функции больше не используются напрямую, так как они импортируются из app.blog.routes.
+# Их определения были перемещены туда и переименованы в get_blog_block_*
+# Эти определения оставлены для обратной совместимости.
+def get_blog_block_title(block):
+    """Получает заголовок блока блога в текущем языке"""
+    lang = g.get('lang', session.get('lang', 'uk'))
+    if lang == 'uk':
+        return block.title  # Основной язык
+    elif lang == 'en':
+        return block.title_en or block.title
+    elif lang == 'de':
+        return block.title_de or block.title
+    elif lang == 'ru':
+        return block.title_ru or block.title
+    return block.title
+
+def get_blog_block_content(block):
+    """Получает содержимое блока блога в текущем языке"""
+    lang = g.get('lang', session.get('lang', 'uk'))
+    if lang == 'uk':
+        return block.content  # Основной язык
+    elif lang == 'en':
+        return block.content_en or block.content
+    elif lang == 'de':
+        return block.content_de or block.content
+    elif lang == 'ru':
+        return block.content_ru or block.content
+    return block.content
+
+def get_blog_block_summary(block):
+    """Получает краткое содержание блока блога в текущем языке"""
+    lang = g.get('lang', session.get('lang', 'uk'))
+    if lang == 'uk':
+        return block.summary  # Основной язык
+    elif lang == 'en':
+        return post.summary_en or post.summary
+    elif lang == 'de':
+        return post.summary_de or post.summary
+    elif lang == 'ru':
+        return post.summary_ru or post.summary
+    return post.summary
+
 @main.route('/')
 def index():
     """Головна сторінка з блоками"""
@@ -174,7 +216,18 @@ def index():
     token = Token.query.first()  # Получаем информацию о токене
     bots_category = Category.query.filter(Category.name.ilike('%бот%')).first()
     bots_products = Product.query.filter_by(category_id=bots_category.id, is_active=True).order_by(Product.created_at.desc()).limit(3).all() if bots_category else []
-    return render_template('index.html', blocks=blocks, methods=methods, settings=settings, token=token, bots_products=bots_products)
+    
+    # Получаем активные блоки блога
+    from app.models import BlogBlock
+    from app.blog.routes import get_blog_block_title, get_blog_block_summary, get_blog_block_content
+    
+    recent_blog_blocks = BlogBlock.query.filter_by(is_active=True).order_by(BlogBlock.position).limit(3).all()
+    
+    return render_template('index.html', blocks=blocks, methods=methods, settings=settings, token=token, 
+                           bots_products=bots_products, recent_blog_blocks=recent_blog_blocks,
+                           get_blog_block_title=get_blog_block_title,
+                           get_blog_block_content=get_blog_block_content,
+                           get_blog_block_summary=get_blog_block_summary)
 
 @main.route('/block/<slug>')
 def block_detail(slug):

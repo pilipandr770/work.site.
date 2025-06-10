@@ -345,6 +345,32 @@ class DaoVote(db.Model):
     def __repr__(self):
         return f'<DaoVote {self.id}>'
 
+class BlogBlock(db.Model):
+    """Simplified blog block model - fixed 12 blocks for blog content"""
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    summary = db.Column(db.Text, nullable=True)
+    featured_image = db.Column(db.String(255), nullable=True)
+    is_active = db.Column(db.Boolean, default=True)
+    position = db.Column(db.Integer, default=1)  # Position from 1-12
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Multi-language support
+    title_ua = db.Column(db.String(255), nullable=True)
+    title_en = db.Column(db.String(255), nullable=True)
+    title_de = db.Column(db.String(255), nullable=True)
+    title_ru = db.Column(db.String(255), nullable=True)
+    content_ua = db.Column(db.Text, nullable=True)
+    content_en = db.Column(db.Text, nullable=True)
+    content_de = db.Column(db.Text, nullable=True)
+    content_ru = db.Column(db.Text, nullable=True)
+    summary_ua = db.Column(db.Text, nullable=True)
+    summary_en = db.Column(db.Text, nullable=True)
+    summary_de = db.Column(db.Text, nullable=True)
+    summary_ru = db.Column(db.Text, nullable=True)
+
 class ImageStorage(db.Model):
     """
     Stores binary image data as backup in case filesystem images are lost.

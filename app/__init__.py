@@ -47,6 +47,10 @@ def create_app():
         with open(gitkeep_path, 'w') as f:
             f.write('# This file ensures the uploads directory is tracked by git\n')
 
+    # Register custom filters
+    from app.utils.filters import register_filters
+    register_filters(app)
+    
     # Зберігати вибір мови в сесії
     @app.before_request
     def set_lang():
@@ -61,11 +65,13 @@ def create_app():
     from app.shop.routes import shop
     from app.blockchain.routes import blockchain
     from .assist import assist_bp
+    from .blog import blog_bp
     app.register_blueprint(main)
     app.register_blueprint(admin, url_prefix='/admin')
     app.register_blueprint(shop)
     app.register_blueprint(blockchain)
     app.register_blueprint(assist_bp)
+    app.register_blueprint(blog_bp, url_prefix='/blog')
 
     # Регистрируем template helper функции как глобальные в Jinja2
     from app.main.routes import (

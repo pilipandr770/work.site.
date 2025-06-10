@@ -25,6 +25,66 @@
       {% endif %}
     </div>
   {% endif %}
+  
+  {# --- Блок з останніми блоками блогу --- #}
+  {% if recent_blog_blocks %}
+  <div class="block-card blog-block">
+    <h3>
+      {% if g.get('lang') == 'en' %}
+        {{ _('Latest Blog Articles') }}
+      {% elif g.get('lang') == 'de' %}
+        {{ _('Neueste Blogartikel') }}
+      {% elif g.get('lang') == 'ru' %}
+        {{ _('Последние статьи блога') }}
+      {% else %}
+        {{ _('Останні статті з блогу') }}
+      {% endif %}
+    </h3>
+    <div class="recent-blog-posts">
+      {% for block in recent_blog_blocks %}
+      <div class="recent-post">
+        {% if block.featured_image %}
+        <div class="post-image">
+          <img src="{{ url_for('static', filename='uploads/blog/' + block.featured_image) }}" 
+               alt="{{ block.title }}" class="img-fluid rounded"
+               onerror="this.src='{{ url_for('static', filename='uploads/' + block.featured_image) }}'">
+        </div>
+        {% endif %}
+        <div class="post-info">
+          <h4>{{ get_blog_block_title(block) }}</h4>
+          <p class="post-summary">{{ get_blog_block_summary(block) }}</p>
+          <a href="{{ url_for('blog.block_detail', position=block.position) }}" class="btn btn-outline-primary btn-sm">
+            {% if g.get('lang') == 'en' %}
+              {{ _('Read more') }}
+            {% elif g.get('lang') == 'de' %}
+              {{ _('Mehr lesen') }}
+            {% elif g.get('lang') == 'ru' %}
+              {{ _('Читать далее') }}
+            {% else %}
+              {{ _('Читати далі') }}
+            {% endif %}
+          </a>
+        </div>
+      </div>
+      {% if not loop.last %}<hr>{% endif %}
+      {% endfor %}
+    </div>
+    <div class="text-center mt-3">
+      <a href="{{ url_for('blog.index') }}" class="btn btn-primary">
+        {% if g.get('lang') == 'en' %}
+          {{ _('Go to Blog') }}
+        {% elif g.get('lang') == 'de' %}
+          {{ _('Zum Blog') }}
+        {% elif g.get('lang') == 'ru' %}
+          {{ _('Перейти в блог') }}
+        {% else %}
+          {{ _('Перейти до блогу') }}
+        {% endif %}
+      </a>
+    </div>
+  </div>
+  {% endif %}
+  
   {# --- ВСІ інші блоки --- #}
   {% set other_blocks = blocks|rejectattr('is_top')|list %}
   {% for block in other_blocks %}
@@ -199,6 +259,42 @@ window.addEventListener('keydown', function(e) {
     {{ block.content_ru }}
   {%- elif g.get('lang') == 'ua' and block.content_ua %}
     {{ block.content_ua }}
+  {%- else %}
+    {{ block.content or '' }}
+  {%- endif %}
+{%- endmacro %}
+
+{% macro get_blog_block_title(block) -%}
+  {%- if g.get('lang') == 'en' and block.title_en %}
+    {{ block.title_en }}
+  {%- elif g.get('lang') == 'de' and block.title_de %}
+    {{ block.title_de }}
+  {%- elif g.get('lang') == 'ru' and block.title_ru %}
+    {{ block.title_ru }}
+  {%- else %}
+    {{ block.title or '' }}
+  {%- endif %}
+{%- endmacro %}
+
+{% macro get_blog_block_summary(block) -%}
+  {%- if g.get('lang') == 'en' and block.summary_en %}
+    {{ block.summary_en }}
+  {%- elif g.get('lang') == 'de' and block.summary_de %}
+    {{ block.summary_de }}
+  {%- elif g.get('lang') == 'ru' and block.summary_ru %}
+    {{ block.summary_ru }}
+  {%- else %}
+    {{ block.summary or '' }}
+  {%- endif %}
+{%- endmacro %}
+
+{% macro get_blog_block_content(block) -%}
+  {%- if g.get('lang') == 'en' and block.content_en %}
+    {{ block.content_en }}
+  {%- elif g.get('lang') == 'de' and block.content_de %}
+    {{ block.content_de }}
+  {%- elif g.get('lang') == 'ru' and block.content_ru %}
+    {{ block.content_ru }}
   {%- else %}
     {{ block.content or '' }}
   {%- endif %}

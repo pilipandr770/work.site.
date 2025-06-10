@@ -1,0 +1,213 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}Редактирование статьи{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block admin_content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Редактирование статьи</h1>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">{{ post.title }}</h6>
+            <div>
+                <a href="{{ url_for('blog.post_detail', slug=post.slug) }}" target="_blank" class="btn btn-info btn-sm">
+                    <i class="fas fa-eye"></i> Просмотр
+                </a>
+                {% if post.is_auto_generated and not post.telegram_post_id %}
+                <form method="POST" action="{{ url_for('blog.publish_to_telegram', post_id=post.id) }}" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="fas fa-paper-plane"></i> Публиковать в Telegram
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                  <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.title.label(class="form-label") }}
+                            {{ form.title(class="form-control") }}
+                            <div class="form-text text-info">Основной заголовок статьи (укр. язык)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.slug.label(class="form-label") }}
+                            {{ form.slug(class="form-control") }}
+                            <div class="form-text text-muted">URL статьи, например "my-article"</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.summary.label(class="form-label") }}
+                            {{ form.summary(class="form-control", rows=3) }}
+                            <div class="form-text text-muted">Краткое описание для превью статьи</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.featured_image.label(class="form-label") }}
+                            {{ form.featured_image(class="form-control") }}
+                            {% if post.featured_image %}
+                            <div class="mt-2">
+                                <img src="{{ url_for('static', filename='uploads/blog/' + post.featured_image) }}" 
+                                     alt="Featured image" class="img-thumbnail" style="max-height: 100px;">
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="row mt-3">                            <div class="col-md-6">
+                                <div class="form-check">
+                                    {{ form.is_published(class="form-check-input") }}
+                                    {{ form.is_published.label(class="form-check-label") }}
+                                    <small class="form-text text-success">(По умолчанию: опубликовано)</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    {{ form.is_featured(class="form-check-input") }}
+                                    {{ form.is_featured.label(class="form-check-label") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.publish_date.label(class="form-label") }}
+                            {{ form.publish_date(class="form-control", type="datetime-local") }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.topic_id.label(class="form-label") }}
+                            {{ form.topic_id(class="form-control") }}
+                        </div>
+                    </div>
+                </div>
+                  <div class="form-group mb-4">
+                    {{ form.content.label(class="form-label") }}
+                    <div class="alert alert-info mb-2">
+                        <strong>Внимание!</strong> Этот основной контент отображается, если язык сайта установлен на Украинский. 
+                        Для других языков заполните соответствующие вкладки ниже.
+                    </div>
+                    {{ form.content(class="form-control summernote") }}
+                </div>
+                
+                <!-- Language tabs -->
+                <ul class="nav nav-tabs" id="langTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="en-tab" data-bs-toggle="tab" href="#en" role="tab">English</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="de-tab" data-bs-toggle="tab" href="#de" role="tab">Deutsch</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="ru-tab" data-bs-toggle="tab" href="#ru" role="tab">Русский</a>
+                    </li>
+                </ul>
+                
+                <!-- Language content -->
+                <div class="tab-content p-3 border border-top-0 rounded-bottom mb-4">
+                    <div class="tab-pane fade show active" id="en" role="tabpanel">
+                        <div class="form-group mb-3">
+                            {{ form.title_en.label(class="form-label") }}
+                            {{ form.title_en(class="form-control") }}
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.summary_en.label(class="form-label") }}
+                            {{ form.summary_en(class="form-control", rows=3) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.content_en.label(class="form-label") }}
+                            {{ form.content_en(class="form-control summernote") }}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="de" role="tabpanel">
+                        <div class="form-group mb-3">
+                            {{ form.title_de.label(class="form-label") }}
+                            {{ form.title_de(class="form-control") }}
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.summary_de.label(class="form-label") }}
+                            {{ form.summary_de(class="form-control", rows=3) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.content_de.label(class="form-label") }}
+                            {{ form.content_de(class="form-control summernote") }}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="ru" role="tabpanel">
+                        <div class="form-group mb-3">
+                            {{ form.title_ru.label(class="form-label") }}
+                            {{ form.title_ru(class="form-control") }}
+                        </div>
+                        <div class="form-group mb-3">
+                            {{ form.summary_ru.label(class="form-label") }}
+                            {{ form.summary_ru(class="form-control", rows=3) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.content_ru.label(class="form-label") }}
+                            {{ form.content_ru(class="form-control summernote") }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-primary") }}
+                    <a href="{{ url_for('blog.admin_posts') }}" class="btn btn-secondary">Отмена</a>
+                </div>
+                
+                <!-- Additional info for auto-generated content -->
+                {% if post.is_auto_generated %}
+                <div class="alert alert-info mt-4">
+                    <h5 class="alert-heading">Автоматически созданная статья</h5>
+                    <p>Эта статья была создана автоматически на основе темы "{{ post.topic.title if post.topic else 'Неизвестно' }}".</p>
+                    <hr>
+                    <p class="mb-0">
+                        {% if post.telegram_post_id %}
+                        <i class="fas fa-check-circle"></i> Опубликована в Telegram (ID: {{ post.telegram_post_id }})
+                        {% else %}
+                        <i class="fas fa-exclamation-circle"></i> Еще не опубликована в Telegram
+                        {% endif %}
+                    </p>
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote({
+            height: 300,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    });
+</script>
+{% endblock %}
